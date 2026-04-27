@@ -1,0 +1,218 @@
+.treatments {
+  background-color: var(--bg-surface);
+  overflow: hidden;
+  position: relative;
+}
+
+.constellationWrapper {
+  position: relative;
+  height: 700px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 2000px;
+  margin-top: -2rem;
+}
+
+.centralOrbit {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.activeContent {
+  text-align: center;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.activeIcon {
+  width: 120px;
+  height: 120px;
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-primary);
+  margin-bottom: 0.5rem;
+}
+
+.activeTitle {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.activeDesc {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Orbit Rings */
+.orbitRing1, .orbitRing2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  pointer-events: none;
+}
+
+.orbitRing1 {
+  width: 232px;
+  height: 232px;
+  border-style: dashed;
+  opacity: 0.3;
+}
+
+.orbitRing2 {
+  width: 462px;
+  height: 462px;
+  opacity: 0.1;
+}
+
+/* Satellite Buttons */
+.satellites {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.satellite {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 56px;
+  height: 56px;
+  margin-left: -28px;
+  margin-top: -28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  cursor: pointer;
+  pointer-events: auto;
+  transition: var(--transition);
+  
+  /* Orbital Position Math */
+  --radius: 231px;
+  transform: translate(
+    calc(cos(var(--angle)) * var(--radius)),
+    calc(sin(var(--angle)) * var(--radius))
+  );
+}
+
+.satellite:hover, .activeSatellite {
+  color: var(--color);
+  border-color: var(--color);
+  background: var(--bg-surface);
+}
+
+.satelliteLabel {
+  position: absolute;
+  top: calc(100% + 0.75rem);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.9rem;
+  font-weight: 700;
+  white-space: nowrap;
+  color: var(--text-primary);
+  opacity: 1;
+  transition: var(--transition);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.satellite:hover .satelliteLabel, .activeSatellite .satelliteLabel {
+  color: var(--primary);
+  transform: translateX(-50%) scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .constellationWrapper {
+    height: 500px;
+    margin-top: 2rem;
+  }
+  
+  .centralOrbit {
+    width: 300px;
+    height: 300px;
+  }
+  
+  .satellite {
+    --radius: 220px;
+    width: 48px;
+    height: 48px;
+    margin-left: -24px;
+    margin-top: -24px;
+  }
+  
+  .activeIcon {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .activeTitle {
+    font-size: 1.5rem;
+  }
+
+  .orbitRing1 {
+    width: 420px;
+    height: 420px;
+  }
+
+  .orbitRing2 {
+    width: 600px;
+    height: 600px;
+  }
+}
+
+@media (max-width: 640px) {
+  .constellationWrapper {
+    height: auto;
+    flex-direction: column;
+    gap: 3rem;
+  }
+  
+  .satellites {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem 1.5rem;
+    width: 100%;
+    height: auto;
+    padding: 2rem 0;
+  }
+  
+  .satellite {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin: 0;
+    transform: none !important;
+    width: 72px;
+    height: 72px;
+  }
+  
+  .satelliteLabel {
+    font-size: 0.85rem;
+    opacity: 1;
+    color: var(--text-primary);
+  }
+  
+  .orbitRing1, .orbitRing2 { display: none; }
+}

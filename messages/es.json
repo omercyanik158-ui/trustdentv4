@@ -1,0 +1,247 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "clinics": "Clínicas",
+    "doctors": "Doctores",
+    "treatments": "Tratamientos",
+    "about": "Nosotros",
+    "contact": "Contacto",
+    "login": "Iniciar Sesión",
+    "register": "Registrarse",
+    "myAccount": "Mi Cuenta"
+  },
+  "hero": {
+    "badge": "El Viaje Restaurativo",
+    "titleMain": "La Arquitectura",
+    "titleSpan": "de su Sonrisa",
+    "subtitle": "Experimente el \"Santuario de Marfil\", donde la precisión médica se encuentra con la hospitalidad de lujo futurista. Su viaje hacia la perfección comienza aquí.",
+    "btnVoyage": "Comenzar Viaje",
+    "btnHowItWorks": "Cómo Funciona",
+    "voyageLocation": "Santuario de Estambul",
+    "voyageDay": "Día 1: Traslado Privado de Lujo",
+    "islandSupport": "Soporte VIP",
+    "islandCountries": "48 Países",
+    "searchPlaceholder": "Buscar tipo de tratamiento o clínica...",
+    "searchBtn": "Buscar",
+    "bookNow": "Reservar Ahora",
+    "quickImplant": "Implantes",
+    "quickVeneer": "Carillas",
+    "quickZirconia": "Zirconio",
+    "quickWhitening": "Blanqueamiento",
+    "stats": {
+      "clinics": "Clínicas",
+      "doctors": "Doctores Expertos",
+      "patients": "Pacientes Felices",
+      "countries": "Países Atendidos"
+    }
+  },
+  "treatments": {
+    "badge": "Constelación de Tratamientos",
+    "titleMain": "Precisión",
+    "titleSpan": "Restauración",
+    "description": "Explore nuestros tratamientos bio-arquitectónicos a través de nuestra constelación interactiva.",
+    "btnExplore": "Explorar Plano",
+    "implants": {
+      "title": "Implantes Dentales",
+      "description": "Solución permanente para dientes perdidos con titanio biocompatible."
+    },
+    "veneers": {
+      "title": "Carillas de Porcelana",
+      "description": "Láminas cerámicas ultrafinas para una sonrisa impecable y de aspecto natural."
+    },
+    "zirconia": {
+      "title": "Coronas de Zirconio",
+      "description": "Coronas estéticas de alta durabilidad que imitan la translucidez natural del diente."
+    },
+    "whitening": {
+      "title": "Blanqueamiento Dental",
+      "description": "Blanqueamiento láser profesional para resultados inmediatos y radiantes."
+    },
+    "orthodontics": {
+      "title": "Ortodoncia",
+      "description": "Sistemas de Invisalign y alineadores transparentes para enderezar los dientes de forma discreta."
+    },
+    "root-canal": {
+      "title": "Endodoncia",
+      "description": "Terapia endodóntica de precisión sin dolor para salvar sus dientes naturales."
+    },
+    "full-mouth": {
+      "title": "Restauración de Boca Completa",
+      "description": "Revisión funcional y estética completa de toda su sonrisa."
+    }
+  },
+  "howItWorks": {
+    "badge": "El Viaje Restaurativo",
+    "titleMain": "Su",
+    "titleSpan": "Viaje",
+    "titleEnd": "Sin Fisuras",
+    "description": "Desde el momento en que aterriza hasta su revelación final, cada segundo es precisión coreografiada.",
+    "step1": {
+      "title": "La Llegada",
+      "desc": "Traslado privado de lujo desde el aeropuerto hasta su santuario de 5 estrellas."
+    },
+    "step2": {
+      "title": "Análisis de Precisión",
+      "desc": "Imágenes 3D avanzadas y diseño de su plan de restauración."
+    },
+    "step3": {
+      "title": "Recuperación de Lujo",
+      "desc": "Disfrute de la vista del Bósforo mientras nuestros maestros ceramistas crean su sonrisa."
+    },
+    "step4": {
+      "title": "La Revelación",
+      "desc": "Una nueva obra maestra arquitectónica. Regrese a casa con confianza."
+    },
+    "day": "Día"
+  },
+  "clinics": {
+    "title": "Clínicas Destacadas",
+    "subtitle": "Clínicas certificadas por la JCI con estándares internacionales",
+    "viewAll": "Ver Todas",
+    "rating": "Calificación",
+    "reviews": "Reseñas",
+    "bookNow": "Reservar Ahora",
+    "verified": "Clínica Verificada",
+    "specialties": "Especialidades",
+    "from": "desde",
+    "badgeMostPreferred": "Más Preferida",
+    "badgeJci": "Certificada JCI",
+    "badgeNewlyOpened": "Recién Abierta",
+    "badgePremium": "Premium"
+  },
+  "doctors": {
+    "title": "Nuestros Doctores Expertos",
+    "subtitle": "Conozca a nuestros especialistas dentales experimentados y certificados",
+    "featuredTitle": "Doctores Destacados",
+    "featuredSubtitle": "No enumeramos a todos aquí; estos son nuestros especialistas más solicitados.",
+    "viewAll": "Ver Todos los Doctores",
+    "viewProfile": "Ver Perfil",
+    "experience": "años de experiencia",
+    "bookAppointment": "Reservar Cita",
+    "speciality": "Especialidad",
+    "reviews": "Reseñas"
+  },
+  "map": {
+    "title": "Encuentre Clínicas en el Mapa",
+    "subtitle": "Clínicas en Estambul, Ankara, Antalya y más ciudades",
+    "viewOnMap": "Ver en el Mapa",
+    "getDirections": "Obtener Direcciones"
+  },
+  "about": {
+    "title": "Construido sobre la Confianza",
+    "longText": "TrustDent convierte el turismo dental en una experiencia totalmente gestionada en lugar de una simple herramienta de reserva. Unificamos la selección de clínicas, la planificación del tratamiento, la programación, la comunicación y el seguimiento en un solo viaje claro, para que los pacientes puedan decidir con confianza y evitar la incertidumbre. Nuestro objetivo es hacer visibles las clínicas de confianza, mantener cada paso transparente y asegurar que se sienta apoyado desde el primer contacto hasta el cuidado posterior.",
+    "lead": "TrustDent convierte el turismo dental en una experiencia segura, premium y de extremo a extremo con una red de clínicas seleccionadas, programación transparente y soporte VIP.",
+    "ctaPrimary": "Cómo Funciona",
+    "ctaSecondary": "Explorar Clínicas",
+    "featuresAria": "Características clave de TrustDent",
+    "bottomAria": "Sección de animación del enfoque de TrustDent",
+    "bottomTitle": "Diseño que apoya el viaje",
+    "bottomText": "La confianza no es una afirmación, es un estándar que se siente en cada paso. En TrustDent, el diseño es parte del proceso: guía silenciosamente, aclara decisiones y hace tangible la confianza.",
+    "features": {
+      "curatedTitle": "Red de Clínicas Seleccionadas",
+      "curatedText": "Reunimos clínicas verificadas de estándar internacional en un solo lugar.",
+      "transparentTitle": "Viaje Transparente",
+      "transparentText": "Pasos claros y orientación en la selección del tratamiento, los tiempos y el flujo de citas.",
+      "supportTitle": "Soporte VIP",
+      "supportText": "Punto de contacto único y respuestas rápidas desde la reserva hasta el seguimiento.",
+      "securityTitle": "Seguridad y Cumplimiento",
+      "securityText": "Mantenemos el enfoque en la privacidad y la protección de datos en el registro, la comunicación y la programación.",
+      "matchingTitle": "Emparejamiento Inteligente",
+      "matchingText": "Simplificamos la elección de la clínica y el especialista adecuados según sus objetivos de tratamiento.",
+      "aftercareTitle": "Cuidado Posterior y Seguimiento",
+      "aftercareText": "El proceso no termina con la reserva: los seguimientos, recordatorios y el soporte permanecen disponibles."
+    }
+  },
+  "testimonials": {
+    "title": "Lo que Dicen Nuestros Pacientes",
+    "subtitle": "Experiencias reales, resultados reales",
+    "badge": "Reseñas",
+    "verified": "Verificado",
+    "trust": {
+      "secure": "Pago 100% Seguro",
+      "verified": "Clínicas Verificadas",
+      "countries": "Pacientes de 48 Países",
+      "rating": "4.8 Calificación Promedio"
+    },
+    "review1": {
+      "treatment": "implantes",
+      "text": "Ahorré más de £8,000 en comparación con los precios del Reino Unido y recibí un tratamiento de clase mundial. La clínica estaba impecable, el personal hablaba un inglés perfecto y los resultados son increíbles.",
+      "date": "Marzo 2025"
+    },
+    "review2": {
+      "treatment": "zirconio",
+      "text": "Muy satisfecho con mi tratamiento dental en Turquía. Los precios son muy asequibles en comparación con Alemania y la calidad es la misma. Encontré la clínica adecuada gracias a TrustDent.",
+      "date": "Febrero 2025"
+    },
+    "review3": {
+      "treatment": "carillas",
+      "text": "El equipo fue profesional y me hizo sentir cómodo durante todo el proceso. La transformación de mi sonrisa es increíble. Recomiendo encarecidamente TrustDent.",
+      "date": "Abril 2025"
+    },
+    "review4": {
+      "treatment": "ortodoncia",
+      "text": "Reservé mi tratamiento de alineadores transparentes a través de TrustDent. La plataforma es muy útil, las recomendaciones de los doctores son verdaderamente confiables. Definitivamente lo recomiendo.",
+      "date": "Enero 2025"
+    },
+    "review5": {
+      "treatment": "blanqueamiento",
+      "text": "La programación fue rápida y cada paso se explicó claramente. El resultado del blanqueamiento parece natural y notablemente más brillante. La comunicación y el seguimiento fueron excelentes.",
+      "date": "Mayo 2025"
+    },
+    "review6": {
+      "treatment": "implantes",
+      "text": "No estaba seguro de qué clínica elegir; TrustDent me facilitó decidir con confianza. El plan estaba claro, el equipo estuvo atento y estoy muy feliz con el resultado.",
+      "date": "Junio 2025"
+    }
+  },
+  "cta": {
+    "title": "Reserve su Cita Hoy",
+    "subtitle": "Regístrese ahora para una consulta inicial gratuita",
+    "button": "Comenzar Gratis",
+    "noCreditCard": "No se requiere tarjeta de crédito"
+  },
+  "footer": {
+    "description": "La plataforma líder de turismo de salud dental en Turquía. La dirección correcta para un tratamiento seguro, asequible y de calidad.",
+    "quickLinks": "Enlaces Rápidos",
+    "treatments": "Tratamientos",
+    "support": "Soporte",
+    "faq": "Preguntas Frecuentes",
+    "privacyPolicy": "Política de Privacidad",
+    "terms": "Términos de Servicio",
+    "cookiePolicy": "Política de Cookies",
+    "blog": "Blog",
+    "careers": "Carreras",
+    "copyright": "© 2025 TrustDent. Todos los derechos reservados.",
+    "sslSecure": "SSL Seguro",
+    "compliance": "Cumple con GDPR"
+  },
+  "auth": {
+    "loginTitle": "Bienvenido de Nuevo",
+    "loginSubtitle": "Inicie sesión en su cuenta",
+    "registerTitle": "Crear una Cuenta",
+    "registerSubtitle": "Regístrese gratis, reserve citas",
+    "continueWithGoogle": "Continuar con Google",
+    "continueWithApple": "Continuar con Apple",
+    "orEmail": "o con correo electrónico",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "fullName": "Nombre Completo",
+    "alreadyMember": "¿Ya es miembro?",
+    "notMember": "¿Aún no es miembro?",
+    "loginLink": "Iniciar sesión",
+    "registerLink": "Registrarse"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Ocurrió un error",
+    "retry": "Intentar de nuevo",
+    "close": "Cerrar",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "sortBy": "Ordenar por",
+    "all": "Todos"
+  }
+}

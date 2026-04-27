@@ -1,0 +1,147 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "clinics": "Kliniken",
+    "doctors": "Ärzte",
+    "treatments": "Behandlungen",
+    "about": "Über uns",
+    "contact": "Kontakt",
+    "login": "Anmelden",
+    "register": "Registrieren",
+    "myAccount": "Mein Konto"
+  },
+  "hero": {
+    "badge": "Türkei's vertrauenswürdigste Plattform für Zahntourismus",
+    "title": "Entdecken Sie Weltklasse",
+    "titleHighlight": "Zahnpflege",
+    "titleEnd": "in der Türkei",
+    "subtitle": "Dutzende Expertenärzte, hunderte erfolgreiche Fälle. Termine buchen, Preise vergleichen und vertrauensvoll behandeln lassen.",
+    "searchPlaceholder": "Behandlungstyp oder Klinik suchen...",
+    "searchBtn": "Suchen",
+    "bookNow": "Jetzt Buchen",
+    "howItWorks": "Wie es funktioniert",
+    "quickImplant": "Implantate",
+    "quickVeneer": "Veneers",
+    "quickZirconia": "Zirkon",
+    "quickWhitening": "Bleaching",
+    "stats": {
+      "clinics": "Kliniken",
+      "doctors": "Expertenärzte",
+      "patients": "Glückliche Patienten",
+      "countries": "Länder bedient"
+    }
+  },
+  "treatments": {
+    "title": "Beliebte Behandlungen",
+    "subtitle": "Finden Sie die richtige Behandlung für Ihre Bedürfnisse",
+    "implants": {
+      "title": "Zahnimplantate",
+      "description": "Permanente Lösung für fehlende Zähne mit biokompatiblem Titan."
+    },
+    "veneers": {
+      "title": "Veneers",
+      "description": "Hauchdünne Keramikschalen für ein makelloses, natürliches Lächeln."
+    },
+    "zirconia": {
+      "title": "Zirkonkronen",
+      "description": "Hochwertige ästhetische Kronen, die natürliche Zahntransluzenz imitieren."
+    },
+    "whitening": {
+      "title": "Zahnaufhellung",
+      "description": "Professionelles Laser-Bleaching für sofortige, strahlende Ergebnisse."
+    },
+    "orthodontics": {
+      "title": "Kieferorthopädie",
+      "description": "Invisalign und transparente Aligner-Systeme zur diskreten Zahnbegradigung."
+    },
+    "root-canal": {
+      "title": "Wurzelbehandlung",
+      "description": "Schmerzfreie Präzisions-Endodontie zum Erhalt Ihrer natürlichen Zähne."
+    }
+  },
+  "clinics": {
+    "title": "Ausgewählte Kliniken",
+    "subtitle": "JCI-zertifizierte Kliniken mit internationalen Standards",
+    "viewAll": "Alle anzeigen",
+    "rating": "Bewertung",
+    "reviews": "Bewertungen",
+    "bookNow": "Jetzt Buchen",
+    "verified": "Verifizierte Klinik",
+    "from": "ab"
+  },
+  "doctors": {
+    "title": "Unsere Expertenärzte",
+    "subtitle": "Lernen Sie unsere zertifizierten Spezialisten kennen",
+    "viewAll": "Alle Ärzte anzeigen",
+    "experience": "Jahre Erfahrung",
+    "bookAppointment": "Termin buchen",
+    "speciality": "Fachgebiet"
+  },
+  "map": {
+    "title": "Kliniken auf der Karte finden",
+    "subtitle": "Kliniken in Istanbul, Ankara, Antalya und mehr Städten",
+    "viewOnMap": "Auf Karte anzeigen",
+    "getDirections": "Wegbeschreibung"
+  },
+  "testimonials": {
+    "title": "Was unsere Patienten sagen",
+    "subtitle": "Echte Erfahrungen, echte Ergebnisse"
+  },
+  "howItWorks": {
+    "title": "Wie es funktioniert",
+    "subtitle": "In 4 einfachen Schritten zum Traumlächeln",
+    "step1": "Behandlung wählen",
+    "step1Desc": "Wählen Sie die passende Behandlung",
+    "step2": "Kliniken vergleichen",
+    "step2Desc": "Preise und Bewertungen prüfen",
+    "step3": "Termin buchen",
+    "step3Desc": "Datum wählen, Bestätigung abwarten",
+    "step4": "Behandlung erhalten",
+    "step4Desc": "Klinik besuchen und gesund werden"
+  },
+  "cta": {
+    "title": "Buchen Sie Ihren Termin heute",
+    "subtitle": "Melden Sie sich jetzt für eine kostenlose Erstberatung an",
+    "button": "Kostenlos starten",
+    "noCreditCard": "Keine Kreditkarte erforderlich"
+  },
+  "footer": {
+    "description": "Türkei's führende Plattform für Zahntourismus. Die richtige Adresse für sichere und hochwertige Behandlung.",
+    "quickLinks": "Quicklinks",
+    "treatments": "Behandlungen",
+    "support": "Support",
+    "faq": "FAQ",
+    "privacyPolicy": "Datenschutz",
+    "terms": "Nutzungsbedingungen",
+    "copyright": "© 2025 TrustDent. Alle Rechte vorbehalten."
+  },
+  "auth": {
+    "loginTitle": "Willkommen zurück",
+    "loginSubtitle": "Melden Sie sich bei Ihrem Konto an",
+    "registerTitle": "Konto erstellen",
+    "registerSubtitle": "Kostenlos registrieren, Termine buchen",
+    "continueWithGoogle": "Mit Google fortfahren",
+    "continueWithApple": "Mit Apple fortfahren",
+    "orEmail": "oder mit E-Mail",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "fullName": "Vollständiger Name",
+    "alreadyMember": "Bereits Mitglied?",
+    "notMember": "Noch kein Mitglied?",
+    "loginLink": "Anmelden",
+    "registerLink": "Registrieren"
+  },
+  "common": {
+    "loading": "Lädt...",
+    "error": "Ein Fehler ist aufgetreten",
+    "retry": "Erneut versuchen",
+    "close": "Schließen",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "confirm": "Bestätigen",
+    "search": "Suchen",
+    "filter": "Filtern",
+    "sortBy": "Sortieren nach",
+    "all": "Alle"
+  }
+}

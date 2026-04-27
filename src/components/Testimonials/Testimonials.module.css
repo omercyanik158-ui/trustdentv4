@@ -1,0 +1,221 @@
+.testimonials {
+  background: var(--bg-base);
+  padding-bottom: 2rem !important;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  align-items: stretch;
+}
+
+.card {
+  min-width: 0;
+  max-width: 100%;
+  background: var(--bg-subtle);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 32px;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: clip;
+  transition: var(--transition);
+}
+
+.card:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.cardHd,
+.cardBd,
+.cardFt {
+  padding: 1.25rem 1.5rem;
+  min-width: 0;
+}
+
+.hdRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  min-width: 0;
+}
+
+.avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  color: #ffffff;
+  flex: 0 0 auto;
+}
+
+.hdMain {
+  min-width: 0;
+  flex: 1;
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.meta {
+  margin-top: 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  min-width: 0;
+}
+
+.metaText {
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dot {
+  opacity: 0.5;
+}
+
+.cardBd {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  min-width: 0;
+}
+
+.ratingRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.stars {
+  display: inline-flex;
+  gap: 0.15rem;
+  color: var(--gold);
+  flex: 0 0 auto;
+}
+
+.treatment {
+  max-width: 100%;
+  min-width: 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  padding: 0.28rem 0.75rem;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.reviewText {
+  min-width: 0;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-size: 0.95rem;
+  word-break: break-word;
+}
+
+.clamp3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+.cardFt {
+  margin-top: auto;
+  border-top: 1px solid var(--border);
+  padding-top: 0.95rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.verified {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: var(--radius-full);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+/* ── Trust Row ───────────────────── */
+.trustRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 1.75rem 2rem;
+  background: var(--bg-subtle);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 32px;
+  flex-wrap: wrap;
+}
+
+.trustItem {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  padding: 0.625rem 2rem;
+}
+
+.trustIcon {
+  font-size: 1.125rem;
+}
+
+.trustDivider {
+  width: 1px;
+  height: 28px;
+  background: var(--border);
+}
+
+/* ── Responsive ──────────────────── */
+@media (max-width: 768px) {
+  .grid { grid-template-columns: 1fr; }
+  .trustRow { gap: 0.5rem; }
+  .trustDivider { display: none; }
+  .trustItem { padding: 0.5rem 1rem; }
+}
+
+@media (max-width: 640px) {
+  .cardHd,
+  .cardBd,
+  .cardFt {
+    padding: 1.1rem 1.15rem;
+  }
+  .trustRow { padding: 1.25rem 1rem; flex-direction: column; align-items: flex-start; }
+}

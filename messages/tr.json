@@ -1,0 +1,249 @@
+{
+  "nav": {
+    "home": "Anasayfa",
+    "clinics": "Klinikler",
+    "doctors": "Doktorlar",
+    "treatments": "Tedaviler",
+    "about": "Hakkımızda",
+    "contact": "İletişim",
+    "login": "Giriş Yap",
+    "register": "Kayıt Ol",
+    "myAccount": "Hesabım"
+  },
+  "hero": {
+    "badge": "Restoratif Yolculuk",
+    "titleMain": "Gülüşünüzün",
+    "titleSpan": "Mimarisi",
+    "subtitle": "\"Fildişi Sığınağı\"nı deneyimleyin — tıbbi hassasiyetin fütüristik lüks konukseverlikle buluştuğu yer. Kusursuzluğa giden yolculuğunuz burada başlıyor.",
+    "btnVoyage": "Yolculuğa Başla",
+    "btnHowItWorks": "Nasıl Çalışır?",
+    "voyageLocation": "İstanbul Sığınağı",
+    "voyageDay": "1. Gün: Özel Lüks Transfer",
+    "islandSupport": "VIP Destek",
+    "islandCountries": "48 Ülke",
+    "searchPlaceholder": "Tedavi türü veya klinik ara...",
+    "searchBtn": "Ara",
+    "bookNow": "Randevu Al",
+    "quickImplant": "İmplant",
+    "quickVeneer": "Lamine",
+    "quickZirconia": "Zirkonyum",
+    "quickWhitening": "Beyazlatma",
+    "stats": {
+      "clinics": "Klinik",
+      "doctors": "Uzman Doktor",
+      "patients": "Mutlu Hasta",
+      "countries": "Hizmet Verilen Ülke"
+    }
+  },
+  "treatments": {
+    "badge": "Tedavi Takımyıldızı",
+    "titleMain": "Hassas",
+    "titleSpan": "Restorasyon",
+    "description": "İnteraktif takımyıldızımız aracılığıyla biyo-mimari tedavilerimizi keşfedin.",
+    "btnExplore": "Taslağı İncele",
+    "implants": {
+      "title": "Diş İmplantı",
+      "description": "Biyo-uyumlu titanyum ile eksik dişler için kalıcı ve doğal çözüm."
+    },
+    "veneers": {
+      "title": "Porselen Lamine",
+      "description": "Kusursuz ve doğal görünümlü bir gülüş için ultra ince seramik kaplamalar."
+    },
+    "zirconia": {
+      "title": "Zirkonyum Kaplama",
+      "description": "Doğal diş şeffaflığını taklit eden yüksek dayanıklı estetik kaplamalar."
+    },
+    "whitening": {
+      "title": "Diş Beyazlatma",
+      "description": "Anında ve ışıltılı sonuçlar için profesyonel lazer beyazlatma."
+    },
+    "orthodontics": {
+      "title": "Ortodonti",
+      "description": "Şeffaf plak ve tel sistemleri ile görünmez diş düzeltme tedavileri."
+    },
+    "root-canal": {
+      "title": "Kanal Tedavisi",
+      "description": "Doğal dişlerinizi kurtarmak için ağrısız ve hassas endodontik terapi."
+    },
+    "full-mouth": {
+      "title": "Full Mouth Restorasyon",
+      "description": "Tüm gülüşünüzün tam fonksiyonel ve estetik yenilenmesi."
+    }
+  },
+  "howItWorks": {
+    "badge": "Restoratif Yolculuk",
+    "titleMain": "Kusursuz",
+    "titleSpan": "Yolculuğunuz",
+    "titleEnd": "",
+    "description": "İniş yaptığınız andan son gülüşünüze kadar her saniye koreografik bir hassasiyetle yönetilir.",
+    "step1": {
+      "title": "Varış",
+      "desc": "Havalimanından 5 yıldızlı sığınağınıza özel lüks transfer."
+    },
+    "step2": {
+      "title": "Hassas Analiz",
+      "desc": "Restoratif planınızın gelişmiş 3D görüntülemesi ve taslağı."
+    },
+    "step3": {
+      "title": "Lüks İyileşme",
+      "desc": "Usta seramikçilerimiz gülüşünüzü tasarlarken Boğaz manzarasının tadını çıkarın."
+    },
+    "step4": {
+      "title": "Büyük Değişim",
+      "desc": "Yeni bir mimari şaheser. Güvenle evinize dönün."
+    },
+    "day": "Gün"
+  },
+  "clinics": {
+    "title": "Öne Çıkan Klinikler",
+    "subtitle": "Uluslararası standartlarda, JCI sertifikalı klinikler",
+    "viewAll": "Tümünü Gör",
+    "rating": "Puan",
+    "reviews": "Yorum",
+    "bookNow": "Randevu Al",
+    "verified": "Onaylı Klinik",
+    "specialties": "Uzmanlıklar",
+    "from": "başlayan fiyatlarla",
+    "badgeMostPreferred": "En Çok Tercih",
+    "badgeJci": "JCI Onaylı",
+    "badgeNewlyOpened": "Yeni Açıldı",
+    "badgePremium": "Premium"
+  },
+  "doctors": {
+    "title": "Uzman Doktorlarımız",
+    "subtitle": "Deneyimli ve sertifikalı diş hekimlerimizle tanışın",
+    "featuredTitle": "Öne Çıkan Doktorlarımız",
+    "featuredSubtitle": "Tüm doktorlarımızı listelemiyoruz; en çok tercih edilen uzmanlarımızdan seçtiklerimiz.",
+    "viewAll": "Tüm Doktorları Gör",
+    "viewProfile": "Profili İncele",
+    "experience": "yıl deneyim",
+    "bookAppointment": "Randevu Al",
+    "speciality": "Uzmanlık Alanı",
+    "reviews": "Yorum"
+  },
+  "map": {
+    "title": "Klinikleri Haritada Bulun",
+    "subtitle": "İstanbul, Ankara, Antalya ve daha fazla şehirdeki klinikler",
+    "viewOnMap": "Haritada Gör",
+    "getDirections": "Yol Tarifi Al"
+  },
+  "about": {
+    "title": "Güvenin Mimarisi",
+    "longText": "TrustDent, diş sağlığı turizmini yalnızca bir randevu aracı olmaktan çıkarıp uçtan uca yönetilen bir deneyime dönüştürür. Klinik seçimi, tedavi planı, zamanlama, iletişim ve takip adımlarını tek bir çatı altında birleştirerek hastaların karar vermesini kolaylaştırır ve belirsizliği azaltır. Amacımız; güvenilir klinikleri görünür kılmak, süreci şeffaflaştırmak ve hastaların her adımda kendini güvende hissetmesini sağlamaktır.",
+    "lead": "TrustDent; seçilmiş klinik ağı, şeffaf süreç yönetimi ve VIP destek ile diş sağlığı turizmini uçtan uca güvenli ve premium bir deneyime dönüştürür.",
+    "ctaPrimary": "Nasıl Çalışır?",
+    "ctaSecondary": "Klinikleri İncele",
+    "featuresAria": "TrustDent öne çıkan özellikler",
+    "bottomAria": "TrustDent yaklaşım animasyon bölümü",
+    "bottomTitle": "Akışın içine yerleşen tasarım",
+    "bottomText": "Güven, yalnızca iddia değil; deneyim boyunca hissedilen bir standarttır. TrustDent’te tasarım da sürecin bir parçasıdır: sessizce yönlendirir, netleştirir ve güveni görünür kılar.",
+    "features": {
+      "curatedTitle": "Seçilmiş Klinik Ağı",
+      "curatedText": "Uluslararası standartlara uygun, titizlikle doğrulanmış klinikleri tek bir yerde toplarız.",
+      "transparentTitle": "Şeffaf Süreç",
+      "transparentText": "Tedavi türü, zamanlama ve randevu akışı boyunca net adımlar ve bilgilendirme sunarız.",
+      "supportTitle": "VIP Destek",
+      "supportText": "Randevudan sonraki kontrole kadar tek noktadan iletişim ve hızlı geri dönüş sağlarız.",
+      "securityTitle": "Güvenlik ve Uyum",
+      "securityText": "Kayıt, iletişim ve randevu akışında güvenlik ve veri gizliliği odağını koruruz.",
+      "matchingTitle": "Akıllı Eşleştirme",
+      "matchingText": "Tedavi türünüze ve hedefinize göre en doğru klinik/uzman yönlendirmesini sadeleştiririz.",
+      "aftercareTitle": "Takip ve Sonrası",
+      "aftercareText": "Tedavi sonrası kontroller, hatırlatmalar ve ihtiyaç duyduğunuz destek için süreç kapanmaz."
+    }
+  },
+  "testimonials": {
+    "title": "Hastalarımız Ne Diyor?",
+    "subtitle": "Gerçek deneyimler, gerçek sonuçlar",
+    "badge": "Yorumlar",
+    "verified": "Doğrulandı",
+    "trust": {
+      "secure": "%100 Güvenli Ödeme",
+      "verified": "Onaylı Klinikler",
+      "countries": "48 Ülkeden Hasta",
+      "rating": "4.8 Ortalama Puan"
+    },
+    "review1": {
+      "treatment": "implants",
+      "text": "İngiltere fiyatlarına göre 8.000 £'dan fazla tasarruf ettim ve dünya standartlarında tedavi gördüm. Klinik tertemizdi, personel mükemmel İngilizce konuşuyordu.",
+      "date": "Mart 2025"
+    },
+    "review2": {
+      "treatment": "zirconia",
+      "text": "Türkiye'deki diş tedavimden çok memnun kaldım. Fiyatlar Almanya'ya göre çok uygun ve kalite aynı. TrustDent sayesinde doğru kliniği buldum.",
+      "date": "Şubat 2025"
+    },
+    "review3": {
+      "treatment": "veneers",
+      "text": "Ekip profesyoneldi ve süreç boyunca kendimi rahat hissetmemi sağladı. Gülüş dönüşümüm inanılmaz. Herkese TrustDent'i tavsiye ederim.",
+      "date": "Nisan 2025"
+    },
+    "review4": {
+      "treatment": "orthodontics",
+      "text": "Şeffaf plak tedavimi TrustDent üzerinden aldım. Platform çok kullanışlı, doktor önerileri gerçekten güvenilir. Kesinlikle tavsiye ediyorum.",
+      "date": "Ocak 2025"
+    },
+    "review5": {
+      "treatment": "whitening",
+      "text": "Randevu süreci çok hızlıydı ve her adım açıkça anlatıldı. Beyazlatma sonrası sonuç doğal ve çok parlak görünüyor. İletişim ve takip mükemmeldi.",
+      "date": "Mayıs 2025"
+    },
+    "review6": {
+      "treatment": "implants",
+      "text": "Klinik seçimi konusunda çok kararsızdım; TrustDent’in yönlendirmesiyle güvenle karar verdim. Tedavi planı netti, ekip çok ilgiliydi ve sonuçtan çok memnunum.",
+      "date": "Haziran 2025"
+    }
+  },
+  "cta": {
+    "title": "Randevunuzu Bugün Alın",
+    "subtitle": "Ücretsiz ilk konsültasyon için hemen kaydolun",
+    "button": "Ücretsiz Başlayın",
+    "noCreditCard": "Kredi kartı gerekmez"
+  },
+  "footer": {
+    "description": "Türkiye'nin lider diş sağlığı turizmi platformu. Güvenli, uygun fiyatlı ve kaliteli tedavinin doğru adresi.",
+    "quickLinks": "Hızlı Bağlantılar",
+    "treatments": "Tedaviler",
+    "support": "Destek",
+    "faq": "SSS",
+    "privacyPolicy": "Gizlilik Politikası",
+    "terms": "Kullanım Şartları",
+    "cookiePolicy": "Çerez Politikası",
+    "blog": "Blog",
+    "careers": "Kariyer",
+    "copyright": "© 2025 TrustDent. Tüm hakları saklıdır.",
+    "sslSecure": "SSL Güvenli",
+    "compliance": "KVKK Uyumlu"
+  },
+  "auth": {
+    "loginTitle": "Tekrar Hoş Geldiniz",
+    "loginSubtitle": "Hesabınıza giriş yapın",
+    "registerTitle": "Hesap Oluşturun",
+    "registerSubtitle": "Ücretsiz kaydolun, randevu alın",
+    "continueWithGoogle": "Google ile Devam Et",
+    "continueWithApple": "Apple ile Devam Et",
+    "orEmail": "veya e-posta ile",
+    "email": "E-posta",
+    "password": "Şifre",
+    "fullName": "Ad Soyad",
+    "alreadyMember": "Zaten üye misiniz?",
+    "notMember": "Henüz üye değil misiniz?",
+    "loginLink": "Giriş yap",
+    "registerLink": "Kayıt ol"
+  },
+  "common": {
+    "loading": "Yükleniyor...",
+    "error": "Bir hata oluştu",
+    "retry": "Tekrar dene",
+    "close": "Kapat",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "confirm": "Onayla",
+    "search": "Ara",
+    "filter": "Filtrele",
+    "sortBy": "Sırala",
+    "all": "Tümü"
+  }
+}
+
+

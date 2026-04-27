@@ -1,0 +1,218 @@
+.page {
+  padding-top: 120px;
+  padding-bottom: 80px;
+  min-height: 80vh;
+  background: var(--bg-base);
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(2.5rem, 6vw, 5rem);
+  align-items: center;
+  padding: clamp(2rem, 5vw, 4rem) 0;
+}
+
+.copy {
+  min-width: 0;
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 1rem;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--primary);
+  margin-bottom: 1.25rem;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  font-size: clamp(2.25rem, 6vw, 3.4rem);
+}
+
+.title span {
+  color: var(--primary);
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: none;
+}
+
+.lead {
+  margin-top: 1.25rem;
+  max-width: 60ch;
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
+.longText {
+  margin-top: 1rem;
+  max-width: 75ch;
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.heroCtas {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.featureGrid {
+  margin-top: clamp(3rem, 6vw, 4rem);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.feature {
+  min-width: 0;
+  position: relative;
+  overflow: clip;
+  background: var(--bg-subtle);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 32px;
+  padding: 1.25rem 1.5rem;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+
+
+.featureTitle {
+  position: relative;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+}
+
+.featureText {
+  position: relative;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  font-size: 0.95rem;
+}
+
+.bottomMotion {
+  margin-top: clamp(3rem, 6vw, 4.5rem);
+}
+
+.bottomCard {
+  position: relative;
+  overflow: clip;
+  border-radius: 32px;
+  border: 1px solid var(--border);
+  background: var(--bg-subtle);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: none;
+  padding: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+
+
+.bottomTitle {
+  position: relative;
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+}
+
+.bottomText {
+  position: relative;
+  margin-top: 0.75rem;
+  max-width: 80ch;
+  color: var(--text-secondary);
+  line-height: 1.75;
+}
+
+
+
+.logoVisualizer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+}
+
+.logoWrapper {
+  position: relative;
+  width: clamp(200px, 30vw, 320px);
+  height: clamp(200px, 30vw, 320px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.logoImgLarge {
+  height: 84px;
+  width: auto;
+  display: block;
+  flex-shrink: 0;
+  margin-bottom: 1.5rem;
+}
+
+.logoMarkLarge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  line-height: 1;
+}
+
+.logoTextLarge {
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.logoBrandLarge {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+
+
+@media (max-width: 1024px) {
+  .hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .logoVisualizer {
+    order: -1;
+    margin-bottom: 2rem;
+  }
+}
+

@@ -1,0 +1,247 @@
+{
+  "nav": {
+    "home": "Home",
+    "clinics": "Clinics",
+    "doctors": "Doctors",
+    "treatments": "Treatments",
+    "about": "About",
+    "contact": "Contact",
+    "login": "Log In",
+    "register": "Sign Up",
+    "myAccount": "My Account"
+  },
+  "hero": {
+    "badge": "The Restorative Voyage",
+    "titleMain": "The Architecture",
+    "titleSpan": "of Your Smile",
+    "subtitle": "Experience the \"Ivory Sanctuary\" — where medical precision meets futuristic luxury hospitality. Your journey to perfection starts here.",
+    "btnVoyage": "Begin Voyage",
+    "btnHowItWorks": "How It Works",
+    "voyageLocation": "Istanbul Sanctuary",
+    "voyageDay": "Day 1: Private Luxury Transfer",
+    "islandSupport": "VIP Support",
+    "islandCountries": "48 Countries",
+    "searchPlaceholder": "Search treatment type or clinic...",
+    "searchBtn": "Search",
+    "bookNow": "Book Now",
+    "quickImplant": "Implants",
+    "quickVeneer": "Veneers",
+    "quickZirconia": "Zirconia",
+    "quickWhitening": "Whitening",
+    "stats": {
+      "clinics": "Clinics",
+      "doctors": "Expert Doctors",
+      "patients": "Happy Patients",
+      "countries": "Countries Served"
+    }
+  },
+  "treatments": {
+    "badge": "Treatment Constellation",
+    "titleMain": "Precision",
+    "titleSpan": "Restoration",
+    "description": "Explore our bio-architectural treatments through our interactive constellation.",
+    "btnExplore": "Explore Blueprint",
+    "implants": {
+      "title": "Dental Implants",
+      "description": "Permanent solution for missing teeth with bio-compatible titanium."
+    },
+    "veneers": {
+      "title": "Porcelain Veneers",
+      "description": "Ultra-thin ceramic shells for a flawless, natural-looking smile."
+    },
+    "zirconia": {
+      "title": "Zirconia Crowns",
+      "description": "High-durability aesthetic crowns that mimic natural tooth translucency."
+    },
+    "whitening": {
+      "title": "Teeth Whitening",
+      "description": "Professional laser whitening for immediate, radiant results."
+    },
+    "orthodontics": {
+      "title": "Orthodontics",
+      "description": "Invisalign and clear aligner systems for discreet teeth straightening."
+    },
+    "root-canal": {
+      "title": "Root Canal",
+      "description": "Painless precision endodontic therapy to save your natural teeth."
+    },
+    "full-mouth": {
+      "title": "Full Mouth Restoration",
+      "description": "Complete functional and aesthetic overhaul of your entire smile."
+    }
+  },
+  "howItWorks": {
+    "badge": "The Restorative Voyage",
+    "titleMain": "Your",
+    "titleSpan": "Seamless",
+    "titleEnd": "Journey",
+    "description": "From the moment you land to your final reveal, every second is choreographed precision.",
+    "step1": {
+      "title": "The Arrival",
+      "desc": "Luxury private transfer from airport to your 5-star sanctuary."
+    },
+    "step2": {
+      "title": "Precision Analysis",
+      "desc": "Advanced 3D imaging and blueprinting of your restorative plan."
+    },
+    "step3": {
+      "title": "Luxury Recovery",
+      "desc": "Enjoy the Bosphorus view while our master ceramists craft your smile."
+    },
+    "step4": {
+      "title": "The Reveal",
+      "desc": "A new architectural masterpiece. Return home with confidence."
+    },
+    "day": "Day"
+  },
+  "clinics": {
+    "title": "Featured Clinics",
+    "subtitle": "JCI-certified clinics with international standards",
+    "viewAll": "View All",
+    "rating": "Rating",
+    "reviews": "Reviews",
+    "bookNow": "Book Now",
+    "verified": "Verified Clinic",
+    "specialties": "Specialties",
+    "from": "from",
+    "badgeMostPreferred": "Most Preferred",
+    "badgeJci": "JCI Certified",
+    "badgeNewlyOpened": "Newly Opened",
+    "badgePremium": "Premium"
+  },
+  "doctors": {
+    "title": "Our Expert Doctors",
+    "subtitle": "Meet our experienced and certified dental specialists",
+    "featuredTitle": "Featured Doctors",
+    "featuredSubtitle": "We don’t list everyone here—these are our most requested specialists.",
+    "viewAll": "View All Doctors",
+    "viewProfile": "View Profile",
+    "experience": "years experience",
+    "bookAppointment": "Book Appointment",
+    "speciality": "Specialty",
+    "reviews": "Reviews"
+  },
+  "map": {
+    "title": "Find Clinics on the Map",
+    "subtitle": "Clinics in Istanbul, Ankara, Antalya and more cities",
+    "viewOnMap": "View on Map",
+    "getDirections": "Get Directions"
+  },
+  "about": {
+    "title": "Built on Trust",
+    "longText": "TrustDent turns dental tourism into a fully managed experience rather than a simple booking tool. We bring clinic selection, treatment planning, scheduling, communication, and follow‑up into one clear journey—so patients can decide confidently and avoid uncertainty. Our goal is to make trusted clinics visible, keep every step transparent, and ensure you feel supported from first contact to aftercare.",
+    "lead": "TrustDent turns dental tourism into a safe, premium, end-to-end experience with a curated clinic network, transparent scheduling, and VIP support.",
+    "ctaPrimary": "How It Works",
+    "ctaSecondary": "Explore Clinics",
+    "featuresAria": "TrustDent key features",
+    "bottomAria": "TrustDent approach animation section",
+    "bottomTitle": "Design that supports the journey",
+    "bottomText": "Trust isn’t a claim—it’s a standard you can feel at every step. At TrustDent, design is part of the process: it guides quietly, clarifies decisions, and makes confidence tangible.",
+    "features": {
+      "curatedTitle": "Curated Clinic Network",
+      "curatedText": "We bring verified, international-standard clinics together in one place.",
+      "transparentTitle": "Transparent Journey",
+      "transparentText": "Clear steps and guidance across treatment selection, timing, and appointment flow.",
+      "supportTitle": "VIP Support",
+      "supportText": "Single point of contact and fast responses from booking to follow-up.",
+      "securityTitle": "Security & Compliance",
+      "securityText": "We keep privacy and data protection in focus across registration, communication, and scheduling.",
+      "matchingTitle": "Smart Matching",
+      "matchingText": "We simplify choosing the right clinic and specialist based on your treatment goals.",
+      "aftercareTitle": "Aftercare & Follow‑up",
+      "aftercareText": "The process doesn’t end at booking—follow‑ups, reminders, and support stay available."
+    }
+  },
+  "testimonials": {
+    "title": "What Our Patients Say",
+    "subtitle": "Real experiences, real results",
+    "badge": "Reviews",
+    "verified": "Verified",
+    "trust": {
+      "secure": "100% Secure Payment",
+      "verified": "Verified Clinics",
+      "countries": "Patients from 48 Countries",
+      "rating": "4.8 Average Rating"
+    },
+    "review1": {
+      "treatment": "implants",
+      "text": "I saved over £8,000 compared to UK prices and got world-class treatment. The clinic was spotless, staff spoke perfect English, and results are amazing.",
+      "date": "March 2025"
+    },
+    "review2": {
+      "treatment": "zirconia",
+      "text": "Very satisfied with my dental treatment in Turkey. Prices are very affordable compared to Germany and the quality is the same. Found the right clinic thanks to TrustDent.",
+      "date": "February 2025"
+    },
+    "review3": {
+      "treatment": "veneers",
+      "text": "The team was professional and made me feel comfortable throughout the process. My smile transformation is incredible. Highly recommend TrustDent.",
+      "date": "April 2025"
+    },
+    "review4": {
+      "treatment": "orthodontics",
+      "text": "Booked my clear aligner treatment through TrustDent. The platform is very useful, doctor recommendations are truly reliable. Definitely recommend.",
+      "date": "January 2025"
+    },
+    "review5": {
+      "treatment": "whitening",
+      "text": "Scheduling was fast and every step was explained clearly. The whitening result looks natural and noticeably brighter. Communication and follow-up were excellent.",
+      "date": "May 2025"
+    },
+    "review6": {
+      "treatment": "implants",
+      "text": "I was unsure which clinic to choose; TrustDent made it easy to decide with confidence. The plan was clear, the team was attentive, and I’m very happy with the result.",
+      "date": "June 2025"
+    }
+  },
+  "cta": {
+    "title": "Book Your Appointment Today",
+    "subtitle": "Sign up now for a free initial consultation",
+    "button": "Get Started Free",
+    "noCreditCard": "No credit card required"
+  },
+  "footer": {
+    "description": "Turkey's leading dental health tourism platform. The right address for safe, affordable and quality treatment.",
+    "quickLinks": "Quick Links",
+    "treatments": "Treatments",
+    "support": "Support",
+    "faq": "FAQ",
+    "privacyPolicy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "cookiePolicy": "Cookie Policy",
+    "blog": "Blog",
+    "careers": "Careers",
+    "copyright": "© 2025 TrustDent. All rights reserved.",
+    "sslSecure": "SSL Secure",
+    "compliance": "GDPR Compliant"
+  },
+  "auth": {
+    "loginTitle": "Welcome Back",
+    "loginSubtitle": "Sign in to your account",
+    "registerTitle": "Create an Account",
+    "registerSubtitle": "Sign up for free, book appointments",
+    "continueWithGoogle": "Continue with Google",
+    "continueWithApple": "Continue with Apple",
+    "orEmail": "or with email",
+    "email": "Email",
+    "password": "Password",
+    "fullName": "Full Name",
+    "alreadyMember": "Already a member?",
+    "notMember": "Not a member yet?",
+    "loginLink": "Log in",
+    "registerLink": "Sign up"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Try again",
+    "close": "Close",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "search": "Search",
+    "filter": "Filter",
+    "sortBy": "Sort by",
+    "all": "All"
+  }
+}

@@ -1,0 +1,365 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 9, 18, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 32px;
+  width: 100%;
+  max-width: 480px;
+  position: relative;
+  box-shadow: var(--shadow-lg);
+  animation: fadeInUp 0.3s ease both;
+  overflow: hidden;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: var(--text-secondary);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+  z-index: 10;
+}
+
+.closeBtn:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--error);
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+.header {
+  padding: 1.5rem 1.5rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.progressTrack {
+  flex: 1;
+  height: 6px;
+  background: var(--bg-subtle);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: var(--gradient-primary);
+  transition: width 0.3s ease;
+}
+
+.stepText {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.body {
+  padding: 1.5rem;
+  min-height: 340px;
+  display: flex;
+  flex-direction: column;
+}
+
+.stepContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  animation: fadeIn 0.4s ease both;
+}
+
+.stepTitle {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.stepDesc {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.formGroup {
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formGroup label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.dateField {
+  position: relative;
+  width: 100%;
+}
+
+.dateButton {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-align: left;
+}
+
+.dateButtonIcon {
+  color: var(--text-muted);
+  flex: 0 0 auto;
+}
+
+.dateButtonText {
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.calendarPopover {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  background: var(--bg-subtle);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 32px;
+  box-shadow: none;
+  padding: 0.75rem 0.75rem 0.9rem;
+  overflow: clip;
+}
+
+/* react-day-picker skin (token-aligned) */
+.calendarRoot {
+  --rdp-accent-color: var(--primary);
+  --rdp-background-color: transparent;
+  width: 100%;
+}
+
+.calMonths {
+  width: 100%;
+}
+
+.calCaption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.25rem 0.25rem 0.75rem;
+}
+
+.calCaptionLabel {
+  font-weight: 900;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.calNav {
+  display: inline-flex;
+  gap: 0.5rem;
+}
+
+.calNavButton {
+  width: 34px;
+  height: 34px;
+  border-radius: 9999px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.calNavButton:hover {
+  border-color: var(--border-primary);
+  color: var(--text-primary);
+}
+
+.calTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.calHeadRow,
+.calRow {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.calHeadCell {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  padding: 0.35rem 0;
+  text-align: center;
+}
+
+.calCell {
+  padding: 0.2rem 0;
+  text-align: center;
+}
+
+.calDay {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-secondary);
+  font-weight: 700;
+  transition: var(--transition);
+  margin: 0 auto;
+}
+
+.calDay:hover {
+  background: var(--bg-subtle);
+  border-color: var(--border);
+  color: var(--text-primary);
+}
+
+.calDayToday {
+  border-color: var(--border-primary);
+  color: var(--text-primary);
+}
+
+.calDaySelected {
+  background: var(--primary-glow);
+  border-color: var(--primary);
+  color: var(--primary-light);
+  box-shadow: 0 0 22px rgba(188, 10, 24, 0.14);
+}
+
+.calDayOutside {
+  opacity: 0.35;
+}
+
+.calDayDisabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+.timeGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.timeSlot {
+  padding: 0.75rem;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: all var(--transition);
+}
+
+.timeSlot:hover {
+  border-color: var(--primary);
+}
+
+.timeSelected {
+  background: var(--primary-glow);
+  border-color: var(--primary);
+  color: var(--primary-light);
+}
+
+.summaryBox {
+  background: rgba(188, 10, 24, 0.05);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.summaryItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.actions button {
+  flex: 1;
+}
+
+.successState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+  animation: fadeInUp 0.4s ease both;
+  flex: 1;
+}
+
+.successIcon {
+  color: #10b981;
+  margin-bottom: 1rem;
+}
+
+.successTitle {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.successDesc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
