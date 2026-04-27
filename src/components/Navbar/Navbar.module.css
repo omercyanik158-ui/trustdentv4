@@ -271,15 +271,14 @@
 
 /* ── Auth Modal ──────────────────── */
 .authModal {
-  background: var(--bg-subtle);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: var(--bg-base);
   border: 1px solid var(--border);
   border-radius: 32px;
   padding: 2.5rem;
   width: 100%;
   max-width: 440px;
   position: relative;
+  box-shadow: var(--shadow-lg);
   animation: fadeInUp 0.3s ease both;
 }
 
@@ -291,7 +290,7 @@
   height: 32px;
   background: var(--bg-subtle);
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -303,6 +302,7 @@
 .authClose:hover {
   color: var(--text-primary);
   border-color: var(--border-strong);
+  background: var(--bg-muted);
 }
 
 .authLogo {
@@ -339,9 +339,9 @@
   gap: 0.75rem;
   width: 100%;
   padding: 0.8rem 1.25rem;
-  background: var(--bg-subtle);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  border-radius: 9999px;
   color: var(--text-primary);
   font-size: 0.9375rem;
   font-weight: 500;
@@ -350,8 +350,14 @@
 }
 
 .socialBtn:hover {
-  background: var(--bg-muted);
-  border-color: var(--border-strong);
+  background: var(--bg-subtle);
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.socialBtn svg {
+  flex-shrink: 0;
 }
 
 .authDivider {
@@ -361,10 +367,19 @@
   margin-bottom: 1.5rem;
 }
 
+.authDividerLine {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
 .authDividerText {
   font-size: 0.8125rem;
   color: var(--text-muted);
   white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
 }
 
 .authForm {
