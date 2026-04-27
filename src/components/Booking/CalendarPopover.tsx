@@ -1,9 +1,22 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { DayPicker } from "react-day-picker";
-import { format, parseISO } from "date-fns";
+import {
+  format,
+  parseISO,
+  startOfMonth,
+  endOfMonth,
+  startOfWeek,
+  endOfWeek,
+  addDays,
+  addMonths,
+  isSameDay,
+  isSameMonth,
+  isBefore,
+  startOfToday,
+} from "date-fns";
 import { enUS, tr } from "date-fns/locale";
+import { motion, AnimatePresence } from "framer-motion";
 import { Calendar as CalIcon, ChevronLeft, ChevronRight } from "lucide-react";
 import styles from "./BookingModal.module.css";
 
@@ -25,11 +38,36 @@ function toDate(value: string): Date | undefined {
 
 export default function CalendarPopover({ locale, value, onChange, label }: Props) {
   const [open, setOpen] = useState(false);
+  const [direction, setDirection] = useState<1 | -1>(1);
   const wrapRef = useRef<HTMLDivElement>(null);
   const selected = useMemo(() => toDate(value), [value]);
+  const today = useMemo(() => startOfToday(), []);
+  const [viewMonth, setViewMonth] = useState<Date>(selected ?? today);
 
   const dfLocale = locale?.startsWith("tr") ? tr : enUS;
   const buttonText = selected ? format(selected, "PPP", { locale: dfLocale }) : label;
+
+  const weekDays = useMemo(() => {
+    const start = startOfWeek(new Date(), { weekStartsOn: 1, locale: dfLocale });
+    return Array.from({ length: 7 }).map((_, i) =>
+      format(addDays(start, i), "EEEEEE", { locale: dfLocale })
+    );
+  }, [dfLocale]);
+
+  const days = useMemo(() => {
+    const monthStart = startOfMonth(viewMonth);
+    const monthEnd = endOfMonth(viewMonth);
+    const gridStart = startOfWeek(monthStart, { weekStartsOn: 1 });
+    const gridEnd = endOfWeek(monthEnd, { weekStartsOn: 1 });
+
+    const out: Date[] = [];
+    let cursor = gridStart;
+    while (cursor <= gridEnd) {
+      out.push(cursor);
+      cursor = addDays(cursor, 1);
+    }
+    return out;
+  }, [viewMonth]);
 
   useEffect(() => {
     if (!open) return;
@@ -51,6 +89,23 @@ export default function CalendarPopover({ locale, value, onChange, label }: Prop
     };
   }, [open]);
 
+  const goPrev = () => {
+    setDirection(-1);
+    setViewMonth((m) => addMonths(m, -1));
+  };
+
+  const goNext = () => {
+    setDirection(1);
+    setViewMonth((m) => addMonths(m, 1));
+  };
+
+  const handlePick = (d: Date) => {
+    onChange(format(d, "yyyy-MM-dd"));
+    setOpen(false);
+  };
+
+  const monthLabel = format(viewMonth, "LLLL yyyy", { locale: dfLocale });
+
   return (
     <div ref={wrapRef} className={styles.dateField}>
       <button
@@ -66,47 +121,107 @@ export default function CalendarPopover({ locale, value, onChange, label }: Prop
         <span className={styles.dateButtonText}>{buttonText}</span>
       </button>
 
-      {open ? (
-        <div className={styles.calendarPopover} role="dialog" aria-label={label}>
-          <DayPicker
-            mode="single"
-            selected={selected}
-            onSelect={(d) => {
-              if (!d) return;
-              onChange(format(d, "yyyy-MM-dd"));
-              setOpen(false);
-            }}
-            weekStartsOn={1}
-            showOutsideDays
-            fromDate={new Date()}
-            locale={dfLocale}
-            className={styles.calendarRoot}
-            classNames={{
-              months: styles.calMonths,
-              month: styles.calMonth,
-              caption: styles.calCaption,
-              caption_label: styles.calCaptionLabel,
-              nav: styles.calNav,
-              nav_button: styles.calNavButton,
-              table: styles.calTable,
-              head_row: styles.calHeadRow,
-              head_cell: styles.calHeadCell,
-              row: styles.calRow,
-              cell: styles.calCell,
-              day: styles.calDay,
-              day_today: styles.calDayToday,
-              day_selected: styles.calDaySelected,
-              day_outside: styles.calDayOutside,
-              day_disabled: styles.calDayDisabled,
-            }}
-            components={{
-              Chevron: ({ orientation }) =>
-                orientation === "left" ? <ChevronLeft size={16} /> : <ChevronRight size={16} />,
-            }}
-          />
-        </div>
-      ) : null}
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            className={styles.calendarPopover}
+            role="dialog"
+            aria-label={label}
+            initial={{ opacity: 0, y: -6, scale: 0.985 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -6, scale: 0.985 }}
+            transition={{ duration: 0.16, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {/* Header */}
+            <div className={styles.calHeader}>
+              <button
+                type="button"
+                className={styles.calNavBtn}
+                onClick={goPrev}
+                aria-label="Önceki ay"
+              >
+                <ChevronLeft size={16} />
+              </button>
+
+              <div className={styles.calMonthLabel}>
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.span
+                    key={monthLabel}
+                    initial={{ opacity: 0, y: direction * 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -direction * 6 }}
+                    transition={{ duration: 0.18 }}
+                  >
+                    {monthLabel}
+                  </motion.span>
+                </AnimatePresence>
+              </div>
+
+              <button
+                type="button"
+                className={styles.calNavBtn}
+                onClick={goNext}
+                aria-label="Sonraki ay"
+              >
+                <ChevronRight size={16} />
+              </button>
+            </div>
+
+            {/* Weekday labels */}
+            <div className={styles.calWeekRow}>
+              {weekDays.map((d, i) => (
+                <div key={i} className={styles.calWeekCell}>
+                  {d}
+                </div>
+              ))}
+            </div>
+
+            {/* Days grid - animated month transition */}
+            <div className={styles.calDaysWrapper}>
+              <AnimatePresence mode="wait" initial={false} custom={direction}>
+                <motion.div
+                  key={monthLabel}
+                  className={styles.calDaysGrid}
+                  custom={direction}
+                  initial={{ opacity: 0, x: direction * 12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -direction * 12 }}
+                  transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  {days.map((day, i) => {
+                    const isOutside = !isSameMonth(day, viewMonth);
+                    const isToday = isSameDay(day, today);
+                    const isSelected = selected ? isSameDay(day, selected) : false;
+                    const isPast = isBefore(day, today);
+                    const isDisabled = isPast;
+
+                    const cls = [styles.calDay];
+                    if (isOutside) cls.push(styles.calDayOutside);
+                    if (isToday) cls.push(styles.calDayToday);
+                    if (isSelected) cls.push(styles.calDaySelected);
+                    if (isDisabled) cls.push(styles.calDayDisabled);
+
+                    return (
+                      <button
+                        key={i}
+                        type="button"
+                        className={cls.join(" ")}
+                        onClick={() => !isDisabled && handlePick(day)}
+                        disabled={isDisabled}
+                        tabIndex={isDisabled ? -1 : 0}
+                        aria-label={format(day, "PPP", { locale: dfLocale })}
+                        aria-selected={isSelected}
+                      >
+                        <span className={styles.calDayNum}>{format(day, "d")}</span>
+                      </button>
+                    );
+                  })}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
-

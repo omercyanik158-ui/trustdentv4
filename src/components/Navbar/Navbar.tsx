@@ -2,10 +2,11 @@
 
 import { useTranslations, useLocale } from "next-intl";
 import { useRouter, usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import styles from "./Navbar.module.css";
-import { Menu, X, Globe, ChevronDown, Sun, Moon } from "lucide-react";
+import { Menu, X, Globe, ChevronDown } from "lucide-react";
 
 const LOCALES = [
   { code: "tr", label: "Türkçe" },
@@ -23,13 +24,8 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
-  const [theme, setTheme] = useState<"dark" | "light">("dark");
-
-  useEffect(() => {
-    const stored = (localStorage.getItem("td-theme") as "dark" | "light") || "light";
-    setTheme(stored);
-    document.documentElement.setAttribute("data-theme", stored);
-  }, []);
+  const [dropdownPos, setDropdownPos] = useState<{ top: number; right: number } | null>(null);
+  const langBtnRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -37,18 +33,22 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  function openLang() {
+    if (langBtnRef.current) {
+      const rect = langBtnRef.current.getBoundingClientRect();
+      setDropdownPos({
+        top: rect.bottom + 8,
+        right: window.innerWidth - rect.right,
+      });
+    }
+    setLangOpen(true);
+  }
+
   function changeLocale(newLocale: string) {
     const segments = pathname.split("/");
     segments[1] = newLocale;
     router.push(segments.join("/"));
     setLangOpen(false);
-  }
-
-  function toggleTheme() {
-    const next = theme === "dark" ? "light" : "dark";
-    setTheme(next);
-    document.documentElement.setAttribute("data-theme", next);
-    localStorage.setItem("td-theme", next);
   }
 
   const currentLang = LOCALES.find((l) => l.code === locale);
@@ -90,38 +90,34 @@ export default function Navbar() {
             {/* Language Switcher */}
             <div className={styles.langWrapper}>
               <button
+                ref={langBtnRef}
                 className={styles.langBtn}
-                onClick={() => setLangOpen(!langOpen)}
+                onClick={() => langOpen ? setLangOpen(false) : openLang()}
                 aria-label="Change language"
               >
                 <Globe size={15} />
                 <span className={styles.langCode}>{locale.toUpperCase()}</span>
                 <ChevronDown size={14} className={langOpen ? styles.chevronUp : ""} />
               </button>
-              {langOpen && (
-                <div className={styles.langDropdown}>
-                  {LOCALES.map((lang) => (
-                    <button
-                      key={lang.code}
-                      className={`${styles.langOption} ${lang.code === locale ? styles.langActive : ""}`}
-                      onClick={() => changeLocale(lang.code)}
-                    >
-                      <span className={styles.langCheck}>{lang.code === locale ? "✓" : ""}</span>
-                      <span>{lang.label}</span>
-                    </button>
-                  ))}
-                </div>
-              )}
             </div>
-
-            {/* Theme Toggle */}
-            <button
-              className={styles.themeBtn}
-              onClick={toggleTheme}
-              aria-label="Toggle theme"
-            >
-              {theme === "dark" ? <Sun size={17} /> : <Moon size={17} />}
-            </button>
+            {langOpen && dropdownPos && typeof window !== "undefined" && createPortal(
+              <div
+                className={styles.langDropdown}
+                style={{ position: "fixed", top: dropdownPos.top, right: dropdownPos.right, zIndex: 9999 }}
+              >
+                {LOCALES.map((lang) => (
+                  <button
+                    key={lang.code}
+                    className={`${styles.langOption} ${lang.code === locale ? styles.langActive : ""}`}
+                    onClick={() => changeLocale(lang.code)}
+                  >
+                    <span className={styles.langCheck}>{lang.code === locale ? "✓" : ""}</span>
+                    <span>{lang.label}</span>
+                  </button>
+                ))}
+              </div>,
+              document.body
+            )}
 
             {/* Auth Buttons */}
             <button
@@ -184,7 +180,7 @@ export default function Navbar() {
       {/* Backdrop for dropdowns */}
       {(langOpen) && (
         <div
-          style={{ position: "fixed", inset: 0, zIndex: 98 }}
+          style={{ position: "fixed", inset: 0, zIndex: 9998 }}
           onClick={() => { setLangOpen(false); }}
         />
       )}

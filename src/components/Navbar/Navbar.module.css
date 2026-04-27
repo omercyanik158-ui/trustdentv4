@@ -3,16 +3,16 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 100;
+  z-index: 200;
   padding: 1.25rem 0;
   transition: all 0.3s ease;
-}
-
-.navbar.scrolled {
-  background: var(--navbar-scrolled-bg, rgba(8, 8, 9, 0.88));
+  background: var(--bg-base);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border-bottom: 1px solid var(--border);
+}
+
+.navbar.scrolled {
   padding: 0.875rem 0;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
 }
@@ -142,18 +142,18 @@
   position: absolute;
   top: calc(100% + 0.5rem);
   right: 0;
-  background: var(--bg-subtle);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--border);
-  border-radius: 32px;
+  background: var(--bg-base);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border-strong);
+  border-radius: 20px;
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
-  min-width: 140px;
+  min-width: 160px;
   box-shadow: var(--shadow-lg);
-  z-index: 99;
+  z-index: 9999;
   animation: fadeInUp 0.15s ease both;
 }
 
@@ -207,30 +207,6 @@
 .langActive {
   color: var(--primary);
   background: var(--primary-glow);
-}
-
-/* ── Menu Button (Mobile) ────────── */
-/* ── Theme Toggle ────────────────── */
-.themeBtn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  background: transparent;
-  border: 1px solid var(--border-strong);
-  border-radius: 50%;
-  color: var(--text-primary);
-  cursor: pointer;
-  transition: all var(--transition);
-  flex-shrink: 0;
-}
-
-.themeBtn:hover {
-  background: var(--bg-subtle);
-  border-color: var(--primary);
-  color: var(--primary);
-  transform: translateY(-1px);
 }
 
 /* ── Menu Button (Mobile) ────────── */

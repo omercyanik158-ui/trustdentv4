@@ -2,9 +2,10 @@
 
 import { useTranslations, useLocale } from "next-intl";
 import { useState, useRef } from "react";
-import { Search, MapPin, Star, Users, Building2, Globe2, ArrowRight, Play, Stethoscope, CheckCircle, Zap } from "lucide-react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { Users, Globe2, ArrowRight, Play, Zap } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import BookingModal from "../Booking/BookingModal";
+import HowItWorksModal from "../HowItWorksModal/HowItWorksModal";
 import styles from "./Hero.module.css";
 import Image from "next/image";
 
@@ -12,6 +13,7 @@ export default function Hero() {
   const t = useTranslations("hero");
   const locale = useLocale();
   const [bookingOpen, setBookingOpen] = useState(false);
+  const [howItWorksOpen, setHowItWorksOpen] = useState(false);
   
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -19,13 +21,8 @@ export default function Hero() {
     offset: ["start start", "end start"]
   });
   
-  const imageScale = useTransform(scrollYProgress, [0, 0.6], [1, 1.35]);
-  const imageOpacity = useTransform(scrollYProgress, [0, 0.35, 0.55], [1, 1, 0]);
-  const imageY = useTransform(scrollYProgress, [0, 0.6], [0, 80]);
-  const imageRotate = useTransform(scrollYProgress, [0, 0.5], [0, -8]);
-
-  const textOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
-  const textY = useTransform(scrollYProgress, [0, 0.15], [0, -40]);
+  const imageScale = useTransform(scrollYProgress, [0, 0.6], [1, 1.1]);
+  const imageY = useTransform(scrollYProgress, [0, 0.6], [0, 40]);
 
   return (
     <section className={styles.hero} ref={containerRef}>
@@ -34,10 +31,7 @@ export default function Hero() {
         <div className="container">
           <div className={styles.layout}>
             {/* Left: Content */}
-            <motion.div 
-              className={styles.content}
-              style={{ opacity: textOpacity, y: textY }}
-            >
+            <div className={styles.content}>
               <div className="section-badge">
                 <Zap size={14} /> {t("badge")}
               </div>
@@ -54,7 +48,7 @@ export default function Hero() {
                   {t("btnVoyage")}
                   <ArrowRight size={18} />
                 </button>
-                <button className="btn btn-ghost btn-lg">
+                <button className="btn btn-ghost btn-lg" onClick={() => setHowItWorksOpen(true)}>
                   <Play size={14} fill="currentColor" />
                   {t("btnHowItWorks")}
                 </button>
@@ -73,17 +67,15 @@ export default function Hero() {
                 </div>
               </div>
 
-            </motion.div>
+            </div>
 
             {/* Right: Image */}
             <div className={styles.visualizer}>
               <motion.div 
                 className={styles.heroImageWrapper}
                 style={{ 
-                  scale: imageScale, 
-                  opacity: imageOpacity,
+                  scale: imageScale,
                   y: imageY,
-                  rotate: imageRotate,
                 }}
               >
                 <Image 
@@ -100,6 +92,11 @@ export default function Hero() {
       </div>
       
       <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} locale={locale} />
+      <HowItWorksModal
+        isOpen={howItWorksOpen}
+        onClose={() => setHowItWorksOpen(false)}
+        onBooking={() => setBookingOpen(true)}
+      />
     </section>
   );
 }
