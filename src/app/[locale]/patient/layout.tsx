@@ -18,7 +18,7 @@ export default async function PatientLayout({
     <div style={{ display: "flex", minHeight: "100vh", background: "var(--bg-base)" }}>
       <PatientSidebar locale={locale} />
       <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
-        <DashboardHeader />
+        <DashboardHeader role="patient" />
         <main style={{ flex: 1, overflowY: "auto", padding: "1.5rem" }}>
           {children}
         </main>

@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
 import { 
   Users, 
   CalendarCheck, 
@@ -31,19 +33,21 @@ const DATA = [
 ];
 
 const APPOINTMENTS = [
-  { id: 1, patient: "Ahmet Yılmaz", time: "09:00", treatment: "İmplant Kontrolü", status: "Bekliyor" },
-  { id: 2, patient: "Sarah Miller", time: "10:30", treatment: "Zirkonyum Kaplama", status: "İşlemde" },
-  { id: 3, patient: "Ali Vefa", time: "13:00", treatment: "Kanal Tedavisi", status: "Bekliyor" },
-  { id: 4, patient: "Elena Popova", time: "14:45", treatment: "Beyazlatma", status: "Tamamlandı" },
+  { id: 1, patient: "Ahmet Yılmaz", time: "09:00", treatment: "İmplant Kontrolü", status: "pending" },
+  { id: 2, patient: "Sarah Miller", time: "10:30", treatment: "Zirkonyum Kaplama", status: "inProgress" },
+  { id: 3, patient: "Ali Vefa", time: "13:00", treatment: "Kanal Tedavisi", status: "pending" },
+  { id: 4, patient: "Elena Popova", time: "14:45", treatment: "Beyazlatma", status: "completed" },
 ];
 
 export default function DoctorDashboard() {
+  const locale = useLocale();
+  const t = useTranslations("panel.doctor");
   const appointments = APPOINTMENTS;
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Hoş Geldiniz, Dr. Ayşe 👋</h1>
-      <p className={styles.subtitle}>İşte bugünkü özetiniz ve haftalık performansınız.</p>
+      <h1 className={styles.title}>{t("welcomeTitle")}</h1>
+      <p className={styles.subtitle}>{t("welcomeSubtitle")}</p>
 
       {/* Stats Cards */}
       <div className={styles.statsGrid}>
@@ -55,7 +59,7 @@ export default function DoctorDashboard() {
             <span className={styles.statBadge}>+12%</span>
           </div>
           <div className={styles.statValue}>124</div>
-          <div className={styles.statLabel}>Bu Haftaki Hastalar</div>
+          <div className={styles.statLabel}>{t("weeklyPatients")}</div>
         </div>
         
         <div className={styles.statCard}>
@@ -66,7 +70,7 @@ export default function DoctorDashboard() {
             <span className={styles.statBadge}>+5%</span>
           </div>
           <div className={styles.statValue}>38</div>
-          <div className={styles.statLabel}>Tamamlanan Randevu</div>
+          <div className={styles.statLabel}>{t("completedAppointments")}</div>
         </div>
 
         <div className={styles.statCard}>
@@ -77,7 +81,7 @@ export default function DoctorDashboard() {
             <span className={styles.statBadge}>+18%</span>
           </div>
           <div className={styles.statValue}>€14,200</div>
-          <div className={styles.statLabel}>Haftalık Gelir</div>
+          <div className={styles.statLabel}>{t("weeklyRevenue")}</div>
         </div>
 
         <div className={styles.statCard}>
@@ -90,7 +94,7 @@ export default function DoctorDashboard() {
             </span>
           </div>
           <div className={styles.statValue}>8</div>
-          <div className={styles.statLabel}>Bekleyen Onaylar</div>
+          <div className={styles.statLabel}>{t("pendingApprovals")}</div>
         </div>
       </div>
 
@@ -98,11 +102,11 @@ export default function DoctorDashboard() {
         {/* Chart */}
         <div className={styles.chartCard}>
           <div className={styles.cardHeader}>
-            <h3 className={styles.cardTitle}>Haftalık Performans</h3>
+            <h3 className={styles.cardTitle}>{t("weeklyPerformance")}</h3>
             <select className={styles.select}>
-              <option>Bu Hafta</option>
-              <option>Geçen Hafta</option>
-              <option>Bu Ay</option>
+              <option>{t("thisWeek")}</option>
+              <option>{t("lastWeek")}</option>
+              <option>{t("thisMonth")}</option>
             </select>
           </div>
           <div className={styles.chartWrapper}>
@@ -130,10 +134,10 @@ export default function DoctorDashboard() {
         {/* Appointments List */}
         <div className={styles.listCard}>
           <div className={styles.cardHeader}>
-            <h3 className={styles.cardTitle}>Bugünkü Randevular</h3>
-            <a className={styles.viewAllBtn} href="./doctor/appointments">
-              Tümü <ChevronRight size={14} />
-            </a>
+            <h3 className={styles.cardTitle}>{t("todaysAppointments")}</h3>
+            <Link className={styles.viewAllBtn} href={`/${locale}/doctor/appointments`}>
+              {t("viewAll")} <ChevronRight size={14} />
+            </Link>
           </div>
           <div className={styles.list}>
             {appointments.map((apt) => (
@@ -146,18 +150,22 @@ export default function DoctorDashboard() {
                   <div className={styles.itemDesc}>{apt.treatment}</div>
                 </div>
                 <div className={`${styles.statusBadge} ${
-                  apt.status === 'Bekliyor' ? styles.statusWarning : 
-                  apt.status === 'İşlemde' ? styles.statusPrimary : 
+                  apt.status === "pending" ? styles.statusWarning :
+                  apt.status === "inProgress" ? styles.statusPrimary :
                   styles.statusSuccess
                 }`}>
-                  {apt.status}
+                  {apt.status === "pending"
+                    ? t("statusPending")
+                    : apt.status === "inProgress"
+                      ? t("statusInProgress")
+                      : t("statusCompleted")}
                 </div>
                 <div style={{ display: "flex", gap: 8 }}>
                   <button className="btn btn-sm btn-ghost" style={{ padding: "0.55rem 0.9rem" }}>
-                    <XCircle size={16} /> İptal
+                    <XCircle size={16} /> {t("cancel")}
                   </button>
                   <button className="btn btn-sm btn-primary" style={{ padding: "0.55rem 0.9rem" }}>
-                    <CheckCircle2 size={16} /> Onayla
+                    <CheckCircle2 size={16} /> {t("approve")}
                   </button>
                 </div>
               </div>

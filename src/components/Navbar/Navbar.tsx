@@ -5,8 +5,9 @@ import { useRouter, usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
+import Image from "next/image";
 import styles from "./Navbar.module.css";
-import { Menu, X, Globe, ChevronDown } from "lucide-react";
+import { AlertCircle, ChevronDown, Eye, EyeOff, Globe, Loader2, Menu, X } from "lucide-react";
 
 const LOCALES = [
   { code: "tr", label: "Türkçe" },
@@ -51,8 +52,6 @@ export default function Navbar() {
     setLangOpen(false);
   }
 
-  const currentLang = LOCALES.find((l) => l.code === locale);
-
   const navLinks = [
     { href: `/${locale}`, label: t("home") },
     { href: `/${locale}/clinics`, label: t("clinics") },
@@ -67,7 +66,7 @@ export default function Navbar() {
         <div className={`container ${styles.inner}`}>
           {/* Logo */}
           <Link href={`/${locale}`} className={styles.logo}>
-            <img src="/logo_simple.svg" alt="TrustDent" className={styles.logoImg} />
+            <Image src="/logo_simple.svg" alt="TrustDent" className={styles.logoImg} width={32} height={32} />
             <div className={styles.logoMark}>
               <span className={styles.logoText}>Trust Dent</span>
               <span className={styles.logoBrand}>Türkiye</span>
@@ -189,27 +188,96 @@ export default function Navbar() {
 }
 
 /* ─── Auth Modal ──────────────────────────────────────────── */
+type AuthMode = "login" | "register";
+type FieldErrors = Partial<Record<"name" | "email" | "password", string>>;
+
 function AuthModal({ onClose }: { onClose: () => void }) {
   const t = useTranslations("auth");
-  const [mode, setMode] = useState<"login" | "register">("login");
+  const [mode, setMode] = useState<AuthMode>("login");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [errors, setErrors] = useState<FieldErrors>({});
+  const [submitting, setSubmitting] = useState(false);
+  const [info, setInfo] = useState<string | null>(null);
+
+  // Body scroll lock + ESC to close
+  useEffect(() => {
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [onClose]);
+
+  function switchMode(next: AuthMode) {
+    setMode(next);
+    setErrors({});
+    setInfo(null);
+  }
+
+  function validate(): FieldErrors {
+    const next: FieldErrors = {};
+    if (mode === "register") {
+      if (name.trim().length < 2) next.name = t("errorNameShort");
+    }
+    if (!email.trim()) next.email = t("errorRequired");
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) next.email = t("errorEmailInvalid");
+    if (password.length < 6) next.password = t("errorPasswordShort");
+    return next;
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setInfo(null);
+    const next = validate();
+    setErrors(next);
+    if (Object.keys(next).length > 0) return;
+
+    // No backend yet — simulate work and show a friendly notice.
+    // Once NextAuth is wired, replace this block with `signIn()` / `/api/auth/register`.
+    setSubmitting(true);
+    await new Promise((r) => setTimeout(r, 900));
+    setSubmitting(false);
+    setInfo(t("comingSoon"));
+  }
 
   return (
     <div className="overlay" onClick={onClose}>
-      <div className={styles.authModal} onClick={(e) => e.stopPropagation()}>
+      <div
+        className={styles.authModal}
+        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="auth-modal-title"
+      >
         <button className={styles.authClose} onClick={onClose} aria-label="Close">
           <X size={20} />
         </button>
 
         {/* Logo */}
         <div className={styles.authLogo}>
-          <img src="/logo_simple.svg" alt="TrustDent" className={styles.logoImg} style={{ height: 40 }} />
+          <Image
+            src="/logo_simple.svg"
+            alt="TrustDent"
+            className={styles.logoImg}
+            width={40}
+            height={40}
+            style={{ height: 40, width: "auto" }}
+          />
           <div className={styles.logoMark}>
             <span className={styles.logoText} style={{ fontSize: "1.25rem" }}>Trust Dent</span>
             <span className={styles.logoBrand}>Türkiye</span>
           </div>
         </div>
 
-        <h2 className={styles.authTitle}>
+        <h2 id="auth-modal-title" className={styles.authTitle}>
           {mode === "login" ? t("loginTitle") : t("registerTitle")}
         </h2>
         <p className={styles.authSubtitle}>
@@ -218,7 +286,12 @@ function AuthModal({ onClose }: { onClose: () => void }) {
 
         {/* Social Buttons */}
         <div className={styles.socialBtns}>
-          <button className={styles.socialBtn}>
+          <button
+            type="button"
+            className={styles.socialBtn}
+            onClick={() => setInfo(t("comingSoon"))}
+            disabled={submitting}
+          >
             <svg width="20" height="20" viewBox="0 0 24 24">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
               <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -227,7 +300,12 @@ function AuthModal({ onClose }: { onClose: () => void }) {
             </svg>
             {t("continueWithGoogle")}
           </button>
-          <button className={styles.socialBtn}>
+          <button
+            type="button"
+            className={styles.socialBtn}
+            onClick={() => setInfo(t("comingSoon"))}
+            disabled={submitting}
+          >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
             </svg>
@@ -243,14 +321,94 @@ function AuthModal({ onClose }: { onClose: () => void }) {
         </div>
 
         {/* Email Form */}
-        <form className={styles.authForm} onSubmit={(e) => e.preventDefault()}>
+        <form className={styles.authForm} onSubmit={handleSubmit} noValidate>
           {mode === "register" && (
-            <input className="input" type="text" placeholder={t("fullName")} />
+            <div className={styles.fieldGroup}>
+              <input
+                className={`input ${errors.name ? styles.inputError : ""}`}
+                type="text"
+                placeholder={t("fullName")}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                disabled={submitting}
+                autoComplete="name"
+              />
+              {errors.name && <span className={styles.fieldError}>{errors.name}</span>}
+            </div>
           )}
-          <input className="input" type="email" placeholder={t("email")} />
-          <input className="input" type="password" placeholder={t("password")} />
-          <button type="submit" className="btn btn-primary" style={{ width: "100%" }}>
-            {mode === "login" ? t("loginTitle") : t("registerTitle")}
+
+          <div className={styles.fieldGroup}>
+            <input
+              className={`input ${errors.email ? styles.inputError : ""}`}
+              type="email"
+              placeholder={t("email")}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              disabled={submitting}
+              autoComplete="email"
+              inputMode="email"
+            />
+            {errors.email && <span className={styles.fieldError}>{errors.email}</span>}
+          </div>
+
+          <div className={styles.fieldGroup}>
+            <div className={styles.passwordWrap}>
+              <input
+                className={`input ${errors.password ? styles.inputError : ""}`}
+                type={showPassword ? "text" : "password"}
+                placeholder={t("password")}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                disabled={submitting}
+                autoComplete={mode === "login" ? "current-password" : "new-password"}
+              />
+              <button
+                type="button"
+                className={styles.passwordToggle}
+                onClick={() => setShowPassword((s) => !s)}
+                aria-label={showPassword ? t("hidePassword") : t("showPassword")}
+                disabled={submitting}
+              >
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
+            {errors.password && <span className={styles.fieldError}>{errors.password}</span>}
+          </div>
+
+          {mode === "login" && (
+            <button
+              type="button"
+              className={styles.authForgot}
+              onClick={() => setInfo(t("comingSoon"))}
+              disabled={submitting}
+            >
+              {t("forgotPassword")}
+            </button>
+          )}
+
+          {info && (
+            <div className={styles.authNotice} role="status">
+              <AlertCircle size={16} aria-hidden="true" />
+              <span>{info}</span>
+            </div>
+          )}
+
+          <button
+            type="submit"
+            className="btn btn-primary"
+            style={{ width: "100%" }}
+            disabled={submitting}
+          >
+            {submitting ? (
+              <>
+                <Loader2 size={16} className={styles.spinner} aria-hidden="true" />
+                {mode === "login" ? t("loggingIn") : t("registering")}
+              </>
+            ) : mode === "login" ? (
+              t("loginTitle")
+            ) : (
+              t("registerTitle")
+            )}
           </button>
         </form>
 
@@ -258,8 +416,10 @@ function AuthModal({ onClose }: { onClose: () => void }) {
         <p className={styles.authSwitch}>
           {mode === "login" ? t("notMember") : t("alreadyMember")}{" "}
           <button
+            type="button"
             className={styles.authSwitchBtn}
-            onClick={() => setMode(mode === "login" ? "register" : "login")}
+            onClick={() => switchMode(mode === "login" ? "register" : "login")}
+            disabled={submitting}
           >
             {mode === "login" ? t("registerLink") : t("loginLink")}
           </button>

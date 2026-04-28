@@ -210,7 +210,7 @@ export default function CalendarPopover({ locale, value, onChange, label }: Prop
                         disabled={isDisabled}
                         tabIndex={isDisabled ? -1 : 0}
                         aria-label={format(day, "PPP", { locale: dfLocale })}
-                        aria-selected={isSelected}
+                        data-selected={isSelected ? "true" : "false"}
                       >
                         <span className={styles.calDayNum}>{format(day, "d")}</span>
                       </button>

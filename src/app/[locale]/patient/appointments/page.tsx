@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 import { MapPin, RefreshCw, XCircle } from "lucide-react";
 import styles from "../../doctor/Dashboard.module.css";
 
@@ -14,18 +15,28 @@ type Appointment = {
   createdAt: string;
 };
 
-export default function PatientAppointmentsPage() {
-  const [appointments, setAppointments] = useState<Appointment[]>([]);
+function readAppointmentsFromStorage(): Appointment[] {
+  if (typeof window === "undefined") return [];
+  const saved = localStorage.getItem("trustdent_appointments");
+  if (!saved) return [];
+  try {
+    return JSON.parse(saved) as Appointment[];
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
 
-  useEffect(() => {
-    const saved = localStorage.getItem("trustdent_appointments");
-    if (!saved) return;
-    try {
-      setAppointments(JSON.parse(saved));
-    } catch (e) {
-      console.error(e);
-    }
-  }, []);
+export default function PatientAppointmentsPage() {
+  const t = useTranslations("panel.patient");
+  const [appointments, setAppointments] = useState<Appointment[]>(readAppointmentsFromStorage);
+
+  const statusLabel: Record<string, string> = {
+    "Onay Bekliyor": t("statusPending"),
+    Onaylandı: t("statusApproved"),
+    İptal: t("statusCancelled"),
+    Tamamlandı: t("statusCompleted"),
+  };
 
   const sorted = useMemo(() => {
     return [...appointments].sort((a, b) => (b.createdAt || "").localeCompare(a.createdAt || ""));
@@ -41,18 +52,18 @@ export default function PatientAppointmentsPage() {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Randevularım</h1>
-      <p className={styles.subtitle}>Taleplerinizi takip edin, gerektiğinde yeniden planlayın veya iptal edin.</p>
+      <h1 className={styles.title}>{t("appointmentsTitle")}</h1>
+      <p className={styles.subtitle}>{t("appointmentsSubtitle")}</p>
 
       <div className={styles.listCard} style={{ gridColumn: "1 / -1" }}>
         <div className={styles.cardHeader}>
-          <h3 className={styles.cardTitle}>Liste</h3>
+          <h3 className={styles.cardTitle}>{t("list")}</h3>
         </div>
 
         <div className={styles.list}>
           {sorted.length === 0 ? (
             <div style={{ textAlign: "center", padding: "2rem", color: "var(--text-muted)" }}>
-              Henüz bir randevunuz bulunmuyor.
+              {t("noAppointments")}
             </div>
           ) : (
             sorted.map((apt) => (
@@ -64,24 +75,26 @@ export default function PatientAppointmentsPage() {
                 <div className={styles.itemInfo}>
                   <div className={styles.itemName}>{apt.treatment}</div>
                   <div className={styles.itemDesc}>
-                    <MapPin size={12} style={{ display: "inline" }} /> {apt.clinic || "Klinik atanmadı"}
+                    <MapPin size={12} style={{ display: "inline" }} /> {apt.clinic || t("clinicUnassigned")}
                   </div>
                 </div>
-                <div className={`${styles.statusBadge} ${styles.statusWarning}`}>{apt.status}</div>
+                <div className={`${styles.statusBadge} ${styles.statusWarning}`}>
+                  {statusLabel[apt.status] ?? apt.status}
+                </div>
                 <div style={{ display: "flex", gap: 8 }}>
                   <button
                     className="btn btn-sm btn-ghost"
                     onClick={() => updateStatus(apt.id, "Onay Bekliyor")}
                     style={{ padding: "0.55rem 0.9rem" }}
                   >
-                    <RefreshCw size={16} /> Yeniden Planla
+                    <RefreshCw size={16} /> {t("reschedule")}
                   </button>
                   <button
                     className="btn btn-sm btn-ghost"
                     onClick={() => updateStatus(apt.id, "İptal")}
                     style={{ padding: "0.55rem 0.9rem" }}
                   >
-                    <XCircle size={16} /> İptal
+                    <XCircle size={16} /> {t("cancel")}
                   </button>
                 </div>
               </div>

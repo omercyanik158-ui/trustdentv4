@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 import { Mail, Phone, Users } from "lucide-react";
 import styles from "../Dashboard.module.css";
 
@@ -21,18 +22,21 @@ type Patient = {
   lastTreatment: string;
 };
 
-export default function DoctorPatientsPage() {
-  const [appointments, setAppointments] = useState<Appointment[]>([]);
+function readAppointmentsFromStorage(): Appointment[] {
+  if (typeof window === "undefined") return [];
+  const saved = localStorage.getItem("trustdent_appointments");
+  if (!saved) return [];
+  try {
+    return JSON.parse(saved) as Appointment[];
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
 
-  useEffect(() => {
-    const saved = localStorage.getItem("trustdent_appointments");
-    if (!saved) return;
-    try {
-      setAppointments(JSON.parse(saved));
-    } catch (e) {
-      console.error(e);
-    }
-  }, []);
+export default function DoctorPatientsPage() {
+  const t = useTranslations("panel.doctor");
+  const [appointments] = useState<Appointment[]>(readAppointmentsFromStorage);
 
   const patients = useMemo<Patient[]>(() => {
     const map = new Map<string, Patient>();
@@ -56,8 +60,8 @@ export default function DoctorPatientsPage() {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Hastalarım</h1>
-      <p className={styles.subtitle}>Hasta listesi ve özetleri. (Demo: randevu verisinden türetilir.)</p>
+      <h1 className={styles.title}>{t("myPatientsTitle")}</h1>
+      <p className={styles.subtitle}>{t("myPatientsSubtitle")}</p>
 
       <div className={styles.statsGrid}>
         <div className={styles.statCard}>
@@ -67,18 +71,18 @@ export default function DoctorPatientsPage() {
             </div>
           </div>
           <div className={styles.statValue}>{patients.length}</div>
-          <div className={styles.statLabel}>Toplam Hasta</div>
+          <div className={styles.statLabel}>{t("totalPatients")}</div>
         </div>
       </div>
 
       <div className={styles.listCard} style={{ marginTop: "1.25rem" }}>
         <div className={styles.cardHeader}>
-          <h3 className={styles.cardTitle}>Liste</h3>
+          <h3 className={styles.cardTitle}>{t("list")}</h3>
         </div>
         <div className={styles.list}>
           {patients.length === 0 ? (
             <div style={{ textAlign: "center", padding: "2rem", color: "var(--text-muted)" }}>
-              Henüz hasta kaydı yok.
+              {t("noPatients")}
             </div>
           ) : (
             patients.map((p) => (
@@ -88,14 +92,14 @@ export default function DoctorPatientsPage() {
                 </div>
                 <div className={styles.itemInfo}>
                   <div className={styles.itemName}>{p.name}</div>
-                  <div className={styles.itemDesc}>Son işlem: {p.lastTreatment}</div>
+                  <div className={styles.itemDesc}>{t("lastProcedure")}: {p.lastTreatment}</div>
                 </div>
                 <div style={{ display: "flex", gap: 8 }}>
                   <button className="btn btn-sm btn-ghost" style={{ padding: "0.55rem 0.9rem" }}>
-                    <Phone size={16} /> Ara
+                    <Phone size={16} /> {t("call")}
                   </button>
                   <button className="btn btn-sm btn-ghost" style={{ padding: "0.55rem 0.9rem" }}>
-                    <Mail size={16} /> Mesaj
+                    <Mail size={16} /> {t("message")}
                   </button>
                 </div>
               </div>

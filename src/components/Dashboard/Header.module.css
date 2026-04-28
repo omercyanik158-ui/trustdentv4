@@ -55,7 +55,27 @@
 .right {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 0.9rem;
+}
+
+.resetBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.35rem 0.65rem;
+  transition: all var(--transition);
+}
+
+.resetBtn:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+  background: var(--primary-glow);
 }
 
 .iconBtn {
@@ -135,6 +155,8 @@
 @media (max-width: 768px) {
   .menuBtn { display: block; }
   .searchWrap { display: none; }
+  .resetBtn span { display: none; }
+  .resetBtn { width: 34px; height: 34px; justify-content: center; padding: 0; border-radius: 50%; }
   .profile .info { display: none; }
   .profile { padding-left: 0; border-left: none; }
 }

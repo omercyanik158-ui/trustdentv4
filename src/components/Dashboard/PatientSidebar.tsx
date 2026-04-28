@@ -1,19 +1,21 @@
 "use client";
 
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import { CalendarDays, LayoutDashboard, LogOut, Settings, UserRound, Stethoscope } from "lucide-react";
 import styles from "./Sidebar.module.css";
 
 const MENU_ITEMS = [
-  { href: "/patient", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/patient/appointments", label: "Randevularım", icon: CalendarDays },
-  { href: "/patient/profile", label: "Profil", icon: UserRound },
-  { href: "/patient/settings", label: "Ayarlar", icon: Settings },
+  { href: "/patient", labelKey: "dashboard", icon: LayoutDashboard },
+  { href: "/patient/appointments", labelKey: "myAppointments", icon: CalendarDays },
+  { href: "/patient/profile", labelKey: "profile", icon: UserRound },
+  { href: "/patient/settings", labelKey: "settings", icon: Settings },
 ];
 
 export default function PatientSidebar({ locale }: { locale: string }) {
   const pathname = usePathname();
+  const t = useTranslations("panel.common");
 
   return (
     <aside className={styles.sidebar}>
@@ -27,7 +29,7 @@ export default function PatientSidebar({ locale }: { locale: string }) {
       </Link>
 
       <nav className={styles.nav}>
-        <div className={styles.menuLabel}>HASTA</div>
+        <div className={styles.menuLabel}>{t("patientMenu").toUpperCase()}</div>
         <ul className={styles.menuList}>
           {MENU_ITEMS.map((item) => {
             const isActive = pathname === `/${locale}${item.href}` || pathname === item.href;
@@ -39,7 +41,7 @@ export default function PatientSidebar({ locale }: { locale: string }) {
                   className={`${styles.menuItem} ${isActive ? styles.active : ""}`}
                 >
                   <Icon size={18} />
-                  <span>{item.label}</span>
+                  <span>{t(item.labelKey)}</span>
                 </Link>
               </li>
             );
@@ -50,7 +52,7 @@ export default function PatientSidebar({ locale }: { locale: string }) {
       <div className={styles.footer}>
         <button className={styles.logoutBtn}>
           <LogOut size={18} />
-          <span>Çıkış Yap</span>
+          <span>{t("logout")}</span>
         </button>
       </div>
     </aside>

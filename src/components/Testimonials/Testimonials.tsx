@@ -3,16 +3,9 @@
 import React from "react";
 import { useTranslations } from "next-intl";
 import { CheckCircle2, Globe, MessageCircle, ShieldCheck, Star } from "lucide-react";
+import { TESTIMONIALS } from "@/data";
+import type { Testimonial } from "@/data";
 import styles from "./Testimonials.module.css";
-
-const REVIEWS = [
-  { id: 1, name: "James Mitchell", country: "🇬🇧 United Kingdom", avatar: "JM", rating: 5, key: "review1" },
-  { id: 2, name: "Hans Weber", country: "🇩🇪 Deutschland", avatar: "HW", rating: 5, key: "review2" },
-  { id: 3, name: "Fatima Al-Rashid", country: "🇸🇦 Saudi Arabia", avatar: "FA", rating: 5, key: "review3" },
-  { id: 4, name: "Mehmet Yılmaz", country: "🇹🇷 Türkiye", avatar: "MY", rating: 5, key: "review4" },
-  { id: 5, name: "Sofia Rossi", country: "🇮🇹 Italia", avatar: "SR", rating: 5, key: "review5" },
-  { id: 6, name: "Noah Williams", country: "🇺🇸 United States", avatar: "NW", rating: 5, key: "review6" },
-];
 
 function Stars({ count }: { count: number }) {
   return (
@@ -31,7 +24,7 @@ function ReviewCard({
   t,
   tTreatments,
 }: {
-  review: (typeof REVIEWS)[number];
+  review: Testimonial;
   t: ReturnType<typeof useTranslations>;
   tTreatments: ReturnType<typeof useTranslations>;
 }) {
@@ -98,7 +91,7 @@ export default function Testimonials() {
         </header>
 
         <div className={styles.grid}>
-          {REVIEWS.map((review) => (
+          {TESTIMONIALS.map((review) => (
             <ReviewCard key={review.id} review={review} t={t} tTreatments={tTreatments} />
           ))}
         </div>

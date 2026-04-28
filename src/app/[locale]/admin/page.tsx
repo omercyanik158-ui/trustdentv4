@@ -1,13 +1,16 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Users, Activity, MousePointerClick, Globe } from "lucide-react";
 import styles from "../doctor/Dashboard.module.css"; // Reuse the doctor styles for layout
 
 export default function AdminDashboard() {
+  const t = useTranslations("panel.admin");
+
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Yönetici Paneli ⚙️</h1>
-      <p className={styles.subtitle}>Tüm site istatistikleri ve genel hareketlilikler.</p>
+      <h1 className={styles.title}>{t("title")}</h1>
+      <p className={styles.subtitle}>{t("subtitle")}</p>
 
       {/* Admin Stats */}
       <div className={styles.statsGrid}>
@@ -19,7 +22,7 @@ export default function AdminDashboard() {
             <span className={styles.statBadge}>+24%</span>
           </div>
           <div className={styles.statValue}>1,204</div>
-          <div className={styles.statLabel}>Toplam Kayıtlı Hasta</div>
+          <div className={styles.statLabel}>{t("totalRegisteredPatients")}</div>
         </div>
         
         <div className={styles.statCard}>
@@ -30,7 +33,7 @@ export default function AdminDashboard() {
             <span className={styles.statBadge}>+12%</span>
           </div>
           <div className={styles.statValue}>85</div>
-          <div className={styles.statLabel}>Aktif Doktorlar</div>
+          <div className={styles.statLabel}>{t("activeDoctors")}</div>
         </div>
 
         <div className={styles.statCard}>
@@ -41,7 +44,7 @@ export default function AdminDashboard() {
             <span className={styles.statBadge}>+5%</span>
           </div>
           <div className={styles.statValue}>45.2K</div>
-          <div className={styles.statLabel}>Aylık Site Ziyareti</div>
+          <div className={styles.statLabel}>{t("monthlyVisits")}</div>
         </div>
 
         <div className={styles.statCard}>
@@ -51,7 +54,7 @@ export default function AdminDashboard() {
             </div>
           </div>
           <div className={styles.statValue}>12</div>
-          <div className={styles.statLabel}>Farklı Ülkeden Talep</div>
+          <div className={styles.statLabel}>{t("internationalLeads")}</div>
         </div>
       </div>
 
@@ -59,13 +62,13 @@ export default function AdminDashboard() {
         {/* Recent Activity */}
         <div className={styles.listCard} style={{ gridColumn: "1 / -1" }}>
           <div className={styles.cardHeader}>
-            <h3 className={styles.cardTitle}>Son Hareketlilikler</h3>
+            <h3 className={styles.cardTitle}>{t("recentActivities")}</h3>
           </div>
           <div className={styles.list}>
             {[
-              { id: 1, action: "Yeni randevu talebi", user: "John Doe (UK)", time: "5 dk önce", type: "primary" },
-              { id: 2, action: "Klinik onayı bekliyor", user: "Smile Center", time: "1 saat önce", type: "warning" },
-              { id: 3, action: "Yeni doktor kaydı", user: "Dr. Caner", time: "3 saat önce", type: "success" },
+              { id: 1, action: t("newAppointmentRequest"), user: "John Doe (UK)", time: t("minutesAgo", { count: 5 }), type: "primary" },
+              { id: 2, action: t("clinicApprovalPending"), user: "Smile Center", time: t("hoursAgo", { count: 1 }), type: "warning" },
+              { id: 3, action: t("newDoctorSignup"), user: "Dr. Caner", time: t("hoursAgo", { count: 3 }), type: "success" },
             ].map((item) => (
               <div key={item.id} className={styles.listItem}>
                 <div className={styles.timeBlock}>{item.time}</div>
@@ -74,7 +77,7 @@ export default function AdminDashboard() {
                   <div className={styles.itemDesc}>{item.user}</div>
                 </div>
                 <button className={`btn btn-sm ${item.type === 'primary' ? 'btn-primary' : 'btn-ghost'}`}>
-                  İncele
+                  {t("review")}
                 </button>
               </div>
             ))}

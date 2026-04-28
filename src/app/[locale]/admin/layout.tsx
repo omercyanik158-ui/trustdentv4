@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import Sidebar from "@/components/Dashboard/Sidebar";
+import AdminSidebar from "@/components/Dashboard/AdminSidebar";
 import DashboardHeader from "@/components/Dashboard/Header";
 
 // Note: In a real app, this would be a different Sidebar configured for Admins.
@@ -16,9 +16,9 @@ export default async function AdminLayout({
 
   return (
     <div style={{ display: "flex", minHeight: "100vh", background: "var(--bg-base)" }}>
-      <Sidebar locale={locale} />
+      <AdminSidebar locale={locale} />
       <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
-        <DashboardHeader />
+        <DashboardHeader role="admin" />
         <main style={{ flex: 1, overflowY: "auto", padding: "1.5rem" }}>
           {children}
         </main>

@@ -1,35 +1,45 @@
 "use client";
 
-import { useTranslations } from "next-intl";
-import { Stethoscope, Mail, Phone, MapPin, Share2, Heart, Link2, MessageCircle, Shield, CheckCircle } from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
+import { useLocale, useTranslations } from "next-intl";
+import { Mail, Phone, MapPin, Share2, Heart, Link2, MessageCircle, Shield, CheckCircle } from "lucide-react";
 import styles from "./Footer.module.css";
 
 const SOCIAL_ICONS = [Share2, Heart, Link2, MessageCircle];
 
 export default function Footer() {
+  const locale = useLocale();
   const t = useTranslations("footer");
   const tNav = useTranslations("nav");
   const tTreatments = useTranslations("treatments");
 
   return (
-    <footer className={styles.footer}>
+    <footer id="footer" className={styles.footer}>
 
       <div className={styles.main}>
         <div className="container">
           <div className={styles.grid}>
             {/* Brand */}
             <div className={styles.brand}>
-              <div className={styles.logo}>
-                <img src="/logo_simple.svg" alt="TrustDent" className={styles.logoImg} />
+              <Link href={`/${locale}`} className={styles.logo}>
+                <Image src="/logo_simple.svg" alt="TrustDent" className={styles.logoImg} width={32} height={32} />
                 <div className={styles.logoMark}>
                   <span className={styles.logoText}>Trust Dent</span>
                   <span className={styles.logoBrand}>Türkiye</span>
                 </div>
-              </div>
+              </Link>
               <p className={styles.brandDesc}>{t("description")}</p>
               <div className={styles.socials}>
                 {SOCIAL_ICONS.map((Icon, i) => (
-                  <a key={i} href="#" className={styles.socialLink} aria-label="Social">
+                  <a
+                    key={i}
+                    href="https://www.instagram.com"
+                    target="_blank"
+                    rel="noreferrer"
+                    className={styles.socialLink}
+                    aria-label="Social"
+                  >
                     <Icon size={16} />
                   </a>
                 ))}
@@ -37,11 +47,11 @@ export default function Footer() {
               <div className={styles.contact}>
                 <div className={styles.contactItem}>
                   <Mail size={14} />
-                  <span>info@trustdent.com</span>
+                  <a href="mailto:info@trustdent.com">info@trustdent.com</a>
                 </div>
                 <div className={styles.contactItem}>
                   <Phone size={14} />
-                  <span>+90 212 000 00 00</span>
+                  <a href="tel:+902120000000">+90 212 000 00 00</a>
                 </div>
                 <div className={styles.contactItem}>
                   <MapPin size={14} />
@@ -54,9 +64,16 @@ export default function Footer() {
             <div className={styles.col}>
               <h3 className={styles.colTitle}>{t("quickLinks")}</h3>
               <ul className={styles.colLinks}>
-                {["home", "clinics", "doctors", "treatments", "about", "contact"].map((key) => (
-                  <li key={key}>
-                    <a href="#" className={styles.colLink}>{tNav(key)}</a>
+                {[
+                  { key: "home", href: `/${locale}` },
+                  { key: "clinics", href: `/${locale}/clinics` },
+                  { key: "doctors", href: `/${locale}/doctors` },
+                  { key: "treatments", href: `/${locale}/treatments` },
+                  { key: "about", href: `/${locale}/about` },
+                  { key: "contact", href: `/${locale}#footer` },
+                ].map((item) => (
+                  <li key={item.key}>
+                    <Link href={item.href} className={styles.colLink}>{tNav(item.key)}</Link>
                   </li>
                 ))}
               </ul>
@@ -68,7 +85,9 @@ export default function Footer() {
               <ul className={styles.colLinks}>
                 {["implants", "veneers", "zirconia", "whitening", "orthodontics", "root-canal"].map((id) => (
                   <li key={id}>
-                    <a href="#" className={styles.colLink}>{tTreatments(`${id}.title`)}</a>
+                    <Link href={`/${locale}/treatments`} className={styles.colLink}>
+                      {tTreatments(`${id}.title`)}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -87,7 +106,7 @@ export default function Footer() {
                   { key: "careers", label: t("careers") },
                 ].map((item) => (
                   <li key={item.key}>
-                    <a href="#" className={styles.colLink}>{item.label}</a>
+                    <Link href={`/${locale}#footer`} className={styles.colLink}>{item.label}</Link>
                   </li>
                 ))}
               </ul>

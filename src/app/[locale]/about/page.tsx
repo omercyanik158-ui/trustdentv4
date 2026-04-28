@@ -1,13 +1,16 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import Link from "next/link";
+import Image from "next/image";
+import { useLocale } from "next-intl";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import styles from "@/components/About/AboutPage.module.css";
 import { motion } from "framer-motion";
-import { Stethoscope } from "lucide-react";
 
 export default function AboutPage() {
+  const locale = useLocale();
   const tNav = useTranslations("nav");
   const t = useTranslations("about");
   return (
@@ -25,18 +28,18 @@ export default function AboutPage() {
               <p className={styles.lead}>{t("lead")}</p>
 
               <div className={styles.heroCtas}>
-                <a className="btn btn-primary" href="#about-features">
+                <Link className="btn btn-primary" href="#about-features">
                   {t("ctaPrimary")}
-                </a>
-                <a className="btn btn-ghost" href="/#clinics">
+                </Link>
+                <Link className="btn btn-ghost" href={`/${locale}#clinics`}>
                   {t("ctaSecondary")}
-                </a>
+                </Link>
               </div>
             </div>
 
             <div className={styles.logoVisualizer}>
               <div className={styles.logoWrapper}>
-                <img src="/logo_simple.svg" alt="TrustDent" className={styles.logoImgLarge} />
+                <Image src="/logo_simple.svg" alt="TrustDent" className={styles.logoImgLarge} width={96} height={96} />
                 <div className={styles.logoMarkLarge}>
                   <span className={styles.logoTextLarge}>Trust Dent</span>
                   <span className={styles.logoBrandLarge}>Türkiye</span>

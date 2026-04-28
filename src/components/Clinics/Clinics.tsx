@@ -4,88 +4,9 @@ import React, { useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { ArrowRight, Building2, CheckCircle2, MapPin } from "lucide-react";
 import BookingModal from "../Booking/BookingModal";
+import { CLINICS } from "@/data";
+import type { Clinic } from "@/data";
 import styles from "./Clinics.module.css";
-
-const CLINICS = [
-  {
-    id: 1,
-    name: "DentaLux İstanbul",
-    location: "Şişli, İstanbul",
-    rating: 4.9,
-    reviews: 847,
-    specialties: ["implants", "zirconia", "veneers"],
-    blurb:
-      "İmplant ve zirkonya alanında uzman ekip, şeffaf planlama ve hızlı randevu. Süreç boyunca birebir takip ve yüksek hasta memnuniyeti.",
-    verified: true,
-    badgeKey: "badgeMostPreferred",
-    badgeColor: "#BC0A18", /* Primary Red */
-  },
-  {
-    id: 2,
-    name: "Smile Clinic Antalya",
-    location: "Lara, Antalya",
-    rating: 4.8,
-    reviews: 562,
-    specialties: ["whitening", "orthodontics", "implants"],
-    blurb:
-      "Tatil planına uyumlu randevu saatleri, dijital ölçüm ve konfor odaklı uygulamalar. Beyazlatma ve ortodontide güçlü sonuçlar.",
-    verified: true,
-    badgeKey: "badgeJci",
-    badgeColor: "#D4AF37", /* Gold */
-  },
-  {
-    id: 3,
-    name: "PearlDent Ankara",
-    location: "Çankaya, Ankara",
-    rating: 4.7,
-    reviews: 389,
-    specialties: ["root-canal", "veneers", "implants"],
-    blurb:
-      "Kanal tedavisi ve estetik gülüş tasarımında detaycı yaklaşım. Tedavi planı net, iletişim hızlı ve sonrası destek güçlü.",
-    verified: true,
-    badgeKey: "badgeNewlyOpened",
-    badgeColor: "#BC0A18", /* Primary Red */
-  },
-  {
-    id: 4,
-    name: "Istanbul Dental Center",
-    location: "Beşiktaş, İstanbul",
-    rating: 4.8,
-    reviews: 1204,
-    specialties: ["full-mouth", "zirconia", "whitening"],
-    blurb:
-      "Tam ağız rehabilitasyon süreçlerinde deneyimli ekip. Gülüş estetiği odaklı planlama, premium malzeme seçenekleri ve düzenli kontrol.",
-    verified: true,
-    badgeKey: "badgePremium",
-    badgeColor: "#D4AF37", /* Gold */
-  },
-  {
-    id: 5,
-    name: "MedDent İzmir",
-    location: "Alsancak, İzmir",
-    rating: 4.6,
-    reviews: 298,
-    specialties: ["orthodontics", "whitening", "veneers"],
-    blurb:
-      "Bütçe dostu seçenekler ve net bilgilendirme. Plak/ortodonti planlaması, beyazlatma ve lamine süreçlerinde düzenli takip.",
-    verified: false,
-    badgeKey: null,
-    badgeColor: null,
-  },
-  {
-    id: 6,
-    name: "GoldenSmile Bursa",
-    location: "Nilüfer, Bursa",
-    rating: 4.7,
-    reviews: 412,
-    specialties: ["implants", "root-canal"],
-    blurb:
-      "Güven veren klinik deneyimi: steril çalışma, açıklayıcı hekim iletişimi ve hızlı dönüş. İmplant ve kanal tedavisinde istikrarlı sonuçlar.",
-    verified: true,
-    badgeKey: null,
-    badgeColor: null,
-  },
-];
 
 function StarRating({ rating }: { rating: number }) {
   return (
@@ -113,7 +34,7 @@ function ClinicCard({
   tTreatments,
   onBook,
 }: {
-  clinic: (typeof CLINICS)[number];
+  clinic: Clinic;
   t: ReturnType<typeof useTranslations>;
   tTreatments: ReturnType<typeof useTranslations>;
   onBook: () => void;

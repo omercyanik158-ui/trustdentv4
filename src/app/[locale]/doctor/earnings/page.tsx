@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { TrendingUp } from "lucide-react";
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import styles from "../Dashboard.module.css";
@@ -15,10 +16,11 @@ const DATA = [
 ];
 
 export default function DoctorEarningsPage() {
+  const t = useTranslations("panel.doctor");
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Kazançlar</h1>
-      <p className={styles.subtitle}>Haftalık gelir trendi ve performans özeti. (Demo verisi)</p>
+      <h1 className={styles.title}>{t("earningsTitle")}</h1>
+      <p className={styles.subtitle}>{t("earningsSubtitle")}</p>
 
       <div className={styles.statsGrid}>
         <div className={styles.statCard}>
@@ -29,17 +31,17 @@ export default function DoctorEarningsPage() {
             <span className={styles.statBadge}>+18%</span>
           </div>
           <div className={styles.statValue}>€14,200</div>
-          <div className={styles.statLabel}>Bu Hafta</div>
+          <div className={styles.statLabel}>{t("thisWeek")}</div>
         </div>
       </div>
 
       <div className={styles.chartCard} style={{ marginTop: "1.25rem" }}>
         <div className={styles.cardHeader}>
-          <h3 className={styles.cardTitle}>Gelir Grafiği</h3>
+          <h3 className={styles.cardTitle}>{t("earningsChart")}</h3>
           <select className={styles.select}>
-            <option>Bu Hafta</option>
-            <option>Geçen Hafta</option>
-            <option>Bu Ay</option>
+            <option>{t("thisWeek")}</option>
+            <option>{t("lastWeek")}</option>
+            <option>{t("thisMonth")}</option>
           </select>
         </div>
         <div className={styles.chartWrapper}>

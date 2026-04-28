@@ -1,28 +1,23 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { MapPin, Star } from "lucide-react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { CLINICS_MAP } from "@/data";
+import type { Map as LeafletMap, Marker as LeafletMarker } from "leaflet";
 import styles from "./MapSection.module.css";
-
-const CLINICS_MAP = [
-  { id: 1, name: "DentaLux İstanbul", location: "Şişli, İstanbul", lat: 41.0602, lng: 28.9877, rating: 4.9 },
-  { id: 2, name: "Smile Clinic Antalya", location: "Lara, Antalya", lat: 36.8841, lng: 30.7056, rating: 4.8 },
-  { id: 3, name: "PearlDent Ankara", location: "Çankaya, Ankara", lat: 39.9334, lng: 32.8597, rating: 4.7 },
-  { id: 4, name: "Istanbul Dental Center", location: "Beşiktaş, İstanbul", lat: 41.0422, lng: 29.0089, rating: 4.8 },
-  { id: 5, name: "MedDent İzmir", location: "Alsancak, İzmir", lat: 38.4237, lng: 27.1428, rating: 4.6 },
-];
 
 export default function MapSection() {
   const t = useTranslations("map");
+  const locale = useLocale();
   const mapRef = useRef<HTMLDivElement>(null);
-  const mapInstanceRef = useRef<unknown>(null);
-  const markersRef = useRef<{ [key: number]: any }>({});
+  const mapInstanceRef = useRef<LeafletMap | null>(null);
+  const markersRef = useRef<Record<number, LeafletMarker>>({});
   const sectionRef = useRef<HTMLDivElement>(null);
 
   const handleClinicClick = (clinic: typeof CLINICS_MAP[0]) => {
-    const map = mapInstanceRef.current as any;
+    const map = mapInstanceRef.current;
     const marker = markersRef.current[clinic.id];
     
     if (map && marker) {
@@ -73,10 +68,6 @@ export default function MapSection() {
       .then(([LModule]) => {
         const L = LModule.default;
         if (!mapRef.current || mapInstanceRef.current) return;
-        // Prevent double-init (React Strict Mode)
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        if ((mapRef.current as any)._leaflet_id) return;
-
         const map = L.map(mapRef.current, {
           center: [39.0, 35.0],
           zoom: 5.5,
@@ -131,10 +122,10 @@ export default function MapSection() {
                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="var(--gold)" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                 <span style="color:var(--gold);font-weight:700;font-size:13px;">${clinic.rating}</span>
               </div>
-              <a href="#" style="display:block;margin-top:12px;padding:8px 16px;
+              <a href="/${locale}#clinics" style="display:block;margin-top:12px;padding:8px 16px;
                 background:var(--primary);color:white;
                 text-align:center;border-radius:999px;font-size:12px;font-weight:600;
-                text-decoration:none;">Randevu Al</a>
+                text-decoration:none;">${t("bookNow")}</a>
             </div>`;
 
           const marker = L.marker([clinic.lat, clinic.lng], { icon: customIcon })
@@ -143,15 +134,15 @@ export default function MapSection() {
           markersRef.current[clinic.id] = marker;
         });
       })
-      .catch(console.error);
+      .catch((error) => console.error(error));
 
     return () => {
       if (mapInstanceRef.current) {
-        (mapInstanceRef.current as { remove: () => void }).remove();
+        mapInstanceRef.current.remove();
         mapInstanceRef.current = null;
       }
     };
-  }, []);
+  }, [locale, t]);
 
   return (
     <motion.section 
@@ -169,7 +160,7 @@ export default function MapSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="section-badge"><MapPin size={16} style={{display: "inline", marginRight: "6px"}}/> Harita</div>
+          <div className="section-badge"><MapPin size={16} style={{display: "inline", marginRight: "6px"}}/> {t("badge")}</div>
           <h2 className="section-title">
             {t("title").split(" ").slice(0, 2).join(" ")}{" "}
             <span>{t("title").split(" ").slice(2).join(" ")}</span>
@@ -188,7 +179,7 @@ export default function MapSection() {
             <div className={styles.sidebar}>
               <div className={styles.legendTitle}>
                 <MapPin size={18} />
-                Klinik Lokasyonları
+                {t("legendTitle")}
               </div>
               <div className={styles.legendList}>
                 {CLINICS_MAP.map((clinic) => (

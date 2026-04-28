@@ -38,7 +38,6 @@ export default function HowItWorksModal({ isOpen, onClose, onBooking }: Props) {
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
   const [progress, setProgress] = useState(0);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const progressRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const goTo = useCallback((index: number) => {
@@ -84,9 +83,6 @@ export default function HowItWorksModal({ isOpen, onClose, onBooking }: Props) {
   // Reset on open/close
   useEffect(() => {
     if (isOpen) {
-      setCurrent(0);
-      setProgress(0);
-      setPaused(false);
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "unset";
@@ -96,7 +92,6 @@ export default function HowItWorksModal({ isOpen, onClose, onBooking }: Props) {
 
   useEffect(() => {
     return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
       if (progressRef.current) clearInterval(progressRef.current);
     };
   }, []);
@@ -142,15 +137,23 @@ export default function HowItWorksModal({ isOpen, onClose, onBooking }: Props) {
               {STEPS.map((s, i) => (
                 <button
                   key={s.id}
-                  className={styles.progressTrack}
+                  className={`${styles.progressTrack} ${i === current ? styles.progressTrackActive : ""}`}
                   onClick={() => goTo(i)}
                   aria-label={`Adım ${i + 1}`}
+                  style={
+                    i === current
+                      ? {
+                          borderColor: `${s.color}66`,
+                          boxShadow: `0 0 0 1px ${s.color}33 inset, 0 0 10px ${s.color}33`,
+                        }
+                      : undefined
+                  }
                 >
                   <div
                     className={styles.progressFill}
                     style={{
                       width: i < current ? "100%" : i === current ? `${progress}%` : "0%",
-                      background: step.color,
+                      background: s.color,
                     }}
                   />
                 </button>
@@ -202,7 +205,7 @@ export default function HowItWorksModal({ isOpen, onClose, onBooking }: Props) {
                         transition={{ delay: 0.2 }}
                       >
                         <Play size={11} fill="currentColor" />
-                        Video yakında eklenecek
+                        {t("videoSoon")}
                       </motion.div>
                     </div>
                   )}

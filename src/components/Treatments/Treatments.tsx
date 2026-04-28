@@ -2,57 +2,12 @@
 
 import React, { useRef, useState } from "react";
 import { useTranslations } from "next-intl";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-import {
-  Stethoscope,
-  Sparkles,
-  Diamond,
-  Zap,
-  Activity,
-  CheckCircle,
-  ShieldCheck,
-  ChevronRight
-} from "lucide-react";
+import type { MotionStyle, MotionValue } from "framer-motion";
+import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
+import { ChevronRight } from "lucide-react";
+import { TREATMENTS } from "@/data";
+import type { TreatmentId, TreatmentMeta } from "@/data";
 import styles from "./Treatments.module.css";
-
-const TREATMENTS = [
-  {
-    id: "implants",
-    icon: Stethoscope,
-    color: "#BC0A18",
-    angle: 0
-  },
-  {
-    id: "veneers",
-    icon: Sparkles,
-    color: "#D4AF37",
-    angle: 52
-  },
-  {
-    id: "zirconia",
-    icon: Diamond,
-    color: "#FDFDFF",
-    angle: 128
-  },
-  {
-    id: "whitening",
-    icon: Zap,
-    color: "#E8333F",
-    angle: 180
-  },
-  {
-    id: "orthodontics",
-    icon: Activity,
-    color: "#7F0000",
-    angle: 232
-  },
-  {
-    id: "root-canal",
-    icon: ShieldCheck,
-    color: "#c0c0c8",
-    angle: 308
-  },
-];
 
 export default function Treatments({ scrollAnimated = true }: { scrollAnimated?: boolean }) {
   const t = useTranslations("treatments");
@@ -64,9 +19,17 @@ export default function Treatments({ scrollAnimated = true }: { scrollAnimated?:
     offset: ["start end", "center center"],
   });
 
-  const radius = scrollAnimated ? useTransform(scrollYProgress, [0, 1], [0, 300]) : undefined;
-  const opacity = scrollAnimated ? useTransform(scrollYProgress, [0, 0.5], [0, 1]) : undefined;
-  const rotation = scrollAnimated ? useTransform(scrollYProgress, [0, 1], [-90, 0]) : undefined;
+  // Hooks must stay unconditional; we choose which MotionValue to use below.
+  const animatedRadius = useTransform(scrollYProgress, [0, 1], [0, 300]);
+  const staticRadius = useTransform(scrollYProgress, [0, 1], [300, 300]);
+  const animatedOpacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
+  const staticOpacity = useTransform(scrollYProgress, [0, 1], [1, 1]);
+  const animatedRotation = useTransform(scrollYProgress, [0, 1], [-90, 0]);
+  const staticRotation = useTransform(scrollYProgress, [0, 1], [0, 0]);
+
+  const radius = scrollAnimated ? animatedRadius : staticRadius;
+  const opacity = scrollAnimated ? animatedOpacity : staticOpacity;
+  const rotation = scrollAnimated ? animatedRotation : staticRotation;
 
   const activeTreatment = TREATMENTS.find(t => t.id === activeId) || TREATMENTS[0];
 
@@ -116,16 +79,12 @@ export default function Treatments({ scrollAnimated = true }: { scrollAnimated?:
           {/* Satellite Constellation */}
           <motion.div
             className={styles.satellites}
-            style={
-              scrollAnimated
-                ? ({ rotate: rotation, opacity } as any)
-                : undefined
-            }
+            style={{ rotate: rotation, opacity }}
             initial={scrollAnimated ? undefined : { opacity: 0, scale: 0.98, y: 10 }}
             animate={scrollAnimated ? undefined : { opacity: 1, scale: 1, y: 0 }}
             transition={scrollAnimated ? undefined : { duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
           >
-            {TREATMENTS.map((item, index) => (
+            {TREATMENTS.map((item) => (
               <SatelliteItem
                 key={item.id}
                 item={item}
@@ -143,23 +102,30 @@ export default function Treatments({ scrollAnimated = true }: { scrollAnimated?:
   );
 }
 
-function SatelliteItem({ item, activeId, setActiveId, radius, scrollAnimated, t }: any) {
-  const x = scrollAnimated
-    ? useTransform(radius, (r: number) => Math.cos((item.angle * Math.PI) / 180) * r)
-    : Math.cos((item.angle * Math.PI) / 180) * 300;
-  const y = scrollAnimated
-    ? useTransform(radius, (r: number) => Math.sin((item.angle * Math.PI) / 180) * (r * 0.9))
-    : Math.sin((item.angle * Math.PI) / 180) * (300 * 0.9);
+type SatelliteItemProps = {
+  item: TreatmentMeta;
+  activeId: TreatmentId;
+  setActiveId: React.Dispatch<React.SetStateAction<TreatmentId>>;
+  radius: MotionValue<number>;
+  scrollAnimated: boolean;
+  t: ReturnType<typeof useTranslations>;
+};
+
+function SatelliteItem({ item, activeId, setActiveId, radius, scrollAnimated, t }: SatelliteItemProps) {
+  const x = useTransform(radius, (r: number) => Math.cos((item.angle * Math.PI) / 180) * r);
+  const y = useTransform(radius, (r: number) => Math.sin((item.angle * Math.PI) / 180) * (r * 0.9));
+
+  const satelliteStyle: MotionStyle & { "--color": string } = {
+    x,
+    y,
+    "--color": item.color,
+  };
 
   return (
     <motion.button
       className={`${styles.satellite} ${activeId === item.id ? styles.activeSatellite : ""}`}
       onClick={() => setActiveId(item.id)}
-      style={{
-        x,
-        y,
-        "--color": item.color
-      } as any}
+      style={satelliteStyle}
       whileHover={{ scale: 1.2 }}
       whileTap={{ scale: 0.9 }}
       initial={scrollAnimated ? undefined : { opacity: 0, scale: 0.9 }}

@@ -1,23 +1,25 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import styles from "../../doctor/Dashboard.module.css";
 
 export default function PatientSettingsPage() {
+  const t = useTranslations("panel.patient");
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Ayarlar</h1>
-      <p className={styles.subtitle}>Bildirimler ve tercihlerinizi yönetin. (Demo)</p>
+      <h1 className={styles.title}>{t("settingsTitle")}</h1>
+      <p className={styles.subtitle}>{t("settingsSubtitle")}</p>
 
       <div className={styles.listCard} style={{ gridColumn: "1 / -1" }}>
         <div className={styles.cardHeader}>
-          <h3 className={styles.cardTitle}>Tercihler</h3>
+          <h3 className={styles.cardTitle}>{t("preferences")}</h3>
         </div>
 
         <div style={{ display: "grid", gap: "0.75rem" }}>
           {[
-            { title: "SMS Bildirimleri", desc: "Randevu güncellemeleri için SMS al." },
-            { title: "E-posta Bildirimleri", desc: "Onay ve hatırlatmaları e-posta ile al." },
-            { title: "VIP Destek", desc: "Öncelikli destek kanalını aktif et." },
+            { title: t("smsNotifications"), desc: t("smsNotificationsDesc") },
+            { title: t("emailNotifications"), desc: t("emailNotificationsDesc") },
+            { title: t("vipSupport"), desc: t("vipSupportDesc") },
           ].map((item) => (
             <div
               key={item.title}
@@ -37,7 +39,7 @@ export default function PatientSettingsPage() {
                 <div style={{ color: "var(--text-muted)", fontSize: "0.85rem" }}>{item.desc}</div>
               </div>
               <button className="btn btn-sm btn-ghost" style={{ padding: "0.55rem 0.9rem" }}>
-                Değiştir
+                {t("change")}
               </button>
             </div>
           ))}
