@@ -17,6 +17,8 @@
     "subtitle": "Erleben Sie moderne Zahnmedizin in der Türkei — transparente Planung, verifizierte Kliniken und ein reibungsloser Ablauf.",
     "btnVoyage": "Termin anfragen",
     "btnHowItWorks": "So funktioniert’s",
+    "voyageLocation": "Istanbul Zentrum",
+    "voyageDay": "Tag 1: Privater Luxus-Transfer",
     "islandSupport": "VIP Support",
     "islandCountries": "48 Länder",
     "title": "Entdecken Sie Weltklasse",
@@ -38,6 +40,11 @@
     }
   },
   "treatments": {
+    "badge": "Behandlungskonstellation",
+    "titleMain": "Präzise",
+    "titleSpan": "Restauration",
+    "description": "Entdecken Sie unsere Behandlungen über eine interaktive Konstellation.",
+    "btnExplore": "Behandlung entdecken",
     "title": "Beliebte Behandlungen",
     "subtitle": "Finden Sie die richtige Behandlung für Ihre Bedürfnisse",
     "implants": {
@@ -63,6 +70,10 @@
     "root-canal": {
       "title": "Wurzelbehandlung",
       "description": "Schmerzfreie Präzisions-Endodontie zum Erhalt Ihrer natürlichen Zähne."
+    },
+    "full-mouth": {
+      "title": "Komplette Mundsanierung",
+      "description": "Umfassende funktionale und ästhetische Erneuerung Ihres gesamten Lächelns."
     }
   },
   "clinics": {
@@ -83,10 +94,14 @@
   "doctors": {
     "title": "Unsere Expertenärzte",
     "subtitle": "Lernen Sie unsere zertifizierten Spezialisten kennen",
+    "featuredTitle": "Ausgewählte Ärzte",
+    "featuredSubtitle": "Wir zeigen hier nicht alle – dies sind unsere am meisten gefragten Spezialisten.",
     "viewAll": "Alle Ärzte anzeigen",
+    "viewProfile": "Profil ansehen",
     "experience": "Jahre Erfahrung",
     "bookAppointment": "Termin buchen",
-    "speciality": "Fachgebiet"
+    "speciality": "Fachgebiet",
+    "reviews": "Bewertungen"
   },
   "map": {
     "badge": "Karte",
@@ -97,9 +112,72 @@
     "legendTitle": "Klinikstandorte",
     "bookNow": "Jetzt buchen"
   },
+  "about": {
+    "title": "Auf Vertrauen gebaut",
+    "longText": "TrustDent macht Zahntourismus zu einer vollständig begleiteten Erfahrung statt nur zu einem Buchungstool. Wir vereinen Klinik-Auswahl, Behandlungsplanung, Terminierung, Kommunikation und Nachsorge in einem klaren Ablauf – damit Patienten sicher entscheiden und Unsicherheit vermeiden können. Unser Ziel ist, vertrauenswürdige Kliniken sichtbar zu machen, jeden Schritt transparent zu halten und Sie vom ersten Kontakt bis zur Nachsorge zuverlässig zu begleiten.",
+    "lead": "TrustDent verwandelt Zahntourismus mit einem kuratierten Kliniknetzwerk, transparenter Planung und VIP-Support in eine sichere Premium-Erfahrung.",
+    "ctaPrimary": "So funktioniert es",
+    "ctaSecondary": "Kliniken entdecken",
+    "featuresAria": "Kernfunktionen von TrustDent",
+    "bottomAria": "TrustDent Ansatz-Abschnitt",
+    "bottomTitle": "Design, das den Ablauf unterstützt",
+    "bottomText": "Vertrauen ist kein Versprechen, sondern ein Standard, den man bei jedem Schritt spürt. Bei TrustDent ist Design Teil des Prozesses: Es leitet unauffällig, macht Entscheidungen klarer und schafft Sicherheit.",
+    "features": {
+      "curatedTitle": "Kuratiertes Kliniknetzwerk",
+      "curatedText": "Wir bündeln verifizierte Kliniken mit internationalen Standards an einem Ort.",
+      "transparentTitle": "Transparenter Ablauf",
+      "transparentText": "Klare Schritte und Orientierung bei Behandlungswahl, Planung und Terminprozess.",
+      "supportTitle": "VIP-Unterstützung",
+      "supportText": "Ein fester Ansprechpartner und schnelle Rückmeldung von der Anfrage bis zur Nachsorge.",
+      "securityTitle": "Sicherheit & Compliance",
+      "securityText": "Datenschutz und Sicherheit stehen bei Registrierung, Kommunikation und Terminierung im Fokus.",
+      "matchingTitle": "Intelligentes Matching",
+      "matchingText": "Wir helfen Ihnen, die passende Klinik und den passenden Spezialisten für Ihr Ziel zu finden.",
+      "aftercareTitle": "Nachsorge & Follow-up",
+      "aftercareText": "Der Prozess endet nicht bei der Buchung – Erinnerungen, Nachfragen und Support bleiben verfügbar."
+    }
+  },
   "testimonials": {
     "title": "Was unsere Patienten sagen",
-    "subtitle": "Echte Erfahrungen, echte Ergebnisse"
+    "subtitle": "Echte Erfahrungen, echte Ergebnisse",
+    "badge": "Bewertungen",
+    "verified": "Verifiziert",
+    "trust": {
+      "secure": "100% sichere Zahlung",
+      "verified": "Verifizierte Kliniken",
+      "countries": "Patienten aus 48 Ländern",
+      "rating": "4,8 Durchschnittsbewertung"
+    },
+    "review1": {
+      "treatment": "implants",
+      "text": "Ich habe im Vergleich zu UK über £8.000 gespart und eine erstklassige Behandlung erhalten. Die Klinik war makellos, das Team sprach perfektes Englisch und das Ergebnis ist hervorragend.",
+      "date": "März 2025"
+    },
+    "review2": {
+      "treatment": "zirconia",
+      "text": "Ich bin sehr zufrieden mit meiner Zahnbehandlung in der Türkei. Die Preise sind im Vergleich zu Deutschland deutlich günstiger und die Qualität ist gleichwertig. Dank TrustDent habe ich die richtige Klinik gefunden.",
+      "date": "Februar 2025"
+    },
+    "review3": {
+      "treatment": "veneers",
+      "text": "Das Team war professionell und hat mich während des gesamten Prozesses begleitet. Meine Smile-Transformation ist beeindruckend. Ich empfehle TrustDent klar weiter.",
+      "date": "April 2025"
+    },
+    "review4": {
+      "treatment": "orthodontics",
+      "text": "Ich habe meine Aligner-Behandlung über TrustDent gebucht. Die Plattform ist sehr hilfreich und die Arztvorschläge sind wirklich zuverlässig. Klare Empfehlung.",
+      "date": "Januar 2025"
+    },
+    "review5": {
+      "treatment": "whitening",
+      "text": "Die Terminplanung ging schnell und jeder Schritt wurde klar erklärt. Das Bleaching-Ergebnis wirkt natürlich und sichtbar heller. Kommunikation und Nachbetreuung waren top.",
+      "date": "Mai 2025"
+    },
+    "review6": {
+      "treatment": "implants",
+      "text": "Ich war unsicher, welche Klinik ich wählen soll; TrustDent hat die Entscheidung deutlich erleichtert. Der Plan war klar, das Team aufmerksam und ich bin mit dem Ergebnis sehr zufrieden.",
+      "date": "Juni 2025"
+    }
   },
   "howItWorks": {
     "badge": "Die restaurative Reise",
@@ -140,7 +218,12 @@
     "faq": "FAQ",
     "privacyPolicy": "Datenschutz",
     "terms": "Nutzungsbedingungen",
-    "copyright": "© 2025 TrustDent. Alle Rechte vorbehalten."
+    "cookiePolicy": "Cookie-Richtlinie",
+    "blog": "Blog",
+    "careers": "Karriere",
+    "copyright": "© 2025 TrustDent. Alle Rechte vorbehalten.",
+    "sslSecure": "SSL-gesichert",
+    "compliance": "DSGVO-konform"
   },
   "auth": {
     "loginTitle": "Willkommen zurück",
