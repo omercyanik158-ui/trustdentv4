@@ -1,44 +1,51 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { CalendarCheck, Clock, MapPin, Search } from "lucide-react";
+import {
+  readDemoAppointments,
+  seedDemoAppointments,
+  type AppointmentStatus,
+} from "@/lib/demoAppointments";
+import { getStatusTone, matchesStatusSearch } from "@/lib/demoStatus";
 import styles from "../doctor/Dashboard.module.css";
-
-type Appointment = {
-  id: number;
-  treatment: string;
-  clinic: string;
-  date: string;
-  time: string;
-  status: string;
-  createdAt: string;
-};
 
 export default function PatientDashboard() {
   const locale = useLocale();
   const t = useTranslations("panel.patient");
-  const [appointments, setAppointments] = useState<Appointment[]>([]);
-  const statusLabel: Record<string, string> = {
-    "Onay Bekliyor": t("statusPending"),
-    Onaylandı: t("statusApproved"),
-    İptal: t("statusCancelled"),
-    Tamamlandı: t("statusCompleted"),
-  };
-  const upcoming = appointments[0];
+  const searchParams = useSearchParams();
+  const searchQuery = (searchParams.get("q") ?? "").trim().toLowerCase();
+  const [appointments] = useState(() => {
+    seedDemoAppointments();
+    return readDemoAppointments();
+  });
+  const statusLabel = useMemo<Record<AppointmentStatus, string>>(
+    () => ({
+      pending: t("statusPending"),
+      inProgress: t("statusInProgress"),
+      approved: t("statusApproved"),
+      cancelled: t("statusCancelled"),
+      completed: t("statusCompleted"),
+    }),
+    [t]
+  );
+  const filteredAppointments = useMemo(
+    () =>
+      appointments.filter((apt) => {
+        if (!searchQuery) {
+          return true;
+        }
+        const haystack = `${apt.treatment} ${apt.clinic} ${apt.date} ${apt.time}`.toLowerCase();
+        return haystack.includes(searchQuery) || matchesStatusSearch(apt.status, searchQuery, statusLabel);
+      }),
+    [appointments, searchQuery, statusLabel]
+  );
+  const upcoming = filteredAppointments[0];
 
-  useEffect(() => {
-    const saved = localStorage.getItem("trustdent_appointments");
-    if (saved) {
-      try {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        setAppointments(JSON.parse(saved));
-      } catch (e) {
-        console.error(e);
-      }
-    }
-  }, []);
+  const pendingCount = appointments.filter((a) => a.status === "pending").length;
 
   return (
     <div className={styles.container}>
@@ -64,7 +71,7 @@ export default function PatientDashboard() {
             </div>
           </div>
           <div className={styles.statValue}>
-            {appointments.filter((a) => a.status === "Onay Bekliyor").length}
+            {pendingCount}
           </div>
           <div className={styles.statLabel}>{t("pendingApprovals")}</div>
         </div>
@@ -115,12 +122,12 @@ export default function PatientDashboard() {
             </div>
           </div>
           <div className={styles.list}>
-            {appointments.length === 0 ? (
+            {filteredAppointments.length === 0 ? (
               <div style={{ textAlign: "center", padding: "2rem", color: "var(--text-muted)" }}>
                 {t("noAppointments")}
               </div>
             ) : (
-              appointments.map((apt) => (
+              filteredAppointments.map((apt) => (
                 <div key={apt.id} className={styles.listItem}>
                   <div className={styles.timeBlock} style={{ width: "60px" }}>
                     <div style={{ fontSize: "1.1rem" }}>{apt.date.split("-")[2]}</div>
@@ -134,8 +141,18 @@ export default function PatientDashboard() {
                       <MapPin size={12} style={{ display: "inline" }}/> {apt.clinic || t("clinicUnassigned")}
                     </div>
                   </div>
-                  <div className={`${styles.statusBadge} ${styles.statusWarning}`}>
-                    {statusLabel[apt.status] ?? apt.status}
+                  <div
+                    className={`${styles.statusBadge} ${
+                      getStatusTone(apt.status) === "warning"
+                        ? styles.statusWarning
+                        : getStatusTone(apt.status) === "primary"
+                          ? styles.statusPrimary
+                          : getStatusTone(apt.status) === "danger"
+                            ? styles.statusDanger
+                            : styles.statusSuccess
+                    }`}
+                  >
+                    {statusLabel[apt.status]}
                   </div>
                 </div>
               ))

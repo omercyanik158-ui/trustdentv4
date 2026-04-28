@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import { ArrowRight, Building2, CheckCircle2, MapPin } from "lucide-react";
 import BookingModal from "../Booking/BookingModal";
@@ -110,8 +111,31 @@ export default function Clinics() {
   const t = useTranslations("clinics");
   const tNav = useTranslations("nav");
   const tTreatments = useTranslations("treatments");
+  const tCommon = useTranslations("common");
   const locale = useLocale();
+  const searchParams = useSearchParams();
+  const searchQuery = (searchParams.get("q") ?? "").trim().toLowerCase();
   const [bookingOpen, setBookingOpen] = useState(false);
+  const [locationFilter, setLocationFilter] = useState<string>("all");
+  const [sortBy, setSortBy] = useState<"rating" | "reviews">("rating");
+
+  const locationOptions = useMemo(
+    () => Array.from(new Set(CLINICS.map((clinic) => clinic.location))),
+    []
+  );
+
+  const visibleClinics = useMemo(() => {
+    const filtered = CLINICS.filter((clinic) => {
+      if (locationFilter !== "all" && clinic.location !== locationFilter) {
+        return false;
+      }
+      if (!searchQuery) {
+        return true;
+      }
+      return `${clinic.name} ${clinic.location} ${clinic.blurb}`.toLowerCase().includes(searchQuery);
+    });
+    return filtered.sort((a, b) => (sortBy === "reviews" ? b.reviews - a.reviews : b.rating - a.rating));
+  }, [locationFilter, searchQuery, sortBy]);
 
   return (
     <section id="clinics" className={`section ${styles.clinics}`}>
@@ -128,9 +152,34 @@ export default function Clinics() {
           <p className="section-subtitle">{t("subtitle")}</p>
         </header>
 
+        <div className={styles.controls}>
+          <label className={styles.control}>
+            <span>{tCommon("filter")} ({tNav("clinics")})</span>
+            <select className="input" value={locationFilter} onChange={(e) => setLocationFilter(e.target.value)}>
+              <option value="all">{tCommon("all")}</option>
+              {locationOptions.map((location) => (
+                <option key={location} value={location}>
+                  {location}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className={styles.control}>
+            <span>{tCommon("sortBy")}</span>
+            <select
+              className="input"
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as "rating" | "reviews")}
+            >
+              <option value="rating">Rating</option>
+              <option value="reviews">Reviews</option>
+            </select>
+          </label>
+        </div>
+
         {/* Grid */}
         <div className={styles.grid} aria-label={tNav("clinics")}>
-          {CLINICS.map((clinic) => (
+          {visibleClinics.map((clinic) => (
             <ClinicCard
               key={clinic.id}
               clinic={clinic}
@@ -139,6 +188,7 @@ export default function Clinics() {
               onBook={() => setBookingOpen(true)}
             />
           ))}
+          {visibleClinics.length === 0 ? <div className={styles.emptyState}>{t("subtitle")}</div> : null}
         </div>
 
         {/* View All */}

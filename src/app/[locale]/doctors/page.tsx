@@ -1,5 +1,7 @@
 "use client";
 
+import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
@@ -10,6 +12,40 @@ import styles from "./DoctorsPage.module.css";
 export default function DoctorsPage() {
   const tNav = useTranslations("nav");
   const t = useTranslations("doctors");
+  const tCommon = useTranslations("common");
+  const searchParams = useSearchParams();
+  const searchQuery = (searchParams.get("q") ?? "").trim().toLowerCase();
+  const [clinicFilter, setClinicFilter] = useState<string>("all");
+  const [sortBy, setSortBy] = useState<"rating" | "reviews" | "name">("rating");
+
+  const clinicOptions = useMemo(
+    () => Array.from(new Set(DOCTORS.map((doctor) => doctor.clinicName))),
+    []
+  );
+  const visibleDoctors = useMemo(() => {
+    const filtered = DOCTORS.filter((doctor) => {
+      if (clinicFilter !== "all" && doctor.clinicName !== clinicFilter) {
+        return false;
+      }
+      if (!searchQuery) {
+        return true;
+      }
+      return `${doctor.name} ${doctor.title} ${doctor.clinicName} ${doctor.review}`
+        .toLowerCase()
+        .includes(searchQuery);
+    });
+
+    return filtered.sort((a, b) => {
+      if (sortBy === "reviews") {
+        return b.reviews - a.reviews;
+      }
+      if (sortBy === "name") {
+        return a.name.localeCompare(b.name);
+      }
+      return b.rating - a.rating;
+    });
+  }, [clinicFilter, searchQuery, sortBy]);
+
   return (
     <>
       <Navbar />
@@ -26,8 +62,34 @@ export default function DoctorsPage() {
             <p className="section-subtitle">{t("featuredSubtitle")}</p>
           </header>
 
+          <div className={styles.controls}>
+            <label className={styles.control}>
+              <span>{tCommon("filter")} ({tNav("clinics")})</span>
+              <select className="input" value={clinicFilter} onChange={(e) => setClinicFilter(e.target.value)}>
+                <option value="all">{tCommon("all")}</option>
+                {clinicOptions.map((clinic) => (
+                  <option key={clinic} value={clinic}>
+                    {clinic}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className={styles.control}>
+              <span>{tCommon("sortBy")}</span>
+              <select
+                className="input"
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as "rating" | "reviews" | "name")}
+              >
+                <option value="rating">Rating</option>
+                <option value="reviews">Reviews</option>
+                <option value="name">A-Z</option>
+              </select>
+            </label>
+          </div>
+
           <section className={styles.grid} aria-label={tNav("doctors")}>
-            {DOCTORS.map((d) => (
+            {visibleDoctors.map((d) => (
               <article key={d.id} className={styles.card}>
                 <header className={styles.cardHd}>
                   <div className={styles.hdTop}>
@@ -72,6 +134,9 @@ export default function DoctorsPage() {
                 </footer>
               </article>
             ))}
+            {visibleDoctors.length === 0 ? (
+              <div className={styles.emptyState}>{t("featuredSubtitle")}</div>
+            ) : null}
           </section>
         </div>
       </main>

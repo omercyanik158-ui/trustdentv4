@@ -1,11 +1,30 @@
 "use client";
 
+import { useMemo } from "react";
+import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Users, Activity, MousePointerClick, Globe } from "lucide-react";
 import styles from "../doctor/Dashboard.module.css"; // Reuse the doctor styles for layout
 
 export default function AdminDashboard() {
   const t = useTranslations("panel.admin");
+  const searchParams = useSearchParams();
+  const searchQuery = (searchParams.get("q") ?? "").trim().toLowerCase();
+
+  const activities = useMemo(
+    () =>
+      [
+        { id: 1, action: t("newAppointmentRequest"), user: "John Doe (UK)", time: t("minutesAgo", { count: 5 }), type: "primary" },
+        { id: 2, action: t("clinicApprovalPending"), user: "Smile Center", time: t("hoursAgo", { count: 1 }), type: "warning" },
+        { id: 3, action: t("newDoctorSignup"), user: "Dr. Caner", time: t("hoursAgo", { count: 3 }), type: "success" },
+      ].filter((item) => {
+        if (!searchQuery) {
+          return true;
+        }
+        return `${item.action} ${item.user} ${item.time}`.toLowerCase().includes(searchQuery);
+      }),
+    [searchQuery, t]
+  );
 
   return (
     <div className={styles.container}>
@@ -65,11 +84,7 @@ export default function AdminDashboard() {
             <h3 className={styles.cardTitle}>{t("recentActivities")}</h3>
           </div>
           <div className={styles.list}>
-            {[
-              { id: 1, action: t("newAppointmentRequest"), user: "John Doe (UK)", time: t("minutesAgo", { count: 5 }), type: "primary" },
-              { id: 2, action: t("clinicApprovalPending"), user: "Smile Center", time: t("hoursAgo", { count: 1 }), type: "warning" },
-              { id: 3, action: t("newDoctorSignup"), user: "Dr. Caner", time: t("hoursAgo", { count: 3 }), type: "success" },
-            ].map((item) => (
+            {activities.map((item) => (
               <div key={item.id} className={styles.listItem}>
                 <div className={styles.timeBlock}>{item.time}</div>
                 <div className={styles.itemInfo}>

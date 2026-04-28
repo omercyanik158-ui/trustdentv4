@@ -1,15 +1,43 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Bell, Search, Menu, RotateCcw } from "lucide-react";
+import { resetDemoAppointments } from "@/lib/demoAppointments";
 import styles from "./Header.module.css";
 
 type DashboardRole = "doctor" | "patient" | "admin";
 
 export default function DashboardHeader({ role = "doctor" }: { role?: DashboardRole }) {
   const t = useTranslations("panel.header");
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const [searchValue, setSearchValue] = useState(() => searchParams.get("q") ?? "");
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      const params = new URLSearchParams(searchParams.toString());
+      const normalized = searchValue.trim();
+      const current = searchParams.get("q") ?? "";
+      if (normalized === current) {
+        return;
+      }
+      if (normalized) {
+        params.set("q", normalized);
+      } else {
+        params.delete("q");
+      }
+      const next = params.toString();
+      router.replace(next ? `${pathname}?${next}` : pathname, { scroll: false });
+    }, 180);
+
+    return () => clearTimeout(timeout);
+  }, [pathname, router, searchParams, searchValue]);
+
   const clearDemoData = () => {
-    localStorage.removeItem("trustdent_appointments");
+    resetDemoAppointments();
     window.location.reload();
   };
 
@@ -43,6 +71,8 @@ export default function DashboardHeader({ role = "doctor" }: { role?: DashboardR
             type="text" 
             placeholder={t("searchPlaceholder")}
             className={styles.searchInput}
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
           />
         </div>
       </div>

@@ -1,19 +1,11 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Mail, Phone, Users } from "lucide-react";
+import { readDemoAppointments, seedDemoAppointments } from "@/lib/demoAppointments";
 import styles from "../Dashboard.module.css";
-
-type Appointment = {
-  id: number;
-  treatment: string;
-  clinic: string;
-  date: string;
-  time: string;
-  status: string;
-  createdAt: string;
-};
 
 type Patient = {
   id: string;
@@ -22,26 +14,19 @@ type Patient = {
   lastTreatment: string;
 };
 
-function readAppointmentsFromStorage(): Appointment[] {
-  if (typeof window === "undefined") return [];
-  const saved = localStorage.getItem("trustdent_appointments");
-  if (!saved) return [];
-  try {
-    return JSON.parse(saved) as Appointment[];
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
-}
-
 export default function DoctorPatientsPage() {
   const t = useTranslations("panel.doctor");
-  const [appointments] = useState<Appointment[]>(readAppointmentsFromStorage);
+  const searchParams = useSearchParams();
+  const searchQuery = (searchParams.get("q") ?? "").trim().toLowerCase();
+  const [appointments] = useState(() => {
+    seedDemoAppointments();
+    return readDemoAppointments();
+  });
 
   const patients = useMemo<Patient[]>(() => {
     const map = new Map<string, Patient>();
     for (const a of appointments) {
-      const name = "Hasta"; // booking flow currently doesn't store patient name in appointment object
+      const name = a.patient || "Hasta";
       const existing = map.get(name);
       if (!existing) {
         map.set(name, {
@@ -55,8 +40,13 @@ export default function DoctorPatientsPage() {
         existing.lastTreatment = a.treatment;
       }
     }
-    return Array.from(map.values());
-  }, [appointments]);
+    return Array.from(map.values()).filter((patient) => {
+      if (!searchQuery) {
+        return true;
+      }
+      return `${patient.name} ${patient.lastTreatment}`.toLowerCase().includes(searchQuery);
+    });
+  }, [appointments, searchQuery]);
 
   return (
     <div className={styles.container}>

@@ -1,57 +1,58 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { CheckCircle2, Clock, Filter, MapPin } from "lucide-react";
+import {
+  readDemoAppointments,
+  seedDemoAppointments,
+  writeDemoAppointments,
+  type AppointmentStatus,
+} from "@/lib/demoAppointments";
+import { getStatusTone, matchesStatusSearch } from "@/lib/demoStatus";
 import styles from "../Dashboard.module.css";
 
-type Appointment = {
-  id: number;
-  treatment: string;
-  clinic: string;
-  date: string;
-  time: string;
-  status: string;
-  createdAt: string;
-};
-
-const STATUS = ["Onay Bekliyor", "Onaylandı", "İptal", "Tamamlandı"] as const;
-
-function readAppointmentsFromStorage(): Appointment[] {
-  if (typeof window === "undefined") return [];
-  const saved = localStorage.getItem("trustdent_appointments");
-  if (!saved) return [];
-  try {
-    return JSON.parse(saved) as Appointment[];
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
-}
+const STATUS: AppointmentStatus[] = ["pending", "approved", "inProgress", "cancelled", "completed"];
 
 export default function DoctorAppointmentsPage() {
   const t = useTranslations("panel.doctor");
-  const [appointments, setAppointments] = useState<Appointment[]>(readAppointmentsFromStorage);
-  const [filter, setFilter] = useState<(typeof STATUS)[number] | "Tümü">("Tümü");
+  const searchParams = useSearchParams();
+  const searchQuery = (searchParams.get("q") ?? "").trim().toLowerCase();
+  const [appointments, setAppointments] = useState(() => {
+    seedDemoAppointments();
+    return readDemoAppointments();
+  });
+  const [filter, setFilter] = useState<AppointmentStatus | "all">("all");
+
+  const statusLabel = useMemo<Record<AppointmentStatus, string>>(
+    () => ({
+      pending: t("statusPending"),
+      approved: t("statusApproved"),
+      inProgress: t("statusInProgress"),
+      cancelled: t("statusCancelled"),
+      completed: t("statusCompleted"),
+    }),
+    [t]
+  );
 
   const filtered = useMemo(() => {
-    if (filter === "Tümü") return appointments;
-    return appointments.filter((a) => a.status === filter);
-  }, [appointments, filter]);
+    const byFilter = filter === "all" ? appointments : appointments.filter((a) => a.status === filter);
+    if (!searchQuery) {
+      return byFilter;
+    }
+    return byFilter.filter((a) => {
+      const haystack = `${a.patient} ${a.treatment} ${a.clinic} ${a.date} ${a.time}`.toLowerCase();
+      return haystack.includes(searchQuery) || matchesStatusSearch(a.status, searchQuery, statusLabel);
+    });
+  }, [appointments, filter, searchQuery, statusLabel]);
 
-  const updateStatus = (id: number, status: string) => {
+  const updateStatus = (id: number, status: AppointmentStatus) => {
     setAppointments((prev) => {
       const next = prev.map((a) => (a.id === id ? { ...a, status } : a));
-      localStorage.setItem("trustdent_appointments", JSON.stringify(next));
+      writeDemoAppointments(next);
       return next;
     });
-  };
-
-  const statusLabel: Record<(typeof STATUS)[number], string> = {
-    "Onay Bekliyor": t("statusPending"),
-    Onaylandı: t("statusApproved"),
-    İptal: t("statusCancelled"),
-    Tamamlandı: t("statusCompleted"),
   };
 
   return (
@@ -67,10 +68,10 @@ export default function DoctorAppointmentsPage() {
               <Filter size={14} />
               <select
                 value={filter}
-                onChange={(e) => setFilter(e.target.value as (typeof STATUS)[number] | "Tümü")}
+                onChange={(e) => setFilter(e.target.value as AppointmentStatus | "all")}
                 style={{ background: "transparent", border: 0, color: "inherit", outline: "none" }}
               >
-                <option value="Tümü">{t("viewAll")}</option>
+                <option value="all">{t("viewAll")}</option>
                 {STATUS.map((s) => (
                   <option key={s} value={s}>
                     {statusLabel[s]}
@@ -96,25 +97,38 @@ export default function DoctorAppointmentsPage() {
                 </div>
 
                 <div className={styles.itemInfo}>
+                  <div className={styles.itemDesc}>{apt.patient}</div>
                   <div className={styles.itemName}>{apt.treatment}</div>
                   <div className={styles.itemDesc}>
                     <MapPin size={12} style={{ display: "inline" }} /> {apt.clinic || t("clinicUnassigned")}
                   </div>
                 </div>
 
-                <span className={`${styles.statusBadge} ${styles.statusWarning}`}>{statusLabel[apt.status as (typeof STATUS)[number]] ?? apt.status}</span>
+                <span
+                  className={`${styles.statusBadge} ${
+                    getStatusTone(apt.status) === "warning"
+                      ? styles.statusWarning
+                      : getStatusTone(apt.status) === "primary"
+                        ? styles.statusPrimary
+                        : getStatusTone(apt.status) === "danger"
+                          ? styles.statusDanger
+                          : styles.statusSuccess
+                  }`}
+                >
+                  {statusLabel[apt.status]}
+                </span>
 
                 <div style={{ display: "flex", gap: 8 }}>
                   <button
                     className="btn btn-sm btn-ghost"
-                    onClick={() => updateStatus(apt.id, "İptal")}
+                    onClick={() => updateStatus(apt.id, "cancelled")}
                     style={{ padding: "0.55rem 0.9rem" }}
                   >
                     {t("cancel")}
                   </button>
                   <button
                     className="btn btn-sm btn-primary"
-                    onClick={() => updateStatus(apt.id, "Onaylandı")}
+                    onClick={() => updateStatus(apt.id, "approved")}
                     style={{ padding: "0.55rem 0.9rem" }}
                   >
                     <CheckCircle2 size={16} />

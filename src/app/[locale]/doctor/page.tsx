@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { 
   Users, 
@@ -20,6 +22,13 @@ import {
   Tooltip, 
   ResponsiveContainer 
 } from "recharts";
+import {
+  readDemoAppointments,
+  seedDemoAppointments,
+  writeDemoAppointments,
+  type AppointmentStatus,
+} from "@/lib/demoAppointments";
+import { getStatusTone, matchesStatusSearch } from "@/lib/demoStatus";
 import styles from "./Dashboard.module.css";
 
 const DATA = [
@@ -32,17 +41,45 @@ const DATA = [
   { name: 'Paz', hastalar: 8, gelir: 1600 },
 ];
 
-const APPOINTMENTS = [
-  { id: 1, patient: "Ahmet Yılmaz", time: "09:00", treatment: "İmplant Kontrolü", status: "pending" },
-  { id: 2, patient: "Sarah Miller", time: "10:30", treatment: "Zirkonyum Kaplama", status: "inProgress" },
-  { id: 3, patient: "Ali Vefa", time: "13:00", treatment: "Kanal Tedavisi", status: "pending" },
-  { id: 4, patient: "Elena Popova", time: "14:45", treatment: "Beyazlatma", status: "completed" },
-];
-
 export default function DoctorDashboard() {
   const locale = useLocale();
   const t = useTranslations("panel.doctor");
-  const appointments = APPOINTMENTS;
+  const searchParams = useSearchParams();
+  const searchQuery = (searchParams.get("q") ?? "").trim().toLowerCase();
+
+  const [appointments, setAppointments] = useState(() => {
+    seedDemoAppointments();
+    return readDemoAppointments();
+  });
+
+  const statusLabels = useMemo<Record<AppointmentStatus, string>>(
+    () => ({
+      pending: t("statusPending"),
+      inProgress: t("statusInProgress"),
+      approved: t("statusApproved"),
+      cancelled: t("statusCancelled"),
+      completed: t("statusCompleted"),
+    }),
+    [t]
+  );
+
+  const visibleAppointments = useMemo(() => {
+    return appointments
+      .filter((apt) => {
+        if (!searchQuery) {
+          return true;
+        }
+        const haystack = `${apt.patient} ${apt.treatment} ${apt.time}`.toLowerCase();
+        return haystack.includes(searchQuery) || matchesStatusSearch(apt.status, searchQuery, statusLabels);
+      })
+      .slice(0, 4);
+  }, [appointments, searchQuery, statusLabels]);
+
+  const updateStatus = (id: number, status: AppointmentStatus) => {
+    const next = appointments.map((apt) => (apt.id === id ? { ...apt, status } : apt));
+    setAppointments(next);
+    writeDemoAppointments(next);
+  };
 
   return (
     <div className={styles.container}>
@@ -140,7 +177,7 @@ export default function DoctorDashboard() {
             </Link>
           </div>
           <div className={styles.list}>
-            {appointments.map((apt) => (
+            {visibleAppointments.map((apt) => (
               <div key={apt.id} className={styles.listItem}>
                 <div className={styles.timeBlock}>
                   <span>{apt.time}</span>
@@ -150,26 +187,39 @@ export default function DoctorDashboard() {
                   <div className={styles.itemDesc}>{apt.treatment}</div>
                 </div>
                 <div className={`${styles.statusBadge} ${
-                  apt.status === "pending" ? styles.statusWarning :
-                  apt.status === "inProgress" ? styles.statusPrimary :
-                  styles.statusSuccess
+                  getStatusTone(apt.status) === "warning"
+                    ? styles.statusWarning
+                    : getStatusTone(apt.status) === "primary"
+                      ? styles.statusPrimary
+                      : getStatusTone(apt.status) === "danger"
+                        ? styles.statusDanger
+                        : styles.statusSuccess
                 }`}>
-                  {apt.status === "pending"
-                    ? t("statusPending")
-                    : apt.status === "inProgress"
-                      ? t("statusInProgress")
-                      : t("statusCompleted")}
+                  {statusLabels[apt.status]}
                 </div>
                 <div style={{ display: "flex", gap: 8 }}>
-                  <button className="btn btn-sm btn-ghost" style={{ padding: "0.55rem 0.9rem" }}>
+                  <button
+                    className="btn btn-sm btn-ghost"
+                    style={{ padding: "0.55rem 0.9rem" }}
+                    onClick={() => updateStatus(apt.id, "cancelled")}
+                  >
                     <XCircle size={16} /> {t("cancel")}
                   </button>
-                  <button className="btn btn-sm btn-primary" style={{ padding: "0.55rem 0.9rem" }}>
+                  <button
+                    className="btn btn-sm btn-primary"
+                    style={{ padding: "0.55rem 0.9rem" }}
+                    onClick={() => updateStatus(apt.id, "approved")}
+                  >
                     <CheckCircle2 size={16} /> {t("approve")}
                   </button>
                 </div>
               </div>
             ))}
+            {visibleAppointments.length === 0 ? (
+              <div style={{ textAlign: "center", padding: "1.25rem", color: "var(--text-muted)" }}>
+                {t("noAppointmentsYet")}
+              </div>
+            ) : null}
           </div>
         </div>
       </div>
