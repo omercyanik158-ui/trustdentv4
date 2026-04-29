@@ -42,3 +42,32 @@
 - "Bu demo surumunde kullanici akislarini backend'siz ama canli sekilde calistirdik:
   randevu olusturma, onay/iptal, arama/filtre/siralama ve cok dilli deneyim tek yapida hazir.
   Bir sonraki adimda bu ayni UX katmani API ve veritabaniyla production'a tasinabilir."
+
+## Sunum Oncesi 60 Saniye Kontrol Listesi
+- Sunucu acik mi kontrol et: `http://localhost:3000`
+- Locale testi: `TR -> EN -> DE` gecisleri hizli kontrol
+- `Demo Sifirla` butonuna bir kez bas (temiz baslangic)
+- Tarayici sekmeleri hazir: `/tr`, `/tr/patient`, `/tr/doctor`, `/tr/admin`
+- Zoom oranini `%100` yap, gereksiz sekmeleri kapat
+
+## Soru Gelirse 10 Kisa Cevap (Kapanisa Ekle)
+1. **Backend var mi?**  
+   Su an demo surumu, backend'siz calisiyor.
+2. **Veriler nerede tutuluyor?**  
+   Demo verileri localStorage'da tutuluyor.
+3. **Onayla/Iptal gercekten calisiyor mu?**  
+   Evet, doktor panelinde durum anlik guncelleniyor.
+4. **Coklu dil tam calisiyor mu?**  
+   Evet, TR/EN/DE/ES destekli; randevu akisi da cok dilli.
+5. **Neden once frontend demo yaptiniz?**  
+   Kullanici akislarini hizli dogrulamak icin en verimli adim buydu.
+6. **Canliya cikmaya hazir mi?**  
+   Demo'ya hazir; canli icin API, auth ve DB entegrasyonu gerekir.
+7. **Doktor ekrani neden Turkce agirlikli?**  
+   Operasyon ekibi Turk oldugu icin bilincli olarak boyle birakildi.
+8. **Arama/filtre gercek mi yoksa gorsel mi?**  
+   Gercek; listeler query ve secimlere gore anlik filtreleniyor.
+9. **Demo nasil sifirlaniyor?**  
+   Paneldeki `Demo Sifirla` ile tek tikta temiz baslangic yapiliyor.
+10. **Bir sonraki adim ne?**  
+    Ayni UX'i bozmadan API + veritabani + rol bazli auth baglamak.

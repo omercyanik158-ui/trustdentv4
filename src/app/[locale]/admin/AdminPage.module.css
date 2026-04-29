@@ -1,0 +1,85 @@
+.detailPanel {
+  margin-top: 0.85rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-subtle);
+}
+
+.detailTitle {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 0.65rem;
+}
+
+.detailGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.6rem;
+}
+
+.detailItem {
+  padding: 0.55rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+}
+
+.detailLabel {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-bottom: 0.2rem;
+}
+
+.detailValue {
+  font-size: 0.82rem;
+  color: var(--text-primary);
+  font-weight: 650;
+}
+
+.detailActions {
+  margin-top: 0.8rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.decisionBadge {
+  margin-top: 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: var(--radius-full);
+  padding: 0.28rem 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.decisionApproved {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+}
+
+.decisionRejected {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+.tabBtn {
+  border-color: var(--border-primary);
+}
+
+.tabBtnInactive {
+  color: var(--primary);
+  background: rgba(188, 10, 24, 0.08);
+}
+
+.tabBtnInactive:hover {
+  background: rgba(188, 10, 24, 0.16);
+}
+
+.reviewBtn {
+  min-width: 92px;
+}

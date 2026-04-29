@@ -64,6 +64,11 @@
   align-items: center;
   gap: 0.75rem;
   padding: 0.75rem;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
   border-radius: var(--radius-md);
   color: var(--text-secondary);
   font-size: 0.9rem;
