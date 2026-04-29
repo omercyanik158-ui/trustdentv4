@@ -7,6 +7,18 @@ import { TESTIMONIALS } from "@/data";
 import type { Testimonial } from "@/data";
 import styles from "./Testimonials.module.css";
 
+const TREATMENT_ID_ALIASES: Record<string, string> = {
+  implantes: "implants",
+  zirconio: "zirconia",
+  carillas: "veneers",
+  ortodoncia: "orthodontics",
+  blanqueamiento: "whitening",
+};
+
+function normalizeTreatmentId(id: string) {
+  return TREATMENT_ID_ALIASES[id] ?? id;
+}
+
 function Stars({ count }: { count: number }) {
   return (
     <div className={styles.stars} aria-label={`${count} / 5`}>
@@ -28,7 +40,7 @@ function ReviewCard({
   t: ReturnType<typeof useTranslations>;
   tTreatments: ReturnType<typeof useTranslations>;
 }) {
-  const treatmentId = t(`${review.key}.treatment`);
+  const treatmentId = normalizeTreatmentId(t(`${review.key}.treatment`));
   return (
     <article className={styles.card}>
       <header className={styles.cardHd}>
