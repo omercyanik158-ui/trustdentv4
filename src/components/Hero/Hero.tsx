@@ -82,6 +82,7 @@ export default function Hero() {
                   src="/images/tooth_hero_real_transparent.png" 
                   alt="Tooth Jewel" 
                   fill 
+                  sizes="(max-width: 768px) 90vw, (max-width: 1200px) 50vw, 40vw"
                   priority
                   className={styles.heroImg}
                 />

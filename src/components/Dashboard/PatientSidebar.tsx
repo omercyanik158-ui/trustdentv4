@@ -3,12 +3,13 @@
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
-import { CalendarDays, LayoutDashboard, LogOut, Settings, UserRound, Stethoscope } from "lucide-react";
+import { CalendarDays, FileImage, LayoutDashboard, LogOut, Settings, UserRound, Stethoscope } from "lucide-react";
 import styles from "./Sidebar.module.css";
 
 const MENU_ITEMS = [
   { href: "/patient", labelKey: "dashboard", icon: LayoutDashboard },
   { href: "/patient/appointments", labelKey: "myAppointments", icon: CalendarDays },
+  { href: "/patient/documents", labelKey: "documents", icon: FileImage },
   { href: "/patient/profile", labelKey: "profile", icon: UserRound },
   { href: "/patient/settings", labelKey: "settings", icon: Settings },
 ];

@@ -121,24 +121,24 @@
 }
 
 /* Leaflet popup override */
-:global(.leaflet-popup-content-wrapper) {
+.mapSection :global(.leaflet-popup-content-wrapper) {
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
   padding: 0 !important;
 }
 
-:global(.leaflet-popup-tip-container) {
+.mapSection :global(.leaflet-popup-tip-container) {
   display: none !important;
 }
 
-:global(.leaflet-control-zoom) {
+.mapSection :global(.leaflet-control-zoom) {
   border: 1px solid var(--border) !important;
   border-radius: var(--radius-md) !important;
   overflow: hidden;
 }
 
-:global(.leaflet-control-zoom a) {
+.mapSection :global(.leaflet-control-zoom a) {
   background: var(--bg-card) !important;
   color: var(--text-primary) !important;
   border: none !important;
@@ -148,7 +148,7 @@
   font-size: 16px !important;
 }
 
-:global(.leaflet-control-zoom a:hover) {
+.mapSection :global(.leaflet-control-zoom a:hover) {
   background: var(--bg-subtle) !important;
   color: var(--text-primary) !important;
 }

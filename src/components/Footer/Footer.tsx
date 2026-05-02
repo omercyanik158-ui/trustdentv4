@@ -38,7 +38,7 @@ export default function Footer() {
                     target="_blank"
                     rel="noreferrer"
                     className={styles.socialLink}
-                    aria-label="Social"
+                    aria-label={t("social")}
                   >
                     <Icon size={16} />
                   </a>

@@ -8,7 +8,10 @@
     "contact": "Contacto",
     "login": "Iniciar Sesión",
     "register": "Registrarse",
-    "myAccount": "Mi Cuenta"
+    "myAccount": "Mi Cuenta",
+    "changeLanguage": "Cambiar idioma",
+    "toggleMenu": "Mostrar u ocultar menú",
+    "closeMenu": "Cerrar menú"
   },
   "hero": {
     "badge": "El Viaje Restaurativo",
@@ -93,7 +96,11 @@
       "desc": "Una nueva obra maestra arquitectónica. Regrese a casa con confianza."
     },
     "day": "Día",
-    "videoSoon": "El video se añadirá pronto"
+    "videoSoon": "El video se añadirá pronto",
+    "close": "Cerrar",
+    "previous": "Paso anterior",
+    "next": "Siguiente paso",
+    "stepAria": "Paso {count}"
   },
   "clinics": {
     "title": "Clínicas Destacadas",
@@ -217,7 +224,8 @@
     "careers": "Carreras",
     "copyright": "© 2025 TrustDent. Todos los derechos reservados.",
     "sslSecure": "SSL Seguro",
-    "compliance": "Cumple con GDPR"
+    "compliance": "Cumple con GDPR",
+    "social": "Perfil social"
   },
   "auth": {
     "loginTitle": "Bienvenido de Nuevo",
@@ -248,6 +256,22 @@
   "booking": {
     "title": "Crear cita",
     "step": "Paso {current} / {total}",
+    "intakeTitle": "Preevaluación rápida",
+    "intakeDesc": "Responde 3 preguntas cortas para sugerir el tratamiento más adecuado.",
+    "intakeConcernLabel": "Molestia principal",
+    "intakeConcern_pain": "Dolor / sensibilidad",
+    "intakeConcern_missing": "Diente faltante",
+    "intakeConcern_color": "Color / blanqueamiento",
+    "intakeConcern_shape": "Forma / estética",
+    "intakePainLabel": "Nivel de dolor",
+    "intakePriorityLabel": "Tu prioridad",
+    "intakePriority_speed": "Solución rápida",
+    "intakePriority_price": "Equilibrio de presupuesto",
+    "intakePriority_aesthetics": "Resultado estético",
+    "intakeSuggestedTreatment": "Tratamiento sugerido",
+    "intakeDisclaimer": "Esto no es un diagnóstico médico; es solo orientación previa.",
+    "skipQuickIntake": "Omitir encuesta",
+    "intakeSummaryPrefix": "Preevaluación",
     "step1Title": "Selección de tratamiento y clínica",
     "step1Desc": "¿Qué tratamiento deseas reservar?",
     "step2Title": "Fecha y hora",
@@ -261,6 +285,8 @@
     "dateLabel": "Fecha",
     "selectDate": "Seleccionar fecha",
     "timeLabel": "Selección de hora",
+    "prevMonth": "Mes anterior",
+    "nextMonth": "Mes siguiente",
     "fullNameLabel": "Nombre completo",
     "phoneLabel": "Número de teléfono",
     "continue": "Continuar",
@@ -268,12 +294,18 @@
     "confirmAppointment": "Confirmar cita",
     "successTitle": "¡Tu solicitud fue recibida!",
     "successDesc": "Tu solicitud de cita fue enviada a la clínica. Nos pondremos en contacto contigo en breve.",
+    "notificationPatientTitle": "Tu solicitud de cita fue recibida",
+    "notificationPatientMessage": "Tu solicitud fue enviada al doctor. Aquí verás las actualizaciones de estado.",
+    "notificationDoctorTitle": "Nueva solicitud de cita",
+    "notificationDoctorMessage": "Hay una nueva solicitud de cita esperando en tu panel.",
     "goToPatientPanel": "Ir al panel del paciente"
   },
   "panel": {
     "common": {
       "dashboard": "Panel",
       "appointments": "Citas",
+      "documents": "Mis documentos",
+      "radiology": "Radiología",
       "myAppointments": "Mis citas",
       "myPatients": "Mis pacientes",
       "earnings": "Ingresos",
@@ -294,7 +326,10 @@
       "demoAdminName": "Administrador de Plataforma",
       "demoAdminRole": "Administrador",
       "resetDemo": "Reiniciar demo",
-      "resetDemoTitle": "Borrar datos demo y recargar la página"
+      "resetDemoTitle": "Borrar datos demo y recargar la página",
+      "notificationsTitle": "Notificaciones",
+      "markAllRead": "Marcar todo como leído",
+      "noNotifications": "Todavía no hay notificaciones."
     },
     "admin": {
       "title": "Panel de Administración ⚙️",
@@ -364,6 +399,7 @@
       "statusApproved": "Aprobada",
       "statusCancelled": "Cancelada",
       "statusCompleted": "Completada",
+      "appointmentStatusChanged": "Estado de la cita actualizado",
       "myPatientsTitle": "Mis pacientes",
       "myPatientsSubtitle": "Lista y resumen de pacientes. (Demo: derivado de citas.)",
       "totalPatients": "Pacientes totales",
@@ -383,7 +419,23 @@
       "clinic": "Clínica",
       "phone": "Teléfono",
       "email": "Correo electrónico",
-      "save": "Guardar"
+      "save": "Guardar",
+      "saved": "Guardado",
+      "radiologyTitle": "Revisión de radiología",
+      "radiologySubtitle": "Revisa radiografías de pacientes y agrega notas de preevaluación.",
+      "radiologyList": "Radiografías cargadas",
+      "radiologyNoItems": "Aún no hay radiografías cargadas.",
+      "radiologyDoctorNotePlaceholder": "Agrega tu nota médica...",
+      "radiologyView": "Abrir",
+      "radiologyMarkReviewed": "Marcar revisado",
+      "radiologyReviewed": "Revisado",
+      "radiologyPending": "Pendiente de revisión",
+      "radiologyNotificationPatientTitle": "Se agregó una nota médica",
+      "radiologyPreviewInvalid": "La vista previa no es confiable",
+      "radiologyBookingContextLabel": "Resumen de la solicitud / cita",
+      "radiologyPatientNotesLabel": "Nota del paciente",
+      "radiologyLinkedAppointmentCta": "Ir a citas",
+      "patientIntakeSummaryLabel": "Resumen previo"
     },
     "patient": {
       "welcomeTitle": "Bienvenido, Ahmet 👋",
@@ -416,6 +468,7 @@
       "fullName": "Nombre completo",
       "email": "Correo electrónico",
       "phone": "Teléfono",
+      "saved": "Guardado",
       "save": "Guardar",
       "settingsTitle": "Configuración",
       "settingsSubtitle": "Gestiona notificaciones y preferencias. (Demo)",
@@ -426,20 +479,52 @@
       "emailNotificationsDesc": "Recibe confirmaciones y recordatorios por correo.",
       "vipSupport": "Soporte VIP",
       "vipSupportDesc": "Activa el canal de soporte prioritario.",
-      "change": "Cambiar"
+      "change": "Cambiar",
+      "enabled": "Activo",
+      "disabled": "Inactivo",
+      "documentsTitle": "Radiografías y documentos",
+      "documentsSubtitle": "Carga tus imágenes dentales para la preevaluación médica.",
+      "documentsUploadCardTitle": "Subir nuevo archivo",
+      "documentsTitleLabel": "Título del documento (opcional)",
+      "documentsNotesLabel": "Notas para el doctor (opcional)",
+      "documentsSelectFile": "Seleccionar radiografía",
+      "documentsUploading": "Subiendo...",
+      "documentsUploadHint": "Permitido: JPG/PNG/WEBP hasta {size}MB.",
+      "documentsIntakeSnapshotTitle": "El resumen de tu última solicitud se enviará al médico junto con esta subida.",
+      "documentsIntakeSnapshotEmpty": "Hay una cita pero sin texto de resumen; el archivo llegará igual. Puedes añadir una nota abajo.",
+      "documentsListIntakeLabel": "Resumen en el momento de la subida",
+      "documentsFileTypeError": "Solo se permiten archivos JPG, PNG o WEBP.",
+      "documentsFileSizeError": "El archivo debe ser menor a {size}MB.",
+      "documentsUploadSuccess": "Archivo subido correctamente.",
+      "documentsNotificationDoctorTitle": "Nueva radiografía subida",
+      "documentsUploadFailed": "La carga falló. Inténtalo de nuevo.",
+      "documentsListTitle": "Archivos cargados",
+      "documentsNoItems": "Aún no hay documentos cargados.",
+      "documentsUploadedAt": "Subido",
+      "documentsView": "Ver",
+      "documentsDoctorNote": "Nota del doctor",
+      "documentsDefaultTitle": "Radiografía dental",
+      "documentsPreviewInvalid": "No se pudo validar la vista previa"
     }
   },
   "common": {
     "loading": "Cargando...",
     "error": "Ocurrió un error",
+    "errorDescription": "Ocurrió un problema inesperado. Inténtalo de nuevo.",
+    "notFoundTitle": "404 - Página no encontrada",
+    "notFoundDescription": "La página que buscas no existe o fue movida.",
     "retry": "Intentar de nuevo",
     "close": "Cerrar",
     "save": "Guardar",
     "cancel": "Cancelar",
     "confirm": "Confirmar",
     "search": "Buscar",
+    "searchPlaceholderList": "Buscar por nombre, clínica o tratamiento...",
     "filter": "Filtrar",
     "sortBy": "Ordenar por",
+    "sortRating": "Por valoración",
+    "sortReviews": "Por reseñas",
+    "sortAZ": "A-Z",
     "all": "Todos"
   }
 }

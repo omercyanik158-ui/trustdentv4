@@ -8,6 +8,7 @@ import styles from "./FeaturedDoctors.module.css";
 
 export default function FeaturedDoctors() {
   const t = useTranslations("doctors");
+  const tClinics = useTranslations("clinics");
   const tNav = useTranslations("nav");
   const locale = useLocale();
 
@@ -57,7 +58,7 @@ export default function FeaturedDoctors() {
               </header>
 
               <div className={styles.cardBd}>
-                <div className={styles.ratingRow} aria-label="Rating">
+                <div className={styles.ratingRow} aria-label={tClinics("rating")}>
                   <span className={styles.stars} aria-hidden="true">
                     <Star size={14} />
                   </span>

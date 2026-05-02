@@ -20,12 +20,13 @@ export function getStatusTone(status: AppointmentStatus): StatusTone {
 export function matchesStatusSearch(
   status: AppointmentStatus,
   query: string,
-  labels: Record<AppointmentStatus, string>
+  labels: Record<AppointmentStatus, string>,
+  locale = "en"
 ): boolean {
-  const normalized = query.trim().toLowerCase();
+  const normalized = query.trim().toLocaleLowerCase(locale);
   if (!normalized) {
     return true;
   }
 
-  return labels[status].toLowerCase().includes(normalized);
+  return labels[status].toLocaleLowerCase(locale).includes(normalized);
 }

@@ -22,9 +22,6 @@
   pointer-events: none;
 }
 
-.ribbonContainer svg {
-}
-
 .steps {
   position: relative;
   z-index: 2;
@@ -143,16 +140,29 @@
 }
 
 @media (max-width: 640px) {
+  /* Leave gutter so the scroll-draw ribbon stays visible beside stacked cards */
   .timelineWrapper {
-    padding: 2rem 0;
+    padding: 2rem 0 2rem 2.75rem;
   }
-  
-  .ribbonContainer { display: none; }
-  
+
+  .ribbonContainer {
+    left: 0.35rem;
+    transform: none;
+    width: 52px;
+    opacity: 0.92;
+  }
+
   .stepCard {
     width: 100%;
     align-self: stretch !important;
   }
-  
-  .connectorDot { display: none; }
+
+  .connectorDot {
+    display: block;
+    left: -1.85rem !important;
+    right: auto !important;
+    transform: translateY(-50%) !important;
+    width: 10px;
+    height: 10px;
+  }
 }

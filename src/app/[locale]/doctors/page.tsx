@@ -1,22 +1,24 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { useSearchParams } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
-import { Star, Stethoscope, Building2 } from "lucide-react";
+import { Star, Stethoscope, Building2, Search } from "lucide-react";
 import { DOCTORS } from "@/data";
+import BookingModal from "@/components/Booking/BookingModal";
 import styles from "./DoctorsPage.module.css";
 
 export default function DoctorsPage() {
   const tNav = useTranslations("nav");
   const t = useTranslations("doctors");
+  const tClinics = useTranslations("clinics");
   const tCommon = useTranslations("common");
-  const searchParams = useSearchParams();
-  const searchQuery = (searchParams.get("q") ?? "").trim().toLowerCase();
+  const locale = useLocale();
+  const [searchQuery, setSearchQuery] = useState("");
   const [clinicFilter, setClinicFilter] = useState<string>("all");
   const [sortBy, setSortBy] = useState<"rating" | "reviews" | "name">("rating");
+  const [bookingOpen, setBookingOpen] = useState(false);
 
   const clinicOptions = useMemo(
     () => Array.from(new Set(DOCTORS.map((doctor) => doctor.clinicName))),
@@ -27,12 +29,13 @@ export default function DoctorsPage() {
       if (clinicFilter !== "all" && doctor.clinicName !== clinicFilter) {
         return false;
       }
-      if (!searchQuery) {
+      const normalizedSearch = searchQuery.trim().toLowerCase();
+      if (!normalizedSearch) {
         return true;
       }
       return `${doctor.name} ${doctor.title} ${doctor.clinicName} ${doctor.review}`
         .toLowerCase()
-        .includes(searchQuery);
+        .includes(normalizedSearch);
     });
 
     return filtered.sort((a, b) => {
@@ -64,6 +67,19 @@ export default function DoctorsPage() {
 
           <div className={styles.controls}>
             <label className={styles.control}>
+              <span>{tCommon("search")}</span>
+              <div className="input" style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                <Search size={14} aria-hidden="true" />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder={tCommon("searchPlaceholderList")}
+                  style={{ border: 0, outline: "none", background: "transparent", width: "100%" }}
+                />
+              </div>
+            </label>
+            <label className={styles.control}>
               <span>{tCommon("filter")} ({tNav("clinics")})</span>
               <select className="input" value={clinicFilter} onChange={(e) => setClinicFilter(e.target.value)}>
                 <option value="all">{tCommon("all")}</option>
@@ -81,9 +97,9 @@ export default function DoctorsPage() {
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as "rating" | "reviews" | "name")}
               >
-                <option value="rating">Rating</option>
-                <option value="reviews">Reviews</option>
-                <option value="name">A-Z</option>
+                <option value="rating">{tCommon("sortRating")}</option>
+                <option value="reviews">{tCommon("sortReviews")}</option>
+                <option value="name">{tCommon("sortAZ")}</option>
               </select>
             </label>
           </div>
@@ -117,7 +133,7 @@ export default function DoctorsPage() {
                 </header>
 
                 <div className={styles.cardBd}>
-                  <div className={styles.ratingRow} aria-label="Rating">
+                  <div className={styles.ratingRow} aria-label={tClinics("rating")}>
                     <span className={styles.stars} aria-hidden="true">
                       <Star size={14} />
                     </span>
@@ -130,7 +146,12 @@ export default function DoctorsPage() {
                 </div>
 
                 <footer className={styles.cardFt}>
-                  <button className="btn btn-primary btn-sm">{t("bookAppointment")}</button>
+                  <button
+                    className="btn btn-primary btn-sm"
+                    onClick={() => setBookingOpen(true)}
+                  >
+                    {t("bookAppointment")}
+                  </button>
                 </footer>
               </article>
             ))}
@@ -141,6 +162,7 @@ export default function DoctorsPage() {
         </div>
       </main>
       <Footer />
+      <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} locale={locale} />
     </>
   );
 }

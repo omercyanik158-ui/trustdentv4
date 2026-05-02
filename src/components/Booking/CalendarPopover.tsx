@@ -15,9 +15,9 @@ import {
   isBefore,
   startOfToday,
 } from "date-fns";
-import { enUS, tr } from "date-fns/locale";
-import { motion, AnimatePresence } from "framer-motion";
+import { de, enUS, es, tr } from "date-fns/locale";
 import { Calendar as CalIcon, ChevronLeft, ChevronRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 import styles from "./BookingModal.module.css";
 
 type Props = {
@@ -37,14 +37,20 @@ function toDate(value: string): Date | undefined {
 }
 
 export default function CalendarPopover({ locale, value, onChange, label }: Props) {
+  const t = useTranslations("booking");
   const [open, setOpen] = useState(false);
-  const [direction, setDirection] = useState<1 | -1>(1);
   const wrapRef = useRef<HTMLDivElement>(null);
   const selected = useMemo(() => toDate(value), [value]);
   const today = useMemo(() => startOfToday(), []);
   const [viewMonth, setViewMonth] = useState<Date>(selected ?? today);
 
-  const dfLocale = locale?.startsWith("tr") ? tr : enUS;
+  const dfLocale = locale?.startsWith("tr")
+    ? tr
+    : locale?.startsWith("de")
+      ? de
+      : locale?.startsWith("es")
+        ? es
+        : enUS;
   const buttonText = selected ? format(selected, "PPP", { locale: dfLocale }) : label;
 
   const weekDays = useMemo(() => {
@@ -90,12 +96,10 @@ export default function CalendarPopover({ locale, value, onChange, label }: Prop
   }, [open]);
 
   const goPrev = () => {
-    setDirection(-1);
     setViewMonth((m) => addMonths(m, -1));
   };
 
   const goNext = () => {
-    setDirection(1);
     setViewMonth((m) => addMonths(m, 1));
   };
 
@@ -121,47 +125,28 @@ export default function CalendarPopover({ locale, value, onChange, label }: Prop
         <span className={styles.dateButtonText}>{buttonText}</span>
       </button>
 
-      <AnimatePresence initial={false}>
-        {open && (
-          <motion.div
-            className={styles.calendarPopover}
-            role="dialog"
-            aria-label={label}
-            initial={{ opacity: 0, y: -6, scale: 0.985 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -6, scale: 0.985 }}
-            transition={{ duration: 0.16, ease: [0.16, 1, 0.3, 1] }}
-          >
+      {open && (
+          <div className={styles.calendarPopover} role="dialog" aria-label={label}>
             {/* Header */}
             <div className={styles.calHeader}>
               <button
                 type="button"
                 className={styles.calNavBtn}
                 onClick={goPrev}
-                aria-label="Önceki ay"
+                aria-label={t("prevMonth")}
               >
                 <ChevronLeft size={16} />
               </button>
 
               <div className={styles.calMonthLabel}>
-                <AnimatePresence mode="wait" initial={false}>
-                  <motion.span
-                    key={monthLabel}
-                    initial={{ opacity: 0, y: direction * 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -direction * 6 }}
-                    transition={{ duration: 0.18 }}
-                  >
-                    {monthLabel}
-                  </motion.span>
-                </AnimatePresence>
+                <span>{monthLabel}</span>
               </div>
 
               <button
                 type="button"
                 className={styles.calNavBtn}
                 onClick={goNext}
-                aria-label="Sonraki ay"
+                aria-label={t("nextMonth")}
               >
                 <ChevronRight size={16} />
               </button>
@@ -178,16 +163,7 @@ export default function CalendarPopover({ locale, value, onChange, label }: Prop
 
             {/* Days grid - animated month transition */}
             <div className={styles.calDaysWrapper}>
-              <AnimatePresence mode="wait" initial={false} custom={direction}>
-                <motion.div
-                  key={monthLabel}
-                  className={styles.calDaysGrid}
-                  custom={direction}
-                  initial={{ opacity: 0, x: direction * 12 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -direction * 12 }}
-                  transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-                >
+                <div className={styles.calDaysGrid}>
                   {days.map((day, i) => {
                     const isOutside = !isSameMonth(day, viewMonth);
                     const isToday = isSameDay(day, today);
@@ -216,12 +192,10 @@ export default function CalendarPopover({ locale, value, onChange, label }: Prop
                       </button>
                     );
                   })}
-                </motion.div>
-              </AnimatePresence>
+                </div>
             </div>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
     </div>
   );
 }

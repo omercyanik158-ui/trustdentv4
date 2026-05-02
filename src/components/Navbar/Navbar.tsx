@@ -8,6 +8,8 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "./Navbar.module.css";
 import { AlertCircle, ChevronDown, Eye, EyeOff, Globe, Loader2, Menu, X } from "lucide-react";
+import { sanitizeEmail, sanitizeText } from "@/lib/security";
+import { trackEvent } from "@/lib/observability";
 
 const LOCALES = [
   { code: "tr", label: "Türkçe" },
@@ -92,7 +94,7 @@ export default function Navbar() {
                 ref={langBtnRef}
                 className={styles.langBtn}
                 onClick={() => langOpen ? setLangOpen(false) : openLang()}
-                aria-label="Change language"
+                aria-label={t("changeLanguage")}
               >
                 <Globe size={15} />
                 <span className={styles.langCode}>{locale.toUpperCase()}</span>
@@ -136,7 +138,7 @@ export default function Navbar() {
             <button
               className={styles.menuBtn}
               onClick={() => setMobileOpen(!mobileOpen)}
-              aria-label="Toggle menu"
+              aria-label={mobileOpen ? t("closeMenu") : t("toggleMenu")}
             >
               {mobileOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
@@ -201,6 +203,8 @@ function AuthModal({ onClose }: { onClose: () => void }) {
   const [errors, setErrors] = useState<FieldErrors>({});
   const [submitting, setSubmitting] = useState(false);
   const [info, setInfo] = useState<string | null>(null);
+  const [website, setWebsite] = useState("");
+  const [lastSubmitAt, setLastSubmitAt] = useState(0);
 
   // Body scroll lock + ESC to close
   useEffect(() => {
@@ -222,30 +226,42 @@ function AuthModal({ onClose }: { onClose: () => void }) {
     setInfo(null);
   }
 
-  function validate(): FieldErrors {
+  function validate(input: { name: string; email: string; password: string }): FieldErrors {
     const next: FieldErrors = {};
     if (mode === "register") {
-      if (name.trim().length < 2) next.name = t("errorNameShort");
+      if (input.name.trim().length < 2) next.name = t("errorNameShort");
     }
-    if (!email.trim()) next.email = t("errorRequired");
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) next.email = t("errorEmailInvalid");
-    if (password.length < 6) next.password = t("errorPasswordShort");
+    if (!input.email.trim()) next.email = t("errorRequired");
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.email)) next.email = t("errorEmailInvalid");
+    if (input.password.length < 6) next.password = t("errorPasswordShort");
     return next;
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (website.trim()) return; // Honeypot field for naive bots.
+    if (Date.now() - lastSubmitAt < 800) return;
+
+    const safeName = sanitizeText(name, 80);
+    const safeEmail = sanitizeEmail(email);
+    const safePassword = password.trim();
+    setName(safeName);
+    setEmail(safeEmail);
+    setPassword(safePassword);
+
     setInfo(null);
-    const next = validate();
+    const next = validate({ name: safeName, email: safeEmail, password: safePassword });
     setErrors(next);
     if (Object.keys(next).length > 0) return;
 
     // No backend yet — simulate work and show a friendly notice.
     // Once NextAuth is wired, replace this block with `signIn()` / `/api/auth/register`.
     setSubmitting(true);
+    setLastSubmitAt(Date.now());
     await new Promise((r) => setTimeout(r, 900));
     setSubmitting(false);
     setInfo(t("comingSoon"));
+    trackEvent("auth_submit_demo", { mode });
   }
 
   return (
@@ -322,6 +338,15 @@ function AuthModal({ onClose }: { onClose: () => void }) {
 
         {/* Email Form */}
         <form className={styles.authForm} onSubmit={handleSubmit} noValidate>
+          <input
+            type="text"
+            value={website}
+            onChange={(e) => setWebsite(e.target.value)}
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+            style={{ position: "absolute", left: "-9999px", opacity: 0, pointerEvents: "none" }}
+          />
           {mode === "register" && (
             <div className={styles.fieldGroup}>
               <input
@@ -329,7 +354,7 @@ function AuthModal({ onClose }: { onClose: () => void }) {
                 type="text"
                 placeholder={t("fullName")}
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => setName(sanitizeText(e.target.value, 80))}
                 disabled={submitting}
                 autoComplete="name"
               />
@@ -343,7 +368,7 @@ function AuthModal({ onClose }: { onClose: () => void }) {
               type="email"
               placeholder={t("email")}
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setEmail(sanitizeEmail(e.target.value))}
               disabled={submitting}
               autoComplete="email"
               inputMode="email"

@@ -28,7 +28,9 @@ import {
   writeDemoAppointments,
   type AppointmentStatus,
 } from "@/lib/demoAppointments";
+import { addDemoNotification } from "@/lib/demoNotifications";
 import { getStatusTone, matchesStatusSearch } from "@/lib/demoStatus";
+import { getAppointmentLabels, normalizeSearchValue } from "@/lib/appointmentLocalization";
 import styles from "./Dashboard.module.css";
 
 const DATA = [
@@ -44,8 +46,9 @@ const DATA = [
 export default function DoctorDashboard() {
   const locale = useLocale();
   const t = useTranslations("panel.doctor");
+  const tTreatments = useTranslations("treatments");
   const searchParams = useSearchParams();
-  const searchQuery = (searchParams.get("q") ?? "").trim().toLowerCase();
+  const searchQuery = normalizeSearchValue(searchParams.get("q") ?? "", locale);
 
   const [appointments, setAppointments] = useState(() => {
     seedDemoAppointments();
@@ -69,16 +72,37 @@ export default function DoctorDashboard() {
         if (!searchQuery) {
           return true;
         }
-        const haystack = `${apt.patient} ${apt.treatment} ${apt.time}`.toLowerCase();
-        return haystack.includes(searchQuery) || matchesStatusSearch(apt.status, searchQuery, statusLabels);
+        const labels = getAppointmentLabels(apt, locale, (key) => tTreatments(key), t("clinicUnassigned"));
+        const haystack = normalizeSearchValue(
+          `${apt.patient} ${labels.treatmentLabel} ${labels.clinicLabel} ${apt.time}`,
+          locale
+        );
+        return haystack.includes(searchQuery) || matchesStatusSearch(apt.status, searchQuery, statusLabels, locale);
       })
       .slice(0, 4);
-  }, [appointments, searchQuery, statusLabels]);
+  }, [appointments, locale, searchQuery, statusLabels, t, tTreatments]);
+
+  const statSummary = useMemo(() => {
+    const completed = appointments.filter((item) => item.status === "completed" || item.status === "approved").length;
+    const pending = appointments.filter((item) => item.status === "pending").length;
+    const uniquePatients = new Set(appointments.map((item) => item.patient)).size;
+    return { completed, pending, uniquePatients };
+  }, [appointments]);
 
   const updateStatus = (id: number, status: AppointmentStatus) => {
+    const target = appointments.find((apt) => apt.id === id);
+    if (!target || target.status === status) {
+      return;
+    }
     const next = appointments.map((apt) => (apt.id === id ? { ...apt, status } : apt));
     setAppointments(next);
     writeDemoAppointments(next);
+    addDemoNotification({
+      role: "patient",
+      title: t("appointmentStatusChanged"),
+      message: `${target.patient} • ${statusLabels[status]}`,
+      targetPath: "/patient/appointments",
+    });
   };
 
   return (
@@ -95,7 +119,7 @@ export default function DoctorDashboard() {
             </div>
             <span className={styles.statBadge}>+12%</span>
           </div>
-          <div className={styles.statValue}>124</div>
+          <div className={styles.statValue}>{statSummary.uniquePatients}</div>
           <div className={styles.statLabel}>{t("weeklyPatients")}</div>
         </div>
         
@@ -106,7 +130,7 @@ export default function DoctorDashboard() {
             </div>
             <span className={styles.statBadge}>+5%</span>
           </div>
-          <div className={styles.statValue}>38</div>
+          <div className={styles.statValue}>{statSummary.completed}</div>
           <div className={styles.statLabel}>{t("completedAppointments")}</div>
         </div>
 
@@ -130,7 +154,7 @@ export default function DoctorDashboard() {
               -2%
             </span>
           </div>
-          <div className={styles.statValue}>8</div>
+          <div className={styles.statValue}>{statSummary.pending}</div>
           <div className={styles.statLabel}>{t("pendingApprovals")}</div>
         </div>
       </div>
@@ -179,12 +203,17 @@ export default function DoctorDashboard() {
           <div className={styles.list}>
             {visibleAppointments.map((apt) => (
               <div key={apt.id} className={styles.listItem}>
+                {(() => {
+                  const labels = getAppointmentLabels(apt, locale, (key) => tTreatments(key), t("clinicUnassigned"));
+                  return (
+                    <>
                 <div className={styles.timeBlock}>
                   <span>{apt.time}</span>
                 </div>
                 <div className={styles.itemInfo}>
                   <div className={styles.itemName}>{apt.patient}</div>
-                  <div className={styles.itemDesc}>{apt.treatment}</div>
+                  <div className={styles.itemDesc}>{labels.treatmentLabel}</div>
+                  {apt.intakeSummary ? <div className={styles.itemDesc}>{apt.intakeSummary}</div> : null}
                 </div>
                 <div className={`${styles.statusBadge} ${
                   getStatusTone(apt.status) === "warning"
@@ -198,10 +227,16 @@ export default function DoctorDashboard() {
                   {statusLabels[apt.status]}
                 </div>
                 <div style={{ display: "flex", gap: 8 }}>
+                  {(() => {
+                    const disableCancel = apt.status === "cancelled" || apt.status === "completed";
+                    const disableApprove = apt.status === "approved" || apt.status === "cancelled" || apt.status === "completed";
+                    return (
+                      <>
                   <button
                     className="btn btn-sm btn-ghost"
                     style={{ padding: "0.55rem 0.9rem" }}
                     onClick={() => updateStatus(apt.id, "cancelled")}
+                    disabled={disableCancel}
                   >
                     <XCircle size={16} /> {t("cancel")}
                   </button>
@@ -209,10 +244,17 @@ export default function DoctorDashboard() {
                     className="btn btn-sm btn-primary"
                     style={{ padding: "0.55rem 0.9rem" }}
                     onClick={() => updateStatus(apt.id, "approved")}
+                    disabled={disableApprove}
                   >
                     <CheckCircle2 size={16} /> {t("approve")}
                   </button>
+                      </>
+                    );
+                  })()}
                 </div>
+                    </>
+                  );
+                })()}
               </div>
             ))}
             {visibleAppointments.length === 0 ? (

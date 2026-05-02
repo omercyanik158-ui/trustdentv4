@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 import { useTranslations } from "next-intl";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { 
   TbPlaneArrival, 
   TbStethoscope, 
@@ -36,14 +36,16 @@ const JOURNEY_STEPS = [
 
 export default function HowItWorks() {
   const t = useTranslations("howItWorks");
+  const prefersReducedMotion = useReducedMotion();
+  const reducedMotion = prefersReducedMotion === true;
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"]
+    offset: ["start end", "end start"],
   });
 
-  // Ribbon flow animation
-  const pathLength = useTransform(scrollYProgress, [0.1, 0.9], [0, 1]);
+  // Scroll-draw ribbon (wider input range so the path fills while section is on screen)
+  const scrollPathLength = useTransform(scrollYProgress, [0.05, 0.92], [0, 1]);
 
   return (
     <section className={`section ${styles.journey}`} ref={containerRef}>
@@ -58,22 +60,44 @@ export default function HowItWorks() {
 
         <div className={styles.timelineWrapper}>
           {/* The Fluid Ribbon (SVG) */}
-          <div className={styles.ribbonContainer}>
+          <div className={styles.ribbonContainer} aria-hidden>
             <svg width="100%" height="100%" viewBox="0 0 100 800" preserveAspectRatio="none">
+              <defs>
+                <filter id="howItWorksRibbonGlow" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur stdDeviation="1.2" result="b" />
+                  <feMerge>
+                    <feMergeNode in="b" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
               <motion.path
                 d="M 50 0 Q 80 200 50 400 Q 20 600 50 800"
                 fill="none"
                 stroke="var(--primary)"
-                strokeWidth="2"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                vectorEffect="non-scaling-stroke"
                 strokeDasharray="0 1"
-                style={{ pathLength, opacity: 0.2 }}
+                style={
+                  reducedMotion
+                    ? { pathLength: 1, opacity: 0.22 }
+                    : { pathLength: scrollPathLength, opacity: 0.22 }
+                }
               />
               <motion.path
                 d="M 50 0 Q 80 200 50 400 Q 20 600 50 800"
                 fill="none"
                 stroke="var(--primary)"
-                strokeWidth="2"
-                style={{ pathLength }}
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                vectorEffect="non-scaling-stroke"
+                filter="url(#howItWorksRibbonGlow)"
+                style={
+                  reducedMotion ? { pathLength: 1 } : { pathLength: scrollPathLength }
+                }
               />
             </svg>
           </div>

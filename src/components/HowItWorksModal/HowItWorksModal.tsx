@@ -128,7 +128,7 @@ export default function HowItWorksModal({ isOpen, onClose, onBooking }: Props) {
             onMouseLeave={() => setPaused(false)}
           >
             {/* Close */}
-            <button className={styles.closeBtn} onClick={onClose} aria-label="Kapat">
+            <button className={styles.closeBtn} onClick={onClose} aria-label={t("close")}>
               <X size={20} />
             </button>
 
@@ -139,7 +139,7 @@ export default function HowItWorksModal({ isOpen, onClose, onBooking }: Props) {
                   key={s.id}
                   className={`${styles.progressTrack} ${i === current ? styles.progressTrackActive : ""}`}
                   onClick={() => goTo(i)}
-                  aria-label={`Adım ${i + 1}`}
+                  aria-label={t("stepAria", { count: i + 1 })}
                   style={
                     i === current
                       ? {
@@ -250,7 +250,7 @@ export default function HowItWorksModal({ isOpen, onClose, onBooking }: Props) {
                 className={styles.navBtn}
                 onClick={prev}
                 disabled={current === 0}
-                aria-label="Önceki"
+                aria-label={t("previous")}
               >
                 <ArrowLeft size={18} />
               </button>
@@ -262,7 +262,7 @@ export default function HowItWorksModal({ isOpen, onClose, onBooking }: Props) {
                     className={`${styles.dot} ${i === current ? styles.dotActive : ""}`}
                     style={i === current ? { background: step.color } : {}}
                     onClick={() => goTo(i)}
-                    aria-label={`Adım ${i + 1}`}
+                    aria-label={t("stepAria", { count: i + 1 })}
                   />
                 ))}
               </div>
@@ -271,7 +271,7 @@ export default function HowItWorksModal({ isOpen, onClose, onBooking }: Props) {
                 className={styles.navBtn}
                 onClick={next}
                 disabled={current === STEPS.length - 1}
-                aria-label="Sonraki"
+                aria-label={t("next")}
               >
                 <ArrowRight size={18} />
               </button>

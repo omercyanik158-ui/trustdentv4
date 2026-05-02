@@ -10,6 +10,7 @@ import adminStyles from "./AdminPage.module.css";
 type AdminSection = "dashboard" | "users" | "activity" | "settings";
 type Decision = "approved" | "rejected";
 type AdminEntity = "appointment" | "clinic" | "doctor";
+const ADMIN_DECISIONS_KEY = "trustdent_admin_decisions";
 
 type AdminItem = {
   id: number;
@@ -31,7 +32,16 @@ export default function AdminDashboard() {
   const section = (searchParams.get("section") ?? "dashboard") as AdminSection;
   const [settingState, setSettingState] = useState<Record<number, boolean>>({});
   const [openDetailId, setOpenDetailId] = useState<number | null>(null);
-  const [decisions, setDecisions] = useState<Record<number, Decision>>({});
+  const [decisions, setDecisions] = useState<Record<number, Decision>>(() => {
+    if (typeof window === "undefined") return {};
+    const raw = window.localStorage.getItem(ADMIN_DECISIONS_KEY);
+    if (!raw) return {};
+    try {
+      return JSON.parse(raw) as Record<number, Decision>;
+    } catch {
+      return {};
+    }
+  });
 
   const sectionButtons = [
     { id: "dashboard", label: t("dashboard") },
@@ -207,7 +217,13 @@ export default function AdminDashboard() {
   };
 
   const handleDecision = (id: number, decision: Decision) => {
-    setDecisions((prev) => ({ ...prev, [id]: decision }));
+    setDecisions((prev) => {
+      const next = { ...prev, [id]: decision };
+      if (typeof window !== "undefined") {
+        window.localStorage.setItem(ADMIN_DECISIONS_KEY, JSON.stringify(next));
+      }
+      return next;
+    });
   };
 
   const getDetailTitle = (entity: AdminEntity) => {

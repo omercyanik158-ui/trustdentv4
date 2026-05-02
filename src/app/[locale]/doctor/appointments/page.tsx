@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { CheckCircle2, Clock, Filter, MapPin } from "lucide-react";
 import {
   readDemoAppointments,
@@ -10,15 +10,19 @@ import {
   writeDemoAppointments,
   type AppointmentStatus,
 } from "@/lib/demoAppointments";
+import { addDemoNotification } from "@/lib/demoNotifications";
 import { getStatusTone, matchesStatusSearch } from "@/lib/demoStatus";
+import { getAppointmentLabels, normalizeSearchValue } from "@/lib/appointmentLocalization";
 import styles from "../Dashboard.module.css";
 
 const STATUS: AppointmentStatus[] = ["pending", "approved", "inProgress", "cancelled", "completed"];
 
 export default function DoctorAppointmentsPage() {
+  const locale = useLocale();
   const t = useTranslations("panel.doctor");
+  const tTreatments = useTranslations("treatments");
   const searchParams = useSearchParams();
-  const searchQuery = (searchParams.get("q") ?? "").trim().toLowerCase();
+  const searchQuery = normalizeSearchValue(searchParams.get("q") ?? "", locale);
   const [appointments, setAppointments] = useState(() => {
     seedDemoAppointments();
     return readDemoAppointments();
@@ -42,15 +46,29 @@ export default function DoctorAppointmentsPage() {
       return byFilter;
     }
     return byFilter.filter((a) => {
-      const haystack = `${a.patient} ${a.treatment} ${a.clinic} ${a.date} ${a.time}`.toLowerCase();
-      return haystack.includes(searchQuery) || matchesStatusSearch(a.status, searchQuery, statusLabel);
+      const labels = getAppointmentLabels(a, locale, (key) => tTreatments(key), t("clinicUnassigned"));
+      const haystack = normalizeSearchValue(
+        `${a.patient} ${labels.treatmentLabel} ${labels.clinicLabel} ${a.date} ${a.time} ${a.intakeSummary ?? ""}`,
+        locale
+      );
+      return haystack.includes(searchQuery) || matchesStatusSearch(a.status, searchQuery, statusLabel, locale);
     });
-  }, [appointments, filter, searchQuery, statusLabel]);
+  }, [appointments, filter, locale, searchQuery, statusLabel, t, tTreatments]);
 
   const updateStatus = (id: number, status: AppointmentStatus) => {
     setAppointments((prev) => {
+      const target = prev.find((item) => item.id === id);
+      if (!target || target.status === status) {
+        return prev;
+      }
       const next = prev.map((a) => (a.id === id ? { ...a, status } : a));
       writeDemoAppointments(next);
+      addDemoNotification({
+        role: "patient",
+        title: t("appointmentStatusChanged"),
+        message: `${target.patient} • ${statusLabel[status]}`,
+        targetPath: "/patient/appointments",
+      });
       return next;
     });
   };
@@ -88,20 +106,25 @@ export default function DoctorAppointmentsPage() {
           ) : (
             filtered.map((apt) => (
               <div key={apt.id} className={styles.listItem}>
+                {(() => {
+                  const labels = getAppointmentLabels(apt, locale, (key) => tTreatments(key), t("clinicUnassigned"));
+                  return (
+                    <>
                 <div className={styles.timeBlock} style={{ width: 68 }}>
                   <div style={{ fontSize: "0.95rem" }}>
                     <Clock size={12} style={{ display: "inline", marginRight: 6 }} />
                     {apt.time}
                   </div>
-                  <div style={{ fontSize: "0.72rem", color: "var(--text-muted)", fontWeight: 600 }}>{apt.date}</div>
+                  <div style={{ fontSize: "0.72rem", color: "var(--text-muted)", fontWeight: 600 }}>{labels.dateLabel}</div>
                 </div>
 
                 <div className={styles.itemInfo}>
                   <div className={styles.itemDesc}>{apt.patient}</div>
-                  <div className={styles.itemName}>{apt.treatment}</div>
+                  <div className={styles.itemName}>{labels.treatmentLabel}</div>
                   <div className={styles.itemDesc}>
-                    <MapPin size={12} style={{ display: "inline" }} /> {apt.clinic || t("clinicUnassigned")}
+                    <MapPin size={12} style={{ display: "inline" }} /> {labels.clinicLabel}
                   </div>
+                  {apt.intakeSummary ? <div className={styles.itemDesc}>{apt.intakeSummary}</div> : null}
                 </div>
 
                 <span
@@ -119,10 +142,16 @@ export default function DoctorAppointmentsPage() {
                 </span>
 
                 <div style={{ display: "flex", gap: 8 }}>
+                  {(() => {
+                    const disableCancel = apt.status === "cancelled" || apt.status === "completed";
+                    const disableApprove = apt.status === "approved" || apt.status === "cancelled" || apt.status === "completed";
+                    return (
+                      <>
                   <button
                     className="btn btn-sm btn-ghost"
                     onClick={() => updateStatus(apt.id, "cancelled")}
                     style={{ padding: "0.55rem 0.9rem" }}
+                    disabled={disableCancel}
                   >
                     {t("cancel")}
                   </button>
@@ -130,11 +159,18 @@ export default function DoctorAppointmentsPage() {
                     className="btn btn-sm btn-primary"
                     onClick={() => updateStatus(apt.id, "approved")}
                     style={{ padding: "0.55rem 0.9rem" }}
+                    disabled={disableApprove}
                   >
                     <CheckCircle2 size={16} />
                     {t("approve")}
                   </button>
+                      </>
+                    );
+                  })()}
                 </div>
+                    </>
+                  );
+                })()}
               </div>
             ))
           )}
