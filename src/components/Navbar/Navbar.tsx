@@ -54,12 +54,21 @@ export default function Navbar() {
     setLangOpen(false);
   }
 
+  function handleNavClick(e: React.MouseEvent<HTMLAnchorElement>, href: string) {
+    // If already on this page, just scroll to top
+    if (pathname === href || pathname === href + "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    setMobileOpen(false);
+  }
+
   const navLinks = [
-    { href: `/${locale}`, label: t("home") },
-    { href: `/${locale}/clinics`, label: t("clinics") },
-    { href: `/${locale}/doctors`, label: t("doctors") },
-    { href: `/${locale}/treatments`, label: t("treatments") },
-    { href: `/${locale}/about`, label: t("about") },
+    { href: `/${locale}`, label: t("home"), isHome: true },
+    { href: `/${locale}/clinics`, label: t("clinics"), isHome: false },
+    { href: `/${locale}/doctors`, label: t("doctors"), isHome: false },
+    { href: `/${locale}/treatments`, label: t("treatments"), isHome: false },
+    { href: `/${locale}/about`, label: t("about"), isHome: false },
   ];
 
   return (
@@ -67,7 +76,7 @@ export default function Navbar() {
       <nav className={`${styles.navbar} ${scrolled ? styles.scrolled : ""}`}>
         <div className={`container ${styles.inner}`}>
           {/* Logo */}
-          <Link href={`/${locale}`} className={styles.logo}>
+          <Link href={`/${locale}`} className={styles.logo} onClick={(e) => handleNavClick(e, `/${locale}`)}>
             <Image src="/logo_simple.svg" alt="TrustDent" className={styles.logoImg} width={32} height={32} />
             <div className={styles.logoMark}>
               <span className={styles.logoText}>Trust Dent</span>
@@ -79,7 +88,11 @@ export default function Navbar() {
           <ul className={styles.links}>
             {navLinks.map((link) => (
               <li key={link.href}>
-                <Link href={link.href} className={styles.link}>
+                <Link
+                  href={link.href}
+                  className={styles.link}
+                  onClick={(e) => handleNavClick(e, link.href)}
+                >
                   {link.label}
                 </Link>
               </li>
@@ -154,7 +167,7 @@ export default function Navbar() {
                   <Link
                     href={link.href}
                     className={styles.mobileLink}
-                    onClick={() => setMobileOpen(false)}
+                    onClick={(e) => handleNavClick(e, link.href)}
                   >
                     {link.label}
                   </Link>

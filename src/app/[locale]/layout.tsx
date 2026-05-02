@@ -53,12 +53,15 @@ export default async function LocaleLayout({ children, params }: Props) {
   const messages = (await import(`../../../messages/${locale}.json`)).default;
 
   return (
-    <html lang={locale}>
+    <html lang={locale} style={{ backgroundColor: "#F8F4F3" }}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <style dangerouslySetInnerHTML={{ __html: `
+          html, body { background-color: #F8F4F3 !important; }
+        `}} />
       </head>
-      <body>
+      <body style={{ backgroundColor: "#F8F4F3" }}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
         </NextIntlClientProvider>

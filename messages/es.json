@@ -17,7 +17,7 @@
     "badge": "El Viaje Restaurativo",
     "titleMain": "La Arquitectura",
     "titleSpan": "de su Sonrisa",
-    "subtitle": "Experimente el \"Santuario de Marfil\", donde la precisión médica se encuentra con la hospitalidad de lujo futurista. Su viaje hacia la perfección comienza aquí.",
+    "subtitle": "Descubra el turismo dental premium con TrustDent: donde la experiencia médica internacional se une a una experiencia transparente y sin fisuras. El viaje hacia su sonrisa saludable comienza aquí.",
     "btnVoyage": "Comenzar Viaje",
     "btnHowItWorks": "Descubre el Proceso",
     "voyageLocation": "Santuario de Estambul",
@@ -104,7 +104,7 @@
   },
   "clinics": {
     "title": "Clínicas Destacadas",
-    "subtitle": "Clínicas certificadas por la JCI con estándares internacionales",
+    "subtitle": "Descubra nuestras prestigiosas clínicas cuidadosamente seleccionadas, que cuentan con acreditación internacional JCI y garantizan los más altos estándares médicos y la satisfacción del paciente.",
     "viewAll": "Ver Todas",
     "rating": "Calificación",
     "reviews": "Reseñas",
@@ -121,7 +121,7 @@
     "title": "Nuestros Doctores Expertos",
     "subtitle": "Conozca a nuestros especialistas dentales experimentados y certificados",
     "featuredTitle": "Doctores Destacados",
-    "featuredSubtitle": "No enumeramos a todos aquí; estos son nuestros especialistas más solicitados.",
+    "featuredSubtitle": "Conozca a los especialistas dentales más experimentados y solicitados de Turquía — cada uno con una trayectoria probada de excelencia en su campo.",
     "viewAll": "Ver Todos los Doctores",
     "viewProfile": "Ver Perfil",
     "experience": "años de experiencia",
@@ -132,7 +132,7 @@
   "map": {
     "badge": "Mapa",
     "title": "Encuentre Clínicas en el Mapa",
-    "subtitle": "Clínicas en Estambul, Ankara, Antalya y más ciudades",
+    "subtitle": "Descubra nuestra exclusiva red de clínicas premium a nivel nacional, lo que le permite experimentar tratamientos de clase mundial en su ubicación preferida.",
     "viewOnMap": "Ver en el Mapa",
     "getDirections": "Obtener Direcciones",
     "legendTitle": "Ubicaciones de Clínicas",
@@ -165,7 +165,7 @@
   },
   "testimonials": {
     "title": "Lo que Dicen Nuestros Pacientes",
-    "subtitle": "Experiencias reales, resultados reales",
+    "subtitle": "Descubra las experiencias reales y las historias de éxito de nuestros pacientes, cuyas vidas han sido transformadas por la atención premium de TrustDent.",
     "badge": "Reseñas",
     "verified": "Verificado",
     "trust": {

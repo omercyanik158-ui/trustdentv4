@@ -1,6 +1,6 @@
 .treatments {
   background-color: var(--bg-surface);
-  overflow: hidden;
+  overflow: visible;
   position: relative;
 }
 
@@ -11,7 +11,7 @@
   align-items: center;
   justify-content: center;
   perspective: 2000px;
-  margin-top: -2rem;
+  margin-top: 0;
 }
 
 .centralOrbit {

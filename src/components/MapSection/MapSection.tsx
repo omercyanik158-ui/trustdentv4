@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { MapPin, Star } from "lucide-react";
+import { MapPin, Star, Sparkles } from "lucide-react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { CLINICS_MAP } from "@/data";
 import type { Map as LeafletMap, Marker as LeafletMarker } from "leaflet";
@@ -217,7 +217,19 @@ export default function MapSection() {
               );
             })()}
           </h2>
-          <p className="section-subtitle">{t("subtitle")}</p>
+        </motion.div>
+
+        <motion.div
+          className={styles.subtitleBox}
+          initial={{ opacity: 0, clipPath: "inset(0 40% 0 40% round 24px)", y: 20 }}
+          whileInView={{ opacity: 1, clipPath: "inset(0 0% 0 0% round 24px)", y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div className={styles.subtitleIcon}>
+            <Sparkles size={24} aria-hidden="true" />
+          </div>
+          <p className={styles.subtitleText}>{t("subtitle")}</p>
         </motion.div>
 
         <motion.div

@@ -17,7 +17,7 @@
     "badge": "Restoratif Yolculuk",
     "titleMain": "Gülüşünüzün",
     "titleSpan": "Mimarisi",
-    "subtitle": "\"Fildişi Sığınağı\"nı deneyimleyin — tıbbi hassasiyetin fütüristik lüks konukseverlikle buluştuğu yer. Kusursuzluğa giden yolculuğunuz burada başlıyor.",
+    "subtitle": "TrustDent ile premium diş sağlığı turizmini keşfedin — uluslararası standartlarda tıbbi uzmanlığın, kusursuz ve şeffaf bir deneyimle buluştuğu yer. Sağlıklı gülüşünüze giden yolculuk burada başlıyor.",
     "btnVoyage": "Yolculuğa Başla",
     "btnHowItWorks": "Süreci Keşfet",
     "voyageLocation": "İstanbul Sığınağı",
@@ -104,7 +104,7 @@
   },
   "clinics": {
     "title": "Öne Çıkan Klinikler",
-    "subtitle": "Uluslararası standartlarda, JCI sertifikalı klinikler",
+    "subtitle": "En yüksek tıbbi standartları ve hasta memnuniyetini garanti eden, uluslararası JCI akreditasyonuna sahip, özenle seçilmiş prestijli kliniklerimizle tanışın.",
     "viewAll": "Tümünü Gör",
     "rating": "Puan",
     "reviews": "Yorum",
@@ -121,7 +121,7 @@
     "title": "Uzman Doktorlarımız",
     "subtitle": "Deneyimli ve sertifikalı diş hekimlerimizle tanışın",
     "featuredTitle": "Öne Çıkan Doktorlarımız",
-    "featuredSubtitle": "Tüm doktorlarımızı listelemiyoruz; en çok tercih edilen uzmanlarımızdan seçtiklerimiz.",
+    "featuredSubtitle": "Türkiye'nin en deneyimli ve en çok tercih edilen diş hekimleriyle tanışın — her biri alanında kanıtlanmış uzmanlığa sahip.",
     "viewAll": "Tüm Doktorları Gör",
     "viewProfile": "Profili İncele",
     "experience": "yıl deneyim",
@@ -132,7 +132,7 @@
   "map": {
     "badge": "Harita",
     "title": "Klinikleri Haritada Bulun",
-    "subtitle": "İstanbul, Ankara, Antalya ve daha fazla şehirdeki klinikler",
+    "subtitle": "Ayrıcalıklı tedavi deneyimini dilediğiniz lokasyonda yaşamanız için, Türkiye geneline yayılan seçkin klinik ağımızı keşfedin.",
     "viewOnMap": "Haritada Gör",
     "getDirections": "Yol Tarifi Al",
     "legendTitle": "Klinik Lokasyonları",
@@ -165,7 +165,7 @@
   },
   "testimonials": {
     "title": "Hastalarımız Ne Diyor?",
-    "subtitle": "Gerçek deneyimler, gerçek sonuçlar",
+    "subtitle": "TrustDent ile hayatları değişen hastalarımızın gerçek deneyimlerini ve mükemmel gülüşlere uzanan başarı hikayelerini keşfedin.",
     "badge": "Yorumlar",
     "verified": "Doğrulandı",
     "trust": {

@@ -36,12 +36,9 @@ export default function Treatments({ scrollAnimated = true }: { scrollAnimated?:
   return (
     <section className={`section ${styles.treatments}`} ref={containerRef}>
       <div className="container">
-        <div className="section-header">
+        <div className="section-header" style={{ marginBottom: "0rem" }}>
           <div className="section-badge">{t("badge")}</div>
           <h2 className="section-title">{t("titleMain")} <span>{t("titleSpan")}</span></h2>
-          <p className="section-subtitle">
-            {t("description")}
-          </p>
         </div>
 
         <div className={styles.constellationWrapper}>

@@ -1,10 +1,28 @@
-import { getTranslations } from "next-intl/server";
-
-export default async function LocaleLoading() {
-  const tCommon = await getTranslations("common");
+export default function LocaleLoading() {
   return (
-    <div className="flex min-h-[60vh] items-center justify-center px-4 text-center">
-      <div className="animate-pulse text-sm text-gray-500">{tCommon("loading")}</div>
+    <div
+      style={{
+        position: "fixed",
+        inset: 0,
+        backgroundColor: "#F8F4F3",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        zIndex: 9999,
+      }}
+    >
+      <div
+        style={{
+          width: "40px",
+          height: "40px",
+          border: "3px solid rgba(188,10,24,0.15)",
+          borderTopColor: "#BC0A18",
+          borderRadius: "50%",
+          animation: "spin 0.8s linear infinite",
+        }}
+      />
+      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
     </div>
   );
 }
+
