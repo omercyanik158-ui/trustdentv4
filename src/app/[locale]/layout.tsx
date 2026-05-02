@@ -1,29 +1,47 @@
 import type { Metadata } from "next";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import "@/app/globals.css";
-
-export const metadata: Metadata = {
-  title: {
-    default: "TrustDent | Türkiye'de Diş Sağlığı Turizmi",
-    template: "%s | TrustDent",
-  },
-  description:
-    "TrustDent ile Türkiye'nin en iyi diş kliniklerini keşfedin. Onaylı doktorlar, uygun fiyatlar, kolayrandevu sistemi. İmplant, veneer, beyazlatma ve daha fazlası.",
-  keywords: ["diş turizmi", "dental tourism turkey", "istanbul implant", "diş kliniği", "dental clinic turkey"],
-  openGraph: {
-    type: "website",
-    locale: "tr_TR",
-    url: "https://trustdent.com",
-    siteName: "TrustDent",
-  },
-};
 
 type Props = {
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 };
+
+const OG_LOCALE: Record<string, string> = {
+  tr: "tr_TR",
+  en: "en_US",
+  de: "de_DE",
+  es: "es_ES",
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const tNav = await getTranslations({ locale, namespace: "nav" });
+  const tFooter = await getTranslations({ locale, namespace: "footer" });
+
+  return {
+    title: {
+      default: `TrustDent | ${tNav("home")}`,
+      template: "%s | TrustDent",
+    },
+    description: tFooter("description"),
+    openGraph: {
+      type: "website",
+      locale: OG_LOCALE[locale] ?? "en_US",
+      url: `https://trustdent.com/${locale}`,
+      siteName: "TrustDent",
+    },
+    alternates: {
+      canonical: `https://trustdent.com/${locale}`,
+      languages: Object.fromEntries(
+        routing.locales.map((entryLocale) => [entryLocale, `https://trustdent.com/${entryLocale}`])
+      ),
+    },
+  };
+}
 
 export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params;

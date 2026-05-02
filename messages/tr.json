@@ -8,7 +8,10 @@
     "contact": "İletişim",
     "login": "Giriş Yap",
     "register": "Kayıt Ol",
-    "myAccount": "Hesabım"
+    "myAccount": "Hesabım",
+    "changeLanguage": "Dili değiştir",
+    "toggleMenu": "Menüyü aç/kapat",
+    "closeMenu": "Menüyü kapat"
   },
   "hero": {
     "badge": "Restoratif Yolculuk",
@@ -74,7 +77,7 @@
     "badge": "Restoratif Yolculuk",
     "titleMain": "Kusursuz",
     "titleSpan": "Yolculuğunuz",
-    "titleEnd": "",
+    "titleEnd": "Tasarlanır",
     "description": "İniş yaptığınız andan son gülüşünüze kadar her saniye koreografik bir hassasiyetle yönetilir.",
     "step1": {
       "title": "Varış",
@@ -93,7 +96,11 @@
       "desc": "Yeni bir mimari şaheser. Güvenle evinize dönün."
     },
     "day": "Gün",
-    "videoSoon": "Video yakında eklenecek"
+    "videoSoon": "Video yakında eklenecek",
+    "close": "Kapat",
+    "previous": "Önceki adım",
+    "next": "Sonraki adım",
+    "stepAria": "Adım {count}"
   },
   "clinics": {
     "title": "Öne Çıkan Klinikler",
@@ -217,7 +224,8 @@
     "careers": "Kariyer",
     "copyright": "© 2025 TrustDent. Tüm hakları saklıdır.",
     "sslSecure": "SSL Güvenli",
-    "compliance": "KVKK Uyumlu"
+    "compliance": "KVKK Uyumlu",
+    "social": "Sosyal hesap"
   },
   "auth": {
     "loginTitle": "Tekrar Hoş Geldiniz",
@@ -248,6 +256,22 @@
   "booking": {
     "title": "Randevu Oluştur",
     "step": "Adım {current} / {total}",
+    "intakeTitle": "Hızlı Ön Değerlendirme",
+    "intakeDesc": "Size uygun tedaviyi daha hızlı önermek için 3 kısa soru.",
+    "intakeConcernLabel": "Ana şikayetiniz",
+    "intakeConcern_pain": "Ağrı / hassasiyet",
+    "intakeConcern_missing": "Eksik diş",
+    "intakeConcern_color": "Renk / beyazlatma",
+    "intakeConcern_shape": "Şekil / estetik görünüm",
+    "intakePainLabel": "Ağrı seviyesi",
+    "intakePriorityLabel": "Sizin için öncelik",
+    "intakePriority_speed": "Hızlı çözüm",
+    "intakePriority_price": "Bütçe dengesi",
+    "intakePriority_aesthetics": "Estetik sonuç",
+    "intakeSuggestedTreatment": "Önerilen işlem",
+    "intakeDisclaimer": "Bu sonuç tıbbi tanı değildir, ön bilgilendirme amaçlıdır.",
+    "skipQuickIntake": "Anketi geç",
+    "intakeSummaryPrefix": "Ön değerlendirme",
     "step1Title": "Tedavi ve Klinik Seçimi",
     "step1Desc": "Hangi tedavi için randevu almak istiyorsunuz?",
     "step2Title": "Tarih ve Saat",
@@ -261,6 +285,8 @@
     "dateLabel": "Tarih",
     "selectDate": "Tarih Seçin",
     "timeLabel": "Saat Seçimi",
+    "prevMonth": "Önceki ay",
+    "nextMonth": "Sonraki ay",
     "fullNameLabel": "Ad Soyad",
     "phoneLabel": "Telefon Numarası",
     "continue": "Devam Et",
@@ -268,12 +294,18 @@
     "confirmAppointment": "Randevuyu Onayla",
     "successTitle": "Talebiniz Alındı!",
     "successDesc": "Randevu talebiniz kliniğe iletildi. En kısa sürede sizinle iletişime geçeceğiz.",
+    "notificationPatientTitle": "Randevu talebiniz alındı",
+    "notificationPatientMessage": "Talebiniz doktora iletildi. Durum güncellemeleri burada görünecek.",
+    "notificationDoctorTitle": "Yeni randevu talebi",
+    "notificationDoctorMessage": "Panelinizde yeni bir randevu talebi var.",
     "goToPatientPanel": "Hasta Paneline Git"
   },
   "panel": {
     "common": {
       "dashboard": "Dashboard",
       "appointments": "Randevular",
+      "documents": "Belgelerim",
+      "radiology": "Röntgen İnceleme",
       "myAppointments": "Randevularım",
       "myPatients": "Hastalarım",
       "earnings": "Kazançlar",
@@ -294,7 +326,10 @@
       "demoAdminName": "Platform Yöneticisi",
       "demoAdminRole": "Yönetici",
       "resetDemo": "Demo Sıfırla",
-      "resetDemoTitle": "Demo verisini temizle ve sayfayı yenile"
+      "resetDemoTitle": "Demo verisini temizle ve sayfayı yenile",
+      "notificationsTitle": "Bildirimler",
+      "markAllRead": "Tümünü okundu yap",
+      "noNotifications": "Henüz bildirim yok."
     },
     "admin": {
       "title": "Yönetici Paneli ⚙️",
@@ -364,6 +399,7 @@
       "statusApproved": "Onaylandı",
       "statusCancelled": "İptal",
       "statusCompleted": "Tamamlandı",
+      "appointmentStatusChanged": "Randevu durumu güncellendi",
       "myPatientsTitle": "Hastalarım",
       "myPatientsSubtitle": "Hasta listesi ve özetleri. (Demo: randevu verisinden türetilir.)",
       "totalPatients": "Toplam Hasta",
@@ -383,7 +419,23 @@
       "clinic": "Klinik",
       "phone": "Telefon",
       "email": "E-posta",
-      "save": "Kaydet"
+      "save": "Kaydet",
+      "saved": "Kaydedildi",
+      "radiologyTitle": "Röntgen İnceleme",
+      "radiologySubtitle": "Hasta röntgenlerini inceleyin ve ön değerlendirme notu ekleyin.",
+      "radiologyList": "Yüklenen Röntgenler",
+      "radiologyNoItems": "Henüz yüklenen röntgen yok.",
+      "radiologyDoctorNotePlaceholder": "Tıbbi notunuzu yazın...",
+      "radiologyView": "Aç",
+      "radiologyMarkReviewed": "İncelendi Olarak İşaretle",
+      "radiologyReviewed": "İncelendi",
+      "radiologyPending": "İnceleme Bekliyor",
+      "radiologyNotificationPatientTitle": "Doktor notu eklendi",
+      "radiologyPreviewInvalid": "Önizleme güvenli değil",
+      "radiologyBookingContextLabel": "Randevu / ön başvuru özeti",
+      "radiologyPatientNotesLabel": "Hasta notu",
+      "radiologyLinkedAppointmentCta": "Randevulara git",
+      "patientIntakeSummaryLabel": "Ön başvuru özeti"
     },
     "patient": {
       "welcomeTitle": "Hoş Geldiniz, Ahmet 👋",
@@ -416,6 +468,7 @@
       "fullName": "Ad Soyad",
       "email": "E-posta",
       "phone": "Telefon",
+      "saved": "Kaydedildi",
       "save": "Kaydet",
       "settingsTitle": "Ayarlar",
       "settingsSubtitle": "Bildirimler ve tercihlerinizi yönetin. (Demo)",
@@ -426,20 +479,52 @@
       "emailNotificationsDesc": "Onay ve hatırlatmaları e-posta ile al.",
       "vipSupport": "VIP Destek",
       "vipSupportDesc": "Öncelikli destek kanalını aktif et.",
-      "change": "Değiştir"
+      "change": "Değiştir",
+      "enabled": "Açık",
+      "disabled": "Kapalı",
+      "documentsTitle": "Röntgen ve Belgeler",
+      "documentsSubtitle": "Doktor ön değerlendirmesi için diş görüntülerinizi yükleyin.",
+      "documentsUploadCardTitle": "Yeni Dosya Yükle",
+      "documentsTitleLabel": "Belge başlığı (opsiyonel)",
+      "documentsNotesLabel": "Doktor için not (opsiyonel)",
+      "documentsSelectFile": "Röntgen Görseli Seç",
+      "documentsUploading": "Yükleniyor...",
+      "documentsUploadHint": "İzin verilen: JPG/PNG/WEBP, en fazla {size}MB.",
+      "documentsIntakeSnapshotTitle": "Son randevunuzdaki ön başvuru özeti bu yüklemeyle birlikte doktora iletilecek.",
+      "documentsIntakeSnapshotEmpty": "Randevu kaydınız var ancak özet alanı boş; dosya yine doktora düşer. İsterseniz aşağıya not ekleyin.",
+      "documentsListIntakeLabel": "Yükleme anındaki randevu özeti",
+      "documentsFileTypeError": "Sadece JPG, PNG veya WEBP dosyaları yüklenebilir.",
+      "documentsFileSizeError": "Dosya boyutu {size}MB altında olmalıdır.",
+      "documentsUploadSuccess": "Dosya başarıyla yüklendi.",
+      "documentsNotificationDoctorTitle": "Yeni röntgen yüklendi",
+      "documentsUploadFailed": "Yükleme başarısız oldu. Tekrar deneyin.",
+      "documentsListTitle": "Yüklenen Dosyalar",
+      "documentsNoItems": "Henüz yüklenmiş belge yok.",
+      "documentsUploadedAt": "Yükleme",
+      "documentsView": "Görüntüle",
+      "documentsDoctorNote": "Doktor notu",
+      "documentsDefaultTitle": "Diş Röntgeni",
+      "documentsPreviewInvalid": "Dosya önizlemesi doğrulanamadı"
     }
   },
   "common": {
     "loading": "Yükleniyor...",
     "error": "Bir hata oluştu",
+    "errorDescription": "Beklenmeyen bir sorun oluştu. Lütfen tekrar deneyin.",
+    "notFoundTitle": "404 - Sayfa bulunamadı",
+    "notFoundDescription": "Aradığınız sayfa mevcut değil veya taşınmış olabilir.",
     "retry": "Tekrar dene",
     "close": "Kapat",
     "save": "Kaydet",
     "cancel": "İptal",
     "confirm": "Onayla",
     "search": "Ara",
+    "searchPlaceholderList": "İsim, klinik veya tedavi ara...",
     "filter": "Filtrele",
     "sortBy": "Sırala",
+    "sortRating": "Puana göre",
+    "sortReviews": "Yoruma göre",
+    "sortAZ": "A-Z",
     "all": "Tümü"
   }
 }

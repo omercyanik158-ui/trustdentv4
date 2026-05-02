@@ -8,7 +8,10 @@
     "contact": "Kontakt",
     "login": "Anmelden",
     "register": "Registrieren",
-    "myAccount": "Mein Konto"
+    "myAccount": "Mein Konto",
+    "changeLanguage": "Sprache ändern",
+    "toggleMenu": "Menü umschalten",
+    "closeMenu": "Menü schließen"
   },
   "hero": {
     "badge": "Die Reise zu Ihrem perfekten Lächeln",
@@ -202,7 +205,11 @@
       "desc": "Ein neues, natürliches Lächeln — sicher und selbstbewusst zurück nach Hause."
     },
     "day": "Tag",
-    "videoSoon": "Video wird bald hinzugefügt"
+    "videoSoon": "Video wird bald hinzugefügt",
+    "close": "Schließen",
+    "previous": "Vorheriger Schritt",
+    "next": "Nächster Schritt",
+    "stepAria": "Schritt {count}"
   },
   "cta": {
     "title": "Buchen Sie Ihren Termin heute",
@@ -223,7 +230,8 @@
     "careers": "Karriere",
     "copyright": "© 2025 TrustDent. Alle Rechte vorbehalten.",
     "sslSecure": "SSL-gesichert",
-    "compliance": "DSGVO-konform"
+    "compliance": "DSGVO-konform",
+    "social": "Soziales Profil"
   },
   "auth": {
     "loginTitle": "Willkommen zurück",
@@ -254,6 +262,22 @@
   "booking": {
     "title": "Termin erstellen",
     "step": "Schritt {current} / {total}",
+    "intakeTitle": "Schneller Vorab-Check",
+    "intakeDesc": "Beantworten Sie 3 kurze Fragen für eine passende Behandlungsempfehlung.",
+    "intakeConcernLabel": "Hauptbeschwerde",
+    "intakeConcern_pain": "Schmerz / Empfindlichkeit",
+    "intakeConcern_missing": "Fehlender Zahn",
+    "intakeConcern_color": "Farbe / Aufhellung",
+    "intakeConcern_shape": "Form / Ästhetik",
+    "intakePainLabel": "Schmerzstärke",
+    "intakePriorityLabel": "Ihre Priorität",
+    "intakePriority_speed": "Schnelle Lösung",
+    "intakePriority_price": "Budgetbalance",
+    "intakePriority_aesthetics": "Ästhetisches Ergebnis",
+    "intakeSuggestedTreatment": "Empfohlene Behandlung",
+    "intakeDisclaimer": "Dies ist keine medizinische Diagnose, nur eine Vorab-Information.",
+    "skipQuickIntake": "Umfrage überspringen",
+    "intakeSummaryPrefix": "Vorab-Check",
     "step1Title": "Behandlung und Klinik auswählen",
     "step1Desc": "Für welche Behandlung möchten Sie einen Termin buchen?",
     "step2Title": "Datum und Uhrzeit",
@@ -267,6 +291,8 @@
     "dateLabel": "Datum",
     "selectDate": "Datum auswählen",
     "timeLabel": "Uhrzeit",
+    "prevMonth": "Vorheriger Monat",
+    "nextMonth": "Nächster Monat",
     "fullNameLabel": "Vollständiger Name",
     "phoneLabel": "Telefonnummer",
     "continue": "Weiter",
@@ -274,12 +300,18 @@
     "confirmAppointment": "Termin bestätigen",
     "successTitle": "Ihre Anfrage wurde erhalten!",
     "successDesc": "Ihre Terminanfrage wurde an die Klinik übermittelt. Wir melden uns in Kürze.",
+    "notificationPatientTitle": "Ihre Terminanfrage wurde empfangen",
+    "notificationPatientMessage": "Ihre Anfrage wurde an den Arzt gesendet. Status-Updates erscheinen hier.",
+    "notificationDoctorTitle": "Neue Terminanfrage",
+    "notificationDoctorMessage": "Eine neue Terminanfrage wartet in Ihrem Panel.",
     "goToPatientPanel": "Zum Patientenbereich"
   },
   "panel": {
     "common": {
       "dashboard": "Dashboard",
       "appointments": "Termine",
+      "documents": "Meine Dokumente",
+      "radiology": "Radiologie",
       "myAppointments": "Meine Termine",
       "myPatients": "Meine Patienten",
       "earnings": "Einnahmen",
@@ -300,7 +332,10 @@
       "demoAdminName": "Plattform-Admin",
       "demoAdminRole": "Administrator",
       "resetDemo": "Demo zurücksetzen",
-      "resetDemoTitle": "Demo-Daten löschen und Seite neu laden"
+      "resetDemoTitle": "Demo-Daten löschen und Seite neu laden",
+      "notificationsTitle": "Benachrichtigungen",
+      "markAllRead": "Alle als gelesen markieren",
+      "noNotifications": "Noch keine Benachrichtigungen."
     },
     "admin": {
       "title": "Admin-Dashboard ⚙️",
@@ -370,6 +405,7 @@
       "statusApproved": "Bestätigt",
       "statusCancelled": "Storniert",
       "statusCompleted": "Abgeschlossen",
+      "appointmentStatusChanged": "Terminstatus aktualisiert",
       "myPatientsTitle": "Meine Patienten",
       "myPatientsSubtitle": "Patientenliste und Zusammenfassungen. (Demo: aus Terminen abgeleitet.)",
       "totalPatients": "Gesamtpatienten",
@@ -389,7 +425,23 @@
       "clinic": "Klinik",
       "phone": "Telefon",
       "email": "E-Mail",
-      "save": "Speichern"
+      "save": "Speichern",
+      "saved": "Gespeichert",
+      "radiologyTitle": "Radiologie-Prüfung",
+      "radiologySubtitle": "Röntgenbilder von Patienten prüfen und Vorabnotizen hinzufügen.",
+      "radiologyList": "Hochgeladene Röntgenbilder",
+      "radiologyNoItems": "Noch keine hochgeladenen Röntgenbilder.",
+      "radiologyDoctorNotePlaceholder": "Medizinische Notiz hinzufügen...",
+      "radiologyView": "Öffnen",
+      "radiologyMarkReviewed": "Als geprüft markieren",
+      "radiologyReviewed": "Geprüft",
+      "radiologyPending": "Prüfung ausstehend",
+      "radiologyNotificationPatientTitle": "Arztnotiz hinzugefügt",
+      "radiologyPreviewInvalid": "Vorschau ist nicht vertrauenswürdig",
+      "radiologyBookingContextLabel": "Termin / Aufnahmezusammenfassung",
+      "radiologyPatientNotesLabel": "Patientennotiz",
+      "radiologyLinkedAppointmentCta": "Zu Terminen",
+      "patientIntakeSummaryLabel": "Vorläufige Zusammenfassung"
     },
     "patient": {
       "welcomeTitle": "Willkommen, Ahmet 👋",
@@ -422,6 +474,7 @@
       "fullName": "Vollständiger Name",
       "email": "E-Mail",
       "phone": "Telefon",
+      "saved": "Gespeichert",
       "save": "Speichern",
       "settingsTitle": "Einstellungen",
       "settingsSubtitle": "Benachrichtigungen und Präferenzen verwalten. (Demo)",
@@ -432,20 +485,52 @@
       "emailNotificationsDesc": "Bestätigungen und Erinnerungen per E-Mail erhalten.",
       "vipSupport": "VIP-Support",
       "vipSupportDesc": "Prioritäts-Supportkanal aktivieren.",
-      "change": "Ändern"
+      "change": "Ändern",
+      "enabled": "Aktiv",
+      "disabled": "Inaktiv",
+      "documentsTitle": "Röntgen & Dokumente",
+      "documentsSubtitle": "Laden Sie Ihre Dentalbilder für die Vorabprüfung hoch.",
+      "documentsUploadCardTitle": "Neue Datei hochladen",
+      "documentsTitleLabel": "Dokumenttitel (optional)",
+      "documentsNotesLabel": "Notiz für den Arzt (optional)",
+      "documentsSelectFile": "Röntgenbild auswählen",
+      "documentsUploading": "Wird hochgeladen...",
+      "documentsUploadHint": "Erlaubt: JPG/PNG/WEBP bis {size}MB.",
+      "documentsIntakeSnapshotTitle": "Die Zusammenfassung Ihrer letzten Buchung wird mit diesem Upload an den Arzt gesendet.",
+      "documentsIntakeSnapshotEmpty": "Es gibt einen Termin, aber keinen Kurztext; die Datei wird trotzdem übermittelt. Optional unten eine Notiz ergänzen.",
+      "documentsListIntakeLabel": "Zusammenfassung zum Zeitpunkt des Uploads",
+      "documentsFileTypeError": "Nur JPG-, PNG- oder WEBP-Dateien sind erlaubt.",
+      "documentsFileSizeError": "Dateigröße muss unter {size}MB liegen.",
+      "documentsUploadSuccess": "Datei erfolgreich hochgeladen.",
+      "documentsNotificationDoctorTitle": "Neues Röntgenbild hochgeladen",
+      "documentsUploadFailed": "Upload fehlgeschlagen. Bitte erneut versuchen.",
+      "documentsListTitle": "Hochgeladene Dateien",
+      "documentsNoItems": "Noch keine Dokumente hochgeladen.",
+      "documentsUploadedAt": "Hochgeladen",
+      "documentsView": "Ansehen",
+      "documentsDoctorNote": "Arztnotiz",
+      "documentsDefaultTitle": "Dentales Röntgen",
+      "documentsPreviewInvalid": "Vorschau konnte nicht validiert werden"
     }
   },
   "common": {
     "loading": "Lädt...",
     "error": "Ein Fehler ist aufgetreten",
+    "errorDescription": "Ein unerwartetes Problem ist aufgetreten. Bitte versuchen Sie es erneut.",
+    "notFoundTitle": "404 - Seite nicht gefunden",
+    "notFoundDescription": "Die gesuchte Seite existiert nicht oder wurde verschoben.",
     "retry": "Erneut versuchen",
     "close": "Schließen",
     "save": "Speichern",
     "cancel": "Abbrechen",
     "confirm": "Bestätigen",
     "search": "Suchen",
+    "searchPlaceholderList": "Nach Name, Klinik oder Behandlung suchen...",
     "filter": "Filtern",
     "sortBy": "Sortieren nach",
+    "sortRating": "Nach Bewertung",
+    "sortReviews": "Nach Rezensionen",
+    "sortAZ": "A-Z",
     "all": "Alle"
   }
 }

@@ -11,13 +11,15 @@ import {
   type AppointmentStatus,
 } from "@/lib/demoAppointments";
 import { getStatusTone, matchesStatusSearch } from "@/lib/demoStatus";
+import { getAppointmentLabels, normalizeSearchValue } from "@/lib/appointmentLocalization";
 import styles from "../doctor/Dashboard.module.css";
 
 export default function PatientDashboard() {
   const locale = useLocale();
   const t = useTranslations("panel.patient");
+  const tTreatments = useTranslations("treatments");
   const searchParams = useSearchParams();
-  const searchQuery = (searchParams.get("q") ?? "").trim().toLowerCase();
+  const searchQuery = normalizeSearchValue(searchParams.get("q") ?? "", locale);
   const [appointments] = useState(() => {
     seedDemoAppointments();
     return readDemoAppointments();
@@ -38,12 +40,22 @@ export default function PatientDashboard() {
         if (!searchQuery) {
           return true;
         }
-        const haystack = `${apt.treatment} ${apt.clinic} ${apt.date} ${apt.time}`.toLowerCase();
-        return haystack.includes(searchQuery) || matchesStatusSearch(apt.status, searchQuery, statusLabel);
+        const labels = getAppointmentLabels(apt, locale, (key) => tTreatments(key), t("clinicUnassigned"));
+        const haystack = normalizeSearchValue(
+          `${labels.treatmentLabel} ${labels.clinicLabel} ${apt.date} ${apt.time}`,
+          locale
+        );
+        return haystack.includes(searchQuery) || matchesStatusSearch(apt.status, searchQuery, statusLabel, locale);
       }),
-    [appointments, searchQuery, statusLabel]
+    [appointments, locale, searchQuery, statusLabel, t, tTreatments]
   );
-  const upcoming = filteredAppointments[0];
+  const upcoming = useMemo(
+    () =>
+      [...filteredAppointments]
+        .filter((item) => item.status !== "cancelled" && item.status !== "completed")
+        .sort((a, b) => `${a.date}T${a.time}`.localeCompare(`${b.date}T${b.time}`))[0],
+    [filteredAppointments]
+  );
 
   const pendingCount = appointments.filter((a) => a.status === "pending").length;
 
@@ -88,16 +100,20 @@ export default function PatientDashboard() {
           </div>
           {upcoming ? (
             <div style={{ display: "grid", gap: "0.75rem" }}>
+              {(() => {
+                const labels = getAppointmentLabels(upcoming, locale, (key) => tTreatments(key), t("clinicUnassigned"));
+                return (
+                  <>
               <div style={{ color: "var(--text-muted)", fontSize: "0.85rem" }}>{t("treatment")}</div>
-              <div style={{ color: "var(--text-primary)", fontWeight: 900, fontSize: "1.05rem" }}>{upcoming.treatment}</div>
+              <div style={{ color: "var(--text-primary)", fontWeight: 900, fontSize: "1.05rem" }}>{labels.treatmentLabel}</div>
               <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", color: "var(--text-secondary)" }}>
                 <span>
                   <MapPin size={14} style={{ display: "inline", marginRight: 6 }} />
-                  {upcoming.clinic || t("clinicUnassigned")}
+                  {labels.clinicLabel}
                 </span>
                 <span>
                   <Clock size={14} style={{ display: "inline", marginRight: 6 }} />
-                  {upcoming.date} · {upcoming.time}
+                  {labels.dateLabel} · {upcoming.time}
                 </span>
               </div>
               <div style={{ display: "flex", gap: "0.75rem", marginTop: "0.25rem" }}>
@@ -106,6 +122,9 @@ export default function PatientDashboard() {
                 </Link>
                 <button className="btn btn-ghost btn-sm">{t("support")}</button>
               </div>
+                  </>
+                );
+              })()}
             </div>
           ) : (
             <div style={{ color: "var(--text-muted)" }}>{t("noUpcomingAppointment")}</div>
@@ -129,16 +148,21 @@ export default function PatientDashboard() {
             ) : (
               filteredAppointments.map((apt) => (
                 <div key={apt.id} className={styles.listItem}>
+                  {(() => {
+                    const labels = getAppointmentLabels(apt, locale, (key) => tTreatments(key), t("clinicUnassigned"));
+                    const dayOfMonth = String(new Date(apt.date).getDate()).padStart(2, "0");
+                    return (
+                      <>
                   <div className={styles.timeBlock} style={{ width: "60px" }}>
-                    <div style={{ fontSize: "1.1rem" }}>{apt.date.split("-")[2]}</div>
+                    <div style={{ fontSize: "1.1rem" }}>{dayOfMonth}</div>
                     <div style={{ fontSize: "0.7rem", color: "var(--text-muted)", fontWeight: "normal" }}>
                       {apt.time}
                     </div>
                   </div>
                   <div className={styles.itemInfo}>
-                    <div className={styles.itemName}>{apt.treatment}</div>
+                    <div className={styles.itemName}>{labels.treatmentLabel}</div>
                     <div className={styles.itemDesc}>
-                      <MapPin size={12} style={{ display: "inline" }}/> {apt.clinic || t("clinicUnassigned")}
+                      <MapPin size={12} style={{ display: "inline" }}/> {labels.clinicLabel}
                     </div>
                   </div>
                   <div
@@ -154,6 +178,9 @@ export default function PatientDashboard() {
                   >
                     {statusLabel[apt.status]}
                   </div>
+                      </>
+                    );
+                  })()}
                 </div>
               ))
             )}

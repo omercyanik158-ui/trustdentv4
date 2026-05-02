@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
-import { useSearchParams } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
-import { ArrowRight, Building2, CheckCircle2, MapPin } from "lucide-react";
+import { ArrowRight, Building2, CheckCircle2, MapPin, Search } from "lucide-react";
+import Link from "next/link";
 import BookingModal from "../Booking/BookingModal";
 import { CLINICS } from "@/data";
 import type { Clinic } from "@/data";
@@ -113,9 +113,8 @@ export default function Clinics() {
   const tTreatments = useTranslations("treatments");
   const tCommon = useTranslations("common");
   const locale = useLocale();
-  const searchParams = useSearchParams();
-  const searchQuery = (searchParams.get("q") ?? "").trim().toLowerCase();
   const [bookingOpen, setBookingOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const [locationFilter, setLocationFilter] = useState<string>("all");
   const [sortBy, setSortBy] = useState<"rating" | "reviews">("rating");
 
@@ -129,10 +128,11 @@ export default function Clinics() {
       if (locationFilter !== "all" && clinic.location !== locationFilter) {
         return false;
       }
-      if (!searchQuery) {
+      const normalizedSearch = searchQuery.trim().toLowerCase();
+      if (!normalizedSearch) {
         return true;
       }
-      return `${clinic.name} ${clinic.location} ${clinic.blurb}`.toLowerCase().includes(searchQuery);
+      return `${clinic.name} ${clinic.location} ${clinic.blurb}`.toLowerCase().includes(normalizedSearch);
     });
     return filtered.sort((a, b) => (sortBy === "reviews" ? b.reviews - a.reviews : b.rating - a.rating));
   }, [locationFilter, searchQuery, sortBy]);
@@ -154,6 +154,19 @@ export default function Clinics() {
 
         <div className={styles.controls}>
           <label className={styles.control}>
+            <span>{tCommon("search")}</span>
+            <div className="input" style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+              <Search size={14} aria-hidden="true" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder={tCommon("searchPlaceholderList")}
+                style={{ border: 0, outline: "none", background: "transparent", width: "100%" }}
+              />
+            </div>
+          </label>
+          <label className={styles.control}>
             <span>{tCommon("filter")} ({tNav("clinics")})</span>
             <select className="input" value={locationFilter} onChange={(e) => setLocationFilter(e.target.value)}>
               <option value="all">{tCommon("all")}</option>
@@ -171,8 +184,8 @@ export default function Clinics() {
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as "rating" | "reviews")}
             >
-              <option value="rating">Rating</option>
-              <option value="reviews">Reviews</option>
+              <option value="rating">{tCommon("sortRating")}</option>
+              <option value="reviews">{tCommon("sortReviews")}</option>
             </select>
           </label>
         </div>
@@ -193,10 +206,10 @@ export default function Clinics() {
 
         {/* View All */}
         <div className={styles.viewAllWrap}>
-          <button className="btn btn-ghost">
+          <Link className="btn btn-ghost" href={`/${locale}/clinics`}>
             {t("viewAll")}
             <ArrowRight size={16} />
-          </button>
+          </Link>
         </div>
       </div>
       

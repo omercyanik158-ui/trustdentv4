@@ -8,7 +8,10 @@
     "contact": "Contact",
     "login": "Log In",
     "register": "Sign Up",
-    "myAccount": "My Account"
+    "myAccount": "My Account",
+    "changeLanguage": "Change language",
+    "toggleMenu": "Toggle menu",
+    "closeMenu": "Close menu"
   },
   "hero": {
     "badge": "The Restorative Voyage",
@@ -93,7 +96,11 @@
       "desc": "A new architectural masterpiece. Return home with confidence."
     },
     "day": "Day",
-    "videoSoon": "Video will be added soon"
+    "videoSoon": "Video will be added soon",
+    "close": "Close",
+    "previous": "Previous step",
+    "next": "Next step",
+    "stepAria": "Step {count}"
   },
   "clinics": {
     "title": "Featured Clinics",
@@ -217,7 +224,8 @@
     "careers": "Careers",
     "copyright": "© 2025 TrustDent. All rights reserved.",
     "sslSecure": "SSL Secure",
-    "compliance": "GDPR Compliant"
+    "compliance": "GDPR Compliant",
+    "social": "Social profile"
   },
   "auth": {
     "loginTitle": "Welcome Back",
@@ -248,6 +256,22 @@
   "booking": {
     "title": "Create Appointment",
     "step": "Step {current} / {total}",
+    "intakeTitle": "Quick Pre-Check",
+    "intakeDesc": "Answer 3 short questions to suggest the most suitable treatment.",
+    "intakeConcernLabel": "Main concern",
+    "intakeConcern_pain": "Pain / sensitivity",
+    "intakeConcern_missing": "Missing tooth",
+    "intakeConcern_color": "Color / whitening",
+    "intakeConcern_shape": "Shape / aesthetics",
+    "intakePainLabel": "Pain level",
+    "intakePriorityLabel": "Your priority",
+    "intakePriority_speed": "Fast solution",
+    "intakePriority_price": "Budget balance",
+    "intakePriority_aesthetics": "Aesthetic result",
+    "intakeSuggestedTreatment": "Suggested treatment",
+    "intakeDisclaimer": "This is not a medical diagnosis. It is for pre-information only.",
+    "skipQuickIntake": "Skip survey",
+    "intakeSummaryPrefix": "Pre-check",
     "step1Title": "Treatment and Clinic Selection",
     "step1Desc": "Which treatment would you like to book?",
     "step2Title": "Date and Time",
@@ -261,6 +285,8 @@
     "dateLabel": "Date",
     "selectDate": "Select Date",
     "timeLabel": "Time Selection",
+    "prevMonth": "Previous month",
+    "nextMonth": "Next month",
     "fullNameLabel": "Full Name",
     "phoneLabel": "Phone Number",
     "continue": "Continue",
@@ -268,12 +294,18 @@
     "confirmAppointment": "Confirm Appointment",
     "successTitle": "Your Request Is Received!",
     "successDesc": "Your appointment request has been sent to the clinic. We will contact you shortly.",
+    "notificationPatientTitle": "Your appointment request was received",
+    "notificationPatientMessage": "Your request was sent to the doctor. Status updates will appear here.",
+    "notificationDoctorTitle": "New appointment request",
+    "notificationDoctorMessage": "A new appointment request is waiting in your panel.",
     "goToPatientPanel": "Go to Patient Panel"
   },
   "panel": {
     "common": {
       "dashboard": "Dashboard",
       "appointments": "Appointments",
+      "documents": "My Documents",
+      "radiology": "Radiology",
       "myAppointments": "My Appointments",
       "myPatients": "My Patients",
       "earnings": "Earnings",
@@ -294,7 +326,10 @@
       "demoAdminName": "Platform Admin",
       "demoAdminRole": "Administrator",
       "resetDemo": "Reset Demo",
-      "resetDemoTitle": "Clear demo data and reload page"
+      "resetDemoTitle": "Clear demo data and reload page",
+      "notificationsTitle": "Notifications",
+      "markAllRead": "Mark all read",
+      "noNotifications": "No notifications yet."
     },
     "admin": {
       "title": "Admin Dashboard ⚙️",
@@ -364,6 +399,7 @@
       "statusApproved": "Approved",
       "statusCancelled": "Cancelled",
       "statusCompleted": "Completed",
+      "appointmentStatusChanged": "Appointment status updated",
       "myPatientsTitle": "My Patients",
       "myPatientsSubtitle": "Patient list and summaries. (Demo: derived from appointments.)",
       "totalPatients": "Total Patients",
@@ -383,7 +419,23 @@
       "clinic": "Clinic",
       "phone": "Phone",
       "email": "Email",
-      "save": "Save"
+      "save": "Save",
+      "saved": "Saved",
+      "radiologyTitle": "Radiology Reviews",
+      "radiologySubtitle": "Review patient X-rays and add pre-evaluation notes.",
+      "radiologyList": "Uploaded X-rays",
+      "radiologyNoItems": "No uploaded X-rays yet.",
+      "radiologyDoctorNotePlaceholder": "Add your medical note...",
+      "radiologyView": "Open",
+      "radiologyMarkReviewed": "Mark Reviewed",
+      "radiologyReviewed": "Reviewed",
+      "radiologyPending": "Pending Review",
+      "radiologyNotificationPatientTitle": "Doctor note added",
+      "radiologyPreviewInvalid": "Preview is not trusted",
+      "radiologyBookingContextLabel": "Appointment / intake summary",
+      "radiologyPatientNotesLabel": "Patient note",
+      "radiologyLinkedAppointmentCta": "Go to appointments",
+      "patientIntakeSummaryLabel": "Intake summary"
     },
     "patient": {
       "welcomeTitle": "Welcome, Ahmet 👋",
@@ -416,6 +468,7 @@
       "fullName": "Full Name",
       "email": "Email",
       "phone": "Phone",
+      "saved": "Saved",
       "save": "Save",
       "settingsTitle": "Settings",
       "settingsSubtitle": "Manage notifications and preferences. (Demo)",
@@ -426,20 +479,52 @@
       "emailNotificationsDesc": "Receive confirmations and reminders via email.",
       "vipSupport": "VIP Support",
       "vipSupportDesc": "Enable priority support channel.",
-      "change": "Change"
+      "change": "Change",
+      "enabled": "Enabled",
+      "disabled": "Disabled",
+      "documentsTitle": "X-ray & Documents",
+      "documentsSubtitle": "Upload your dental images for doctor pre-evaluation.",
+      "documentsUploadCardTitle": "Upload New File",
+      "documentsTitleLabel": "Document title (optional)",
+      "documentsNotesLabel": "Notes for doctor (optional)",
+      "documentsSelectFile": "Select X-ray Image",
+      "documentsUploading": "Uploading...",
+      "documentsUploadHint": "Allowed: JPG/PNG/WEBP up to {size}MB.",
+      "documentsIntakeSnapshotTitle": "Your latest booking intake summary will be sent to the doctor with this upload.",
+      "documentsIntakeSnapshotEmpty": "You have an appointment record but no intake summary text; the file will still reach your doctor. Add an optional note below.",
+      "documentsListIntakeLabel": "Intake snapshot at upload",
+      "documentsFileTypeError": "Only JPG, PNG or WEBP files are allowed.",
+      "documentsFileSizeError": "File size must be below {size}MB.",
+      "documentsUploadSuccess": "File uploaded successfully.",
+      "documentsNotificationDoctorTitle": "New X-ray uploaded",
+      "documentsUploadFailed": "Upload failed. Please try again.",
+      "documentsListTitle": "Uploaded Files",
+      "documentsNoItems": "No documents uploaded yet.",
+      "documentsUploadedAt": "Uploaded",
+      "documentsView": "View",
+      "documentsDoctorNote": "Doctor note",
+      "documentsDefaultTitle": "Dental X-ray",
+      "documentsPreviewInvalid": "Preview could not be validated"
     }
   },
   "common": {
     "loading": "Loading...",
     "error": "An error occurred",
+    "errorDescription": "An unexpected issue occurred. Please try again.",
+    "notFoundTitle": "404 - Page not found",
+    "notFoundDescription": "The page you are looking for does not exist or has been moved.",
     "retry": "Try again",
     "close": "Close",
     "save": "Save",
     "cancel": "Cancel",
     "confirm": "Confirm",
     "search": "Search",
+    "searchPlaceholderList": "Search by name, clinic or treatment...",
     "filter": "Filter",
     "sortBy": "Sort by",
+    "sortRating": "Rating",
+    "sortReviews": "Reviews",
+    "sortAZ": "A-Z",
     "all": "All"
   }
 }
