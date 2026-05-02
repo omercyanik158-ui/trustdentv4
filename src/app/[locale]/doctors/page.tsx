@@ -4,7 +4,8 @@ import { useMemo, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
-import { Star, Stethoscope, Building2, Search } from "lucide-react";
+import { Star, Stethoscope, Building2, Search, Sparkles } from "lucide-react";
+import { motion } from "framer-motion";
 import { DOCTORS } from "@/data";
 import BookingModal from "@/components/Booking/BookingModal";
 import styles from "./DoctorsPage.module.css";
@@ -62,46 +63,73 @@ export default function DoctorsPage() {
             <h1 className="section-title">
               {t("featuredTitle").split(" ").slice(0, -1).join(" ")} <span>{t("featuredTitle").split(" ").slice(-1)}</span>
             </h1>
-            <p className="section-subtitle">{t("featuredSubtitle")}</p>
           </header>
 
+          <motion.div
+            className={styles.subtitleBox}
+            initial={{ opacity: 0, clipPath: "inset(0 40% 0 40% round 24px)", y: 20 }}
+            whileInView={{ opacity: 1, clipPath: "inset(0 0% 0 0% round 24px)", y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className={styles.subtitleIcon}>
+              <Sparkles size={22} aria-hidden="true" />
+            </div>
+            <p className={styles.subtitleText}>{t("featuredSubtitle")}</p>
+          </motion.div>
+
           <div className={styles.controls}>
-            <label className={styles.control}>
-              <span>{tCommon("search")}</span>
-              <div className="input" style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                <Search size={14} aria-hidden="true" />
+            {/* Search chip */}
+            <div className={styles.searchChip}>
+              <Search size={18} className={styles.chipIcon} aria-hidden="true" />
+              <div className={styles.chipInner}>
+                <span className={styles.chipLabel}>{tCommon("search")}</span>
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder={tCommon("searchPlaceholderList")}
-                  style={{ border: 0, outline: "none", background: "transparent", width: "100%" }}
+                  className={styles.searchInput}
                 />
               </div>
-            </label>
-            <label className={styles.control}>
-              <span>{tCommon("filter")} ({tNav("clinics")})</span>
-              <select className="input" value={clinicFilter} onChange={(e) => setClinicFilter(e.target.value)}>
-                <option value="all">{tCommon("all")}</option>
-                {clinicOptions.map((clinic) => (
-                  <option key={clinic} value={clinic}>
-                    {clinic}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label className={styles.control}>
-              <span>{tCommon("sortBy")}</span>
-              <select
-                className="input"
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as "rating" | "reviews" | "name")}
-              >
-                <option value="rating">{tCommon("sortRating")}</option>
-                <option value="reviews">{tCommon("sortReviews")}</option>
-                <option value="name">{tCommon("sortAZ")}</option>
-              </select>
-            </label>
+            </div>
+
+            {/* Clinic filter chip */}
+            <div className={styles.filterChip}>
+              <Building2 size={16} className={styles.chipIcon} aria-hidden="true" />
+              <div className={styles.chipInner}>
+                <span className={styles.chipLabel}>{tCommon("filter")} ({tNav("clinics")})</span>
+                <select
+                  className={styles.selectInput}
+                  value={clinicFilter}
+                  onChange={(e) => setClinicFilter(e.target.value)}
+                  aria-label={tCommon("filter")}
+                >
+                  <option value="all">{tCommon("all")}</option>
+                  {clinicOptions.map((clinic) => (
+                    <option key={clinic} value={clinic}>{clinic}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            {/* Sort chip */}
+            <div className={styles.filterChip}>
+              <Stethoscope size={16} className={styles.chipIcon} aria-hidden="true" />
+              <div className={styles.chipInner}>
+                <span className={styles.chipLabel}>{tCommon("sortBy")}</span>
+                <select
+                  className={styles.selectInput}
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value as "rating" | "reviews" | "name")}
+                  aria-label={tCommon("sortBy")}
+                >
+                  <option value="rating">{tCommon("sortRating")}</option>
+                  <option value="reviews">{tCommon("sortReviews")}</option>
+                  <option value="name">{tCommon("sortAZ")}</option>
+                </select>
+              </div>
+            </div>
           </div>
 
           <section className={styles.grid} aria-label={tNav("doctors")}>

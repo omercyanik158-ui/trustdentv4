@@ -17,7 +17,7 @@
     "badge": "Die Reise zu Ihrem perfekten Lächeln",
     "titleMain": "Weltklasse",
     "titleSpan": "Zahnbehandlung",
-    "subtitle": "Erleben Sie moderne Zahnmedizin in der Türkei — transparente Planung, verifizierte Kliniken und ein reibungsloser Ablauf.",
+    "subtitle": "Entdecken Sie den Premium-Zahntourismus mit TrustDent – wo internationale medizinische Expertise auf eine nahtlose, transparente Erfahrung trifft. Die Reise zu Ihrem gesunden Lächeln beginnt hier.",
     "btnVoyage": "Termin anfragen",
     "btnHowItWorks": "So funktioniert’s",
     "voyageLocation": "Istanbul Zentrum",
@@ -81,7 +81,7 @@
   },
   "clinics": {
     "title": "Ausgewählte Kliniken",
-    "subtitle": "JCI-zertifizierte Kliniken mit internationalen Standards",
+    "subtitle": "Entdecken Sie unsere sorgfältig ausgewählten, renommierten Kliniken, die über eine internationale JCI-Akkreditierung verfügen und höchste medizinische Standards sowie Patientenzufriedenheit garantieren.",
     "viewAll": "Alle anzeigen",
     "rating": "Bewertung",
     "reviews": "Bewertungen",
@@ -98,7 +98,7 @@
     "title": "Unsere Expertenärzte",
     "subtitle": "Lernen Sie unsere zertifizierten Spezialisten kennen",
     "featuredTitle": "Ausgewählte Ärzte",
-    "featuredSubtitle": "Wir zeigen hier nicht alle – dies sind unsere am meisten gefragten Spezialisten.",
+    "featuredSubtitle": "Lernen Sie die erfahrensten und gefragtesten Zahnspezialisten der Türkei kennen — jeder mit nachgewiesener Expertise in seinem Fachgebiet.",
     "viewAll": "Alle Ärzte anzeigen",
     "viewProfile": "Profil ansehen",
     "experience": "Jahre Erfahrung",
@@ -109,7 +109,7 @@
   "map": {
     "badge": "Karte",
     "title": "Kliniken auf der Karte finden",
-    "subtitle": "Kliniken in Istanbul, Ankara, Antalya und mehr Städten",
+    "subtitle": "Entdecken Sie unser exklusives Netzwerk von Premium-Kliniken landesweit, sodass Sie erstklassige Behandlungen an Ihrem bevorzugten Standort erleben können.",
     "viewOnMap": "Auf Karte anzeigen",
     "getDirections": "Wegbeschreibung",
     "legendTitle": "Klinikstandorte",
@@ -142,7 +142,7 @@
   },
   "testimonials": {
     "title": "Was unsere Patienten sagen",
-    "subtitle": "Echte Erfahrungen, echte Ergebnisse",
+    "subtitle": "Entdecken Sie die wahren Erfahrungen und Erfolgsgeschichten unserer Patienten, deren Leben durch die Premium-Betreuung von TrustDent verändert wurde.",
     "badge": "Bewertungen",
     "verified": "Verifiziert",
     "trust": {

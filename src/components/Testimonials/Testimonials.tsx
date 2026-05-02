@@ -2,7 +2,8 @@
 
 import React from "react";
 import { useTranslations } from "next-intl";
-import { CheckCircle2, Globe, MessageCircle, ShieldCheck, Star } from "lucide-react";
+import { CheckCircle2, Globe, MessageCircle, ShieldCheck, Star, Sparkles } from "lucide-react";
+import { motion } from "framer-motion";
 import { TESTIMONIALS } from "@/data";
 import type { Testimonial } from "@/data";
 import styles from "./Testimonials.module.css";
@@ -99,8 +100,20 @@ export default function Testimonials() {
           <h2 className="section-title">
             {t("title").split(" ").slice(0, 3).join(" ")} <span>{t("title").split(" ").slice(3).join(" ")}</span>
           </h2>
-          <p className="section-subtitle">{t("subtitle")}</p>
         </header>
+
+        <motion.div
+          className={styles.subtitleBox}
+          initial={{ opacity: 0, clipPath: "inset(0 40% 0 40% round 24px)", y: 20 }}
+          whileInView={{ opacity: 1, clipPath: "inset(0 0% 0 0% round 24px)", y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div className={styles.subtitleIcon}>
+            <Sparkles size={24} aria-hidden="true" />
+          </div>
+          <p className={styles.subtitleText}>{t("subtitle")}</p>
+        </motion.div>
 
         <div className={styles.grid}>
           {TESTIMONIALS.map((review) => (

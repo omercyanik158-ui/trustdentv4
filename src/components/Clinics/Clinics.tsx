@@ -2,11 +2,12 @@
 
 import React, { useMemo, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
-import { ArrowRight, Building2, CheckCircle2, MapPin, Search } from "lucide-react";
+import { ArrowRight, Building2, CheckCircle2, MapPin, Search, Sparkles, SlidersHorizontal } from "lucide-react";
 import Link from "next/link";
 import BookingModal from "../Booking/BookingModal";
 import { CLINICS } from "@/data";
 import type { Clinic } from "@/data";
+import { motion } from "framer-motion";
 import styles from "./Clinics.module.css";
 
 function StarRating({ rating }: { rating: number }) {
@@ -141,7 +142,7 @@ export default function Clinics() {
     <section id="clinics" className={`section ${styles.clinics}`}>
       <div className="container">
         {/* Header */}
-        <header className="section-header">
+        <header className="section-header" style={{ marginBottom: "1.5rem" }}>
           <div className="section-badge">
             <Building2 size={16} aria-hidden="true" style={{ display: "inline", marginRight: 6 }} />
             {tNav("clinics")}
@@ -149,45 +150,72 @@ export default function Clinics() {
           <h2 className="section-title">
             {t("title").split(" ").slice(0, -1).join(" ")} <span>{t("title").split(" ").slice(-1)}</span>
           </h2>
-          <p className="section-subtitle">{t("subtitle")}</p>
         </header>
 
-        <div className={styles.controls}>
-          <label className={styles.control}>
-            <span>{tCommon("search")}</span>
-            <div className="input" style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-              <Search size={14} aria-hidden="true" />
+        <motion.div
+          className={styles.subtitleBox}
+          initial={{ opacity: 0, clipPath: "inset(0 40% 0 40% round 24px)", y: 20 }}
+          whileInView={{ opacity: 1, clipPath: "inset(0 0% 0 0% round 24px)", y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div className={styles.subtitleIcon}>
+            <Sparkles size={24} aria-hidden="true" />
+          </div>
+          <p className={styles.subtitleText}>{t("subtitle")}</p>
+        </motion.div>
+
+        <div className={styles.controlsWrapper}>
+          {/* Search chip */}
+          <div className={styles.searchChip}>
+            <Search size={18} className={styles.chipIcon} aria-hidden="true" />
+            <div className={styles.chipInner}>
+              <span className={styles.chipLabel}>{tCommon("search")}</span>
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder={tCommon("searchPlaceholderList")}
-                style={{ border: 0, outline: "none", background: "transparent", width: "100%" }}
+                className={styles.searchInput}
               />
             </div>
-          </label>
-          <label className={styles.control}>
-            <span>{tCommon("filter")} ({tNav("clinics")})</span>
-            <select className="input" value={locationFilter} onChange={(e) => setLocationFilter(e.target.value)}>
-              <option value="all">{tCommon("all")}</option>
-              {locationOptions.map((location) => (
-                <option key={location} value={location}>
-                  {location}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className={styles.control}>
-            <span>{tCommon("sortBy")}</span>
-            <select
-              className="input"
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as "rating" | "reviews")}
-            >
-              <option value="rating">{tCommon("sortRating")}</option>
-              <option value="reviews">{tCommon("sortReviews")}</option>
-            </select>
-          </label>
+          </div>
+
+          {/* Location filter chip */}
+          <div className={styles.filterChip}>
+            <MapPin size={16} className={styles.chipIcon} aria-hidden="true" />
+            <div className={styles.chipInner}>
+              <span className={styles.chipLabel}>{tCommon("filter")}</span>
+              <select
+                className={styles.selectInput}
+                value={locationFilter}
+                onChange={(e) => setLocationFilter(e.target.value)}
+                aria-label={tCommon("filter")}
+              >
+                <option value="all">{tCommon("all")}</option>
+                {locationOptions.map((location) => (
+                  <option key={location} value={location}>{location}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          {/* Sort filter chip */}
+          <div className={styles.filterChip}>
+            <SlidersHorizontal size={16} className={styles.chipIcon} aria-hidden="true" />
+            <div className={styles.chipInner}>
+              <span className={styles.chipLabel}>{tCommon("sortBy")}</span>
+              <select
+                className={styles.selectInput}
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as "rating" | "reviews")}
+                aria-label={tCommon("sortBy")}
+              >
+                <option value="rating">{tCommon("sortRating")}</option>
+                <option value="reviews">{tCommon("sortReviews")}</option>
+              </select>
+            </div>
+          </div>
         </div>
 
         {/* Grid */}
