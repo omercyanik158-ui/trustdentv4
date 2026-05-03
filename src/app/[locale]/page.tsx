@@ -6,6 +6,7 @@ import Footer from "@/components/Footer/Footer";
 
 const Hero = dynamic(() => import("@/components/Hero/Hero"));
 const Treatments = dynamic(() => import("@/components/Treatments/Treatments"));
+const HowItWorks = dynamic(() => import("@/components/HowItWorks/HowItWorks"));
 const Clinics = dynamic(() => import("@/components/Clinics/Clinics"));
 const MapSection = dynamic(() => import("@/components/MapSection/MapSection"));
 const Testimonials = dynamic(() => import("@/components/Testimonials/Testimonials"));
@@ -34,6 +35,7 @@ export default async function HomePage({ params }: Props) {
       <main>
         <Hero />
         <Treatments scrollAnimated={false} />
+        <HowItWorks />
         <Clinics />
         <MapSection />
         <Testimonials />
