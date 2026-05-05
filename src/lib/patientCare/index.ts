@@ -1,3 +1,5 @@
-export { demoPatientCareReadModel } from "./demoPatientCareReadModel";
-export { radiologyFieldsFromIntakeSnapshot } from "./intakeLinkage";
+export {
+  demoPatientCareReadModel,
+  radiologyFieldsFromAppointmentSnapshot,
+} from "./demoPatientCareReadModel";
 export type { PatientCareReadModel } from "./patientCareReadModel";

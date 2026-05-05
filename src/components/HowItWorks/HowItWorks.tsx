@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useId, useRef } from "react";
+import React, { useEffect, useId, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { TbPlaneArrival, TbStethoscope, TbHotelService, TbConfetti } from "react-icons/tb";
@@ -19,7 +19,12 @@ export default function HowItWorks() {
   const t = useTranslations("howItWorks");
   const filterUid = useId().replace(/:/g, "");
   const prefersReducedMotion = useReducedMotion();
-  const reducedMotion = prefersReducedMotion === true;
+  /** Until mounted, ignore reduced-motion so SSR + first client paint match (avoids hydration mismatch). */
+  const [motionPrefsReady, setMotionPrefsReady] = useState(false);
+  useEffect(() => {
+    setMotionPrefsReady(true);
+  }, []);
+  const reducedMotion = motionPrefsReady && prefersReducedMotion === true;
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,

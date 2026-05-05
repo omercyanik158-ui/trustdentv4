@@ -36,9 +36,6 @@ export default function BookingModal({ isOpen, onClose, locale, patientRecordId 
   const t = useTranslations("booking");
   const tTreatments = useTranslations("treatments");
   const [step, setStep] = useState(1);
-  const [surveyConcern, setSurveyConcern] = useState("pain");
-  const [surveyPain, setSurveyPain] = useState(4);
-  const [surveyPriority, setSurveyPriority] = useState("speed");
   const [treatment, setTreatment] = useState("");
   const [clinic, setClinic] = useState("auto");
   const [date, setDate] = useState("");
@@ -50,9 +47,6 @@ export default function BookingModal({ isOpen, onClose, locale, patientRecordId 
 
   const resetForm = () => {
     setStep(1);
-    setSurveyConcern("pain");
-    setSurveyPain(4);
-    setSurveyPriority("speed");
     setTreatment("");
     setClinic("auto");
     setDate("");
@@ -87,34 +81,6 @@ export default function BookingModal({ isOpen, onClose, locale, patientRecordId 
   const selectedClinic = clinicOptions.find((item) => item.id === clinic);
   const selectedClinicLabel = selectedClinic?.label ?? t("clinicBestMatch");
 
-  const recommendation = useMemo(() => {
-    let id: TreatmentId = "implants";
-    if (surveyConcern === "pain" && surveyPain >= 7) id = "root-canal";
-    else if (surveyConcern === "missing") id = "implants";
-    else if (surveyConcern === "color") id = "whitening";
-    else if (surveyConcern === "shape") id = "zirconia";
-    return {
-      id,
-      label: tTreatments(`${id}.title`),
-    };
-  }, [surveyConcern, surveyPain, tTreatments]);
-
-  const intakeSummary = useMemo(() => {
-    return sanitizeText(
-      `${t("intakeSummaryPrefix")}: ${t(`intakeConcern_${surveyConcern}`)}, ${t("intakePainLabel")} ${surveyPain}/10, ${t(
-        `intakePriority_${surveyPriority}`
-      )}. ${t("intakeSuggestedTreatment")}: ${recommendation.label}`,
-      260
-    );
-  }, [recommendation.label, surveyConcern, surveyPain, surveyPriority, t]);
-
-  const goNextFromIntake = () => {
-    if (!treatment) {
-      setTreatment(recommendation.id);
-    }
-    setStep(2);
-  };
-
   const handleComplete = () => {
     seedDemoAppointments();
     // Save to localStorage to simulate DB
@@ -129,7 +95,6 @@ export default function BookingModal({ isOpen, onClose, locale, patientRecordId 
       clinic: sanitizeText(selectedClinicLabel, 120),
       date,
       time,
-      intakeSummary,
       status: "pending",
       createdAt: new Date().toISOString()
     };
@@ -156,7 +121,7 @@ export default function BookingModal({ isOpen, onClose, locale, patientRecordId 
       hasClinic: Boolean(newAppointment.clinic && newAppointment.clinic !== t("clinicBestMatch")),
     });
     
-    setStep(5); // Success step
+    setStep(4); // Success step
   };
 
   const handleGoToDashboard = () => {
@@ -184,63 +149,15 @@ export default function BookingModal({ isOpen, onClose, locale, patientRecordId 
           <h2 className={styles.title}>{t("title")}</h2>
           <div className={styles.progress}>
             <div className={styles.progressTrack}>
-              <div className={styles.progressFill} style={{ width: `${(step / 5) * 100}%` }} />
+              <div className={styles.progressFill} style={{ width: `${(step / 4) * 100}%` }} />
             </div>
-            <div className={styles.stepText}>{t("step", { current: step, total: 5 })}</div>
+            <div className={styles.stepText}>{t("step", { current: step, total: 4 })}</div>
           </div>
         </div>
 
         <div className={styles.body}>
-          {/* STEP 1: Quick Intake */}
+          {/* STEP 1: Treatment & Clinic */}
           {step === 1 && (
-            <div className={styles.stepContainer}>
-              <h3 className={styles.stepTitle}>{t("intakeTitle")}</h3>
-              <p className={styles.stepDesc}>{t("intakeDesc")}</p>
-
-              <div className={styles.formGroup}>
-                <label>{t("intakeConcernLabel")}</label>
-                <select className="input" value={surveyConcern} onChange={(e) => setSurveyConcern(e.target.value)}>
-                  <option value="pain">{t("intakeConcern_pain")}</option>
-                  <option value="missing">{t("intakeConcern_missing")}</option>
-                  <option value="color">{t("intakeConcern_color")}</option>
-                  <option value="shape">{t("intakeConcern_shape")}</option>
-                </select>
-              </div>
-
-              <div className={styles.formGroup}>
-                <label>{t("intakePainLabel")}: {surveyPain}/10</label>
-                <input
-                  type="range"
-                  min={0}
-                  max={10}
-                  value={surveyPain}
-                  onChange={(e) => setSurveyPain(Number(e.target.value))}
-                />
-              </div>
-
-              <div className={styles.formGroup}>
-                <label>{t("intakePriorityLabel")}</label>
-                <select className="input" value={surveyPriority} onChange={(e) => setSurveyPriority(e.target.value)}>
-                  <option value="speed">{t("intakePriority_speed")}</option>
-                  <option value="price">{t("intakePriority_price")}</option>
-                  <option value="aesthetics">{t("intakePriority_aesthetics")}</option>
-                </select>
-              </div>
-
-              <div className={styles.summaryBox}>
-                <div className={styles.summaryItem}><strong>{t("intakeSuggestedTreatment")}:</strong> {recommendation.label}</div>
-                <div className={styles.summaryItem}>{t("intakeDisclaimer")}</div>
-              </div>
-
-              <div className={styles.actions}>
-                <button className="btn btn-ghost" onClick={goNextFromIntake}>{t("skipQuickIntake")}</button>
-                <button className="btn btn-primary" onClick={goNextFromIntake}>{t("continue")}</button>
-              </div>
-            </div>
-          )}
-
-          {/* STEP 2: Treatment & Clinic */}
-          {step === 2 && (
             <div className={styles.stepContainer}>
               <h3 className={styles.stepTitle}>{t("step1Title")}</h3>
               <p className={styles.stepDesc}>{t("step1Desc")}</p>
@@ -272,15 +189,15 @@ export default function BookingModal({ isOpen, onClose, locale, patientRecordId 
                 className="btn btn-primary" 
                 style={{ width: "100%", marginTop: "1rem" }}
                 disabled={!treatment}
-                onClick={() => setStep(3)}
+                onClick={() => setStep(2)}
               >
                 {t("continue")}
               </button>
             </div>
           )}
 
-          {/* STEP 3: Date & Time */}
-          {step === 3 && (
+          {/* STEP 2: Date & Time */}
+          {step === 2 && (
             <div className={styles.stepContainer}>
               <h3 className={styles.stepTitle}>{t("step2Title")}</h3>
               <p className={styles.stepDesc}>{t("step2Desc")}</p>
@@ -306,11 +223,11 @@ export default function BookingModal({ isOpen, onClose, locale, patientRecordId 
               </div>
 
               <div className={styles.actions}>
-                <button className="btn btn-ghost" onClick={() => setStep(2)}>{t("back")}</button>
+                <button className="btn btn-ghost" onClick={() => setStep(1)}>{t("back")}</button>
                 <button 
                   className="btn btn-primary" 
                   disabled={!date || !time}
-                  onClick={() => setStep(4)}
+                  onClick={() => setStep(3)}
                 >
                   {t("continue")}
                 </button>
@@ -318,8 +235,8 @@ export default function BookingModal({ isOpen, onClose, locale, patientRecordId 
             </div>
           )}
 
-          {/* STEP 4: Contact Info */}
-          {step === 4 && (
+          {/* STEP 3: Contact Info */}
+          {step === 3 && (
             <div className={styles.stepContainer}>
               <h3 className={styles.stepTitle}>{t("step3Title")}</h3>
               <p className={styles.stepDesc}>{t("step3Desc")}</p>
@@ -348,11 +265,10 @@ export default function BookingModal({ isOpen, onClose, locale, patientRecordId 
                 <div className={styles.summaryItem}><MapPin size={14}/> {selectedClinicLabel}</div>
                 <div className={styles.summaryItem}><Clock size={14}/> {date} - {time}</div>
                 <div className={styles.summaryItem}><strong>{selectedTreatmentLabel}</strong></div>
-                <div className={styles.summaryItem}>{intakeSummary}</div>
               </div>
 
               <div className={styles.actions}>
-                <button className="btn btn-ghost" onClick={() => setStep(3)}>{t("back")}</button>
+                <button className="btn btn-ghost" onClick={() => setStep(2)}>{t("back")}</button>
                 <button className="btn btn-primary" onClick={handleComplete}>
                   {t("confirmAppointment")}
                 </button>
@@ -360,8 +276,8 @@ export default function BookingModal({ isOpen, onClose, locale, patientRecordId 
             </div>
           )}
 
-          {/* STEP 5: Success */}
-          {step === 5 && (
+          {/* STEP 4: Success */}
+          {step === 4 && (
             <div className={styles.successState}>
               <div className={styles.successIcon}>
                 <CheckCircle2 size={48} />

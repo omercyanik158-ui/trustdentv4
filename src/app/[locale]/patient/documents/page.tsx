@@ -11,7 +11,7 @@ import {
   writeDemoRadiology,
 } from "@/lib/demoRadiology";
 import { DEMO_PATIENT_RECORD_ID } from "@/lib/demo/demoPatient";
-import { demoPatientCareReadModel, radiologyFieldsFromIntakeSnapshot } from "@/lib/patientCare";
+import { demoPatientCareReadModel, radiologyFieldsFromAppointmentSnapshot } from "@/lib/patientCare";
 import { addDemoNotification } from "@/lib/demoNotifications";
 import { sanitizeText } from "@/lib/security";
 import { formatLocaleDate } from "@/lib/appointmentLocalization";
@@ -100,7 +100,7 @@ export default function PatientDocumentsPage() {
         patientRecordId: DEMO_PATIENT_RECORD_ID,
         patientDisplayName: demoPatientName,
       });
-      const intakeLink = radiologyFieldsFromIntakeSnapshot(snapshot);
+      const intakeLink = radiologyFieldsFromAppointmentSnapshot(snapshot);
       const nextRecord = createRadiologyRecord({
         patientId: DEMO_PATIENT_RECORD_ID,
         patientName: demoPatientName,

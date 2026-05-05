@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
-import "@/app/globals.css";
+import { DocumentLang } from "@/components/i18n/DocumentLang";
 
 type Props = {
   children: React.ReactNode;
@@ -50,22 +50,13 @@ export default async function LocaleLayout({ children, params }: Props) {
     notFound();
   }
 
+  setRequestLocale(locale);
   const messages = (await import(`../../../messages/${locale}.json`)).default;
 
   return (
-    <html lang={locale} style={{ backgroundColor: "#F8F4F3" }}>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <style dangerouslySetInnerHTML={{ __html: `
-          html, body { background-color: #F8F4F3 !important; }
-        `}} />
-      </head>
-      <body style={{ backgroundColor: "#F8F4F3" }}>
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          {children}
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <NextIntlClientProvider locale={locale} messages={messages}>
+      <DocumentLang locale={locale} />
+      {children}
+    </NextIntlClientProvider>
   );
 }

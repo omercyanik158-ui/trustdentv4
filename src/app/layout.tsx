@@ -12,8 +12,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html style={{ backgroundColor: "#F8F4F3" }}>
+    <html lang="tr" suppressHydrationWarning style={{ backgroundColor: "#F8F4F3" }}>
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <style>{`*, *::before, *::after { box-sizing: border-box; } html, body { background-color: #F8F4F3 !important; margin: 0; padding: 0; }`}</style>
       </head>
       <body style={{ backgroundColor: "#F8F4F3", margin: 0 }}>
@@ -22,4 +24,3 @@ export default function RootLayout({
     </html>
   );
 }
-
